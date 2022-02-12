@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+	
+	{{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+
+	<!-- Scripts -->
+	{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
 	<style>
 
@@ -104,6 +109,36 @@
 		}
 			.aligncenter {
 			text-align: center;
+		}
+
+		/* additional styles */
+		.font-medium {
+			font-weight: 500;
+		}
+		.text-red-600 {
+			--tw-text-opacity: 1;
+			color: rgb(220 38 38 / var(--tw-text-opacity));
+		}
+		.text-sm {
+			font-size: 0.875rem;
+			line-height: 1.25rem;
+		}
+		.list-disc {
+			list-style-type: disc;
+		}
+		.list-inside {
+			list-style-position: inside;
+		}
+		.mt-3 {
+			margin-top: 0.75rem;
+		}
+		ol, ul, menu {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.mb-4 {
+			margin-bottom: .5rem;
 		}
 	</style>
 </head>
