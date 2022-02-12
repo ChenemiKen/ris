@@ -5,22 +5,22 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
         <title>R.I.S Portal</title>
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo2.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}" />
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet"> 
-        <link rel="stylesheet" href="assets/fonts/new_font/stylesheet.css" />
+        <link rel="stylesheet" href="{{asset('fonts/new_font/stylesheet.css')}}" />
         <!-- Fontawesome CDN -->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
         <!-- General CSS Files -->
-        <link rel="stylesheet" href="assets/css/app.min.css" />
+        <link rel="stylesheet" href="{{asset('css/app.min.css')}}" />
         <!-- Template CSS -->
-        <link rel="stylesheet" href="assets/css/style.css" />
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="stylesheet" href="assets/css/components.css" />
+        <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/main.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/components.css')}}" />
         <!-- Custom style CSS -->
-        <link rel="stylesheet" href="assets/css/custom.css" />
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}" />
         <!-- Responsive CSS -->
-        <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" />
+        <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}" />
     </head>
 
     <body>
@@ -325,15 +325,15 @@
         <!--End Gift Exchange Modal -->
 
         <!-- General JS Scripts -->
-        <script src="assets/js/app.min.js"></script>
+        <script src="{{asset('js/app.min.js')}}"></script>
         <!-- JS Libraies -->
         <!-- Page Specific JS File -->
         <!-- Template JS File -->
-        <script src="assets/js/scripts.js"></script>
-        <script src="assets/js/scripts2.js"></script>
-        <script src="assets/js/calendar.js"></script>
+        <script src="{{asset('js/scripts.js')}}"></script>
+        <script src="{{asset('js/scripts2.js')}}"></script>
+        <script src="{{asset('js/calendar.js')}}"></script>
         <!-- Start Main JS -->
-        <script src="assets/js/main.js"></script>
+        <script src="{{asset('js/main.js')}}"></script>
     </body>
 
     <!-- blank.html  21 Nov 2019 03:54:41 GMT -->
