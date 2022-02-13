@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
-        <title>R.I.S Portal</title>
+        <title>{{$title,'R.I.S Portal'}}</title>
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}" />
         <!-- Fonts -->
@@ -24,7 +24,7 @@
     </head>
 
     <body>
-        <div class="loader"></div>
+        {{-- <div class="loader"></div> --}}
         <div id="app">
             <div class="main-wrapper main-wrapper-1">
                 <!--============================== Start Dashboard (Edit) ==============================-->
@@ -136,9 +136,11 @@
                     </aside>
                 </div>
                 <!--============================== End Dashboard (Edit) ==============================-->
-
-                <!--============================== Start Main Content ==============================-->
                 <div class="main-content">
+                    {{$main_content}}
+                </div>
+                <!--============================== Start Main Content ==============================-->
+                {{-- <div class="main-content">
                     <section class="section">
                         <div class="section-body"> 
                             <div class="deshboard_booking_main_content_area">
@@ -288,11 +290,11 @@
                             </div>
                         </div>
                     </section>
-                </div>
+                </div> --}}
         <!--============================== End Main Content ==============================-->
 
         <!--Start Gift Exchange Modal -->
-        {{-- <div class="gift-modal modal fade" id="add-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="gift-modal modal fade" id="add-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <!-- Start gift exchange -->
@@ -324,7 +326,7 @@
                     <!-- End gift exchange -->
                 </div>
             </div>
-        </div> --}}
+        </div>
         <!--End Gift Exchange Modal -->
 
         <!-- General JS Scripts -->
