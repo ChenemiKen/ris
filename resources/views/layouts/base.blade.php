@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
-        <title>{{$title,'R.I.S Portal'}}</title>
+        <title>R.I.S Portal - @yield('title')</title>
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}" />
         <!-- Fonts -->
@@ -29,6 +29,7 @@
             <div class="main-wrapper main-wrapper-1">
                 <!--============================== Start Dashboard (Edit) ==============================-->
                 <div class="navbar-bg"></div>
+                {{-- navbar --}}
                 <nav class="navbar navbar-expand-lg main-navbar sticky mu_mes_not_pro_dashboard">
                     <div class="form-inline mr-auto">
                         <ul class="navbar-nav mr-3">
@@ -36,13 +37,12 @@
                                 <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"> <i data-feather="align-justify"></i></a>
                             </li>
                             <li>
-                              All Pupils
+                              @yield('page-heading')
                             </li>
                         </ul>
                     </div>
                     <ul class="navbar-nav navbar-right">
-
-                        <li class="dropdown dropdown-list-toggle mu_notific_pos">
+                        {{-- <li class="dropdown dropdown-list-toggle mu_notific_pos">
                             <a href="#" data-toggle="dropdown" class="noti_red nav-link notification-toggle nav-link-lg">
                                 <i data-feather="bell" class="bell"></i>
                                 <span class="noti_red_posi"></span>
@@ -76,11 +76,11 @@
                                     </a>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="mu_profile_items nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <span class="d-none d-lg-inline-block mu_profile_items_right">
-                                    <span class="mu_profile_items_right2"> Welcome, Niyi Makinde</i></span>
+                                    <span class="mu_profile_items_right2"> Welcome, {{Auth::user()->firstname}} {{Auth::user()->lastname}}</i></span>
                                 </span>
                                 <span class="mu_profile_items_left"><img alt="image" src="{{asset('img/profile.png')}}" class="user-img-radious-style" /></span>
                             </a>
@@ -99,6 +99,8 @@
                         </li>
                     </ul>
                 </nav>
+                {{-- end navbar --}}
+                {{-- sidebar --}}
                 <div class="main-sidebar sidebar-style-2">
                     <aside id="sidebar-wrapper">
                         <div class="sidebar-brand">
@@ -135,166 +137,28 @@
                         </ul>
                     </aside>
                 </div>
+                {{-- end sidebar --}}
                 <!--============================== End Dashboard (Edit) ==============================-->
-                <div class="main-content">
-                    {{$main_content}}
-                </div>
+                
                 <!--============================== Start Main Content ==============================-->
-                {{-- <div class="main-content">
+                <div class="main-content">
                     <section class="section">
                         <div class="section-body"> 
-                            <div class="deshboard_booking_main_content_area">
-                                <div class="deshboard_booking_main_content_area_container">
-                                    <!-- Header area start  -->
-                                    <div class="deshboard_filter_area">
-                                        <h4></h4>
-                                        <ul>
-                                            <li><a href="#"><img src="{{asset('img/sort.svg')}}" alt="photos">Sort</a></li>
-                                            <li><a href="#"><img src="{{asset('img/filter.svg')}}" alt="photos">Filter</a></li>
-                                        </ul>
-                                    </div>
-                                     <!-- Header area End  -->
-                                     <div class="deshboard_main_edit_task_area table">
-                                     	<table>
-                                     		<thead>
-                                     			<tr>
-                                     				<th>Photo</th>
-                                     				<th>Full Name</th>
-                                     				<th>Class</th>
-                                                    <th>Age</th>
-                                                    <th>Gender</th>
-                                                    <th>Parent Phone</th>
-                                                    <th>Parent Email</th>
-                                     				<th>Action</th>
-                                     			</tr>
-                                     		</thead>
-                                     		<tbody>
-                                                <!-- 1.Single item area start  -->
-                                     			<tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="{{asset('img/pupil.png')}}" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                <tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="{{asset('img/pupil.png')}}" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                <tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                 <tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                 <tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                 <tr>
-                                     				
-                                     				<td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                                                    <td>Ayinde Adeoluwa</td>
-                                                    <td>Nursery 1 David</td>
-                                     				<td>7</td>
-                                                    <td>Female</td>
-                                                    <td>08195061453</td>
-                                                    <td>tnwuzor@mail.com</td>
-                                     				<td>
-                                     					<a href="#" class="btn-style">View</a>
-                                                        <a href="#" class="btn-style">Edit</a>
-                                     					<a href="#" class="btn-style btn-style-danger">delete</a>
-                                     				</td>
-                                     			</tr>
-                                                <!-- 2.Single item area start  -->
-                                     		</tbody>
-                                     	</table>
-                                     </div>
-                                     <div class="table_pagination_area">
-                                         <div class="table_pagination_area_left">
-                                            <div class="table_pagination_area_left_sub">
-                                                <p>Rows per page:</p>
-                                                <select name="value-type" id="value-type">
-                                                  <option value="category" selected="" hidden="">0</option>
-                                                  <option value="1">1</option>
-                                                  <option value="2">2</option>
-                                                  <option value="3">3</option>
-                                                  <option value="4">4</option>
-                                                  <option value="4">5</option>
-                                                </select>
-                                            </div>
-                                         </div>
-                                         <div class="table_pagination_area_right">
-                                             <ul>
-                                                 <li>1-6 of 100</li>
-                                                 <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
-                                                 <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                </div>
+                            {{-- Session messages --}}
+                            <div id="app">
+                                @include('layouts.flash_message')
+                                @yield('content')
                             </div>
+                            @section('content')@show
                         </div>
                     </section>
-                </div> --}}
-        <!--============================== End Main Content ==============================-->
+                </div>
+                <!--============================== End Main Content ==============================-->
+            </div>
+        </div>
 
         <!--Start Gift Exchange Modal -->
-        <div class="gift-modal modal fade" id="add-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        {{-- <div class="gift-modal modal fade" id="add-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <!-- Start gift exchange -->
@@ -326,7 +190,7 @@
                     <!-- End gift exchange -->
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!--End Gift Exchange Modal -->
 
         <!-- General JS Scripts -->
@@ -340,6 +204,5 @@
         <!-- Start Main JS -->
         <script src="{{asset('js/main.js')}}"></script>
     </body>
-
     <!-- blank.html  21 Nov 2019 03:54:41 GMT -->
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PupilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
@@ -29,4 +30,11 @@ Route::get('/', function () {
 
 Route::get('/pupils', function () {
     return view('pupil');
-})->middleware(['auth'])->name('dashboard');;
+})->middleware(['auth'])->name('dashboard');
+
+Route::get('/add-pupil', [PupilController::class, 'create'])
+                ->middleware('auth')
+                ->name('add-pupil');
+Route::post('/add-pupil', [PupilController::class, 'store'])
+                ->middleware('auth')
+                ->name('add-pupil');
