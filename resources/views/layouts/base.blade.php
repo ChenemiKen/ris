@@ -99,7 +99,7 @@
                                     Help & Support
                                 </a>
                                 <a href="{{route('logout')}}" class="dropdown-item has-icon">
-                                    <i class="fas fa-logout"></i>
+                                    <i class="fa-solid fa-right-from-bracket"></i>
                                     Logout
                                 </a>
                             </div>
