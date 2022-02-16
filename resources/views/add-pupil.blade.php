@@ -2,7 +2,7 @@
 @section('title', 'New pupil')
 @section('page-heading', 'New Pupil')
 
-@section('content')
+@section('page-content')
     <div class="deshboard_main_edit_create_page_area">
         @if ($errors->any())
             <div >

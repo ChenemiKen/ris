@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 // import builder where defaultStringLength method is defined
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Fix for MySQL < 5.7.7 and MariaDB < 10.2.2
         Schema::defaultStringLength(191); //Update defaultStringLength
+        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
     }
 }

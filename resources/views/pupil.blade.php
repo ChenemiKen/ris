@@ -2,7 +2,7 @@
 @section('title', 'Pupils')
 @section('page-heading', 'All Pupils')
 
-@section('content') 
+@section('page-content') 
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
             <a href="/add-pupil" class="crate_btn_area">+ Add a Pupil</a>
@@ -31,119 +31,51 @@
                     </thead>
                     <tbody>
                         <!-- 1.Single item area start  -->
-                        <tr>
+                        <div class="container">
+                            @foreach ($pupils as $pupil)
+                                <tr>
+                                    <td class="amdin_pay_img"><img src="{{asset('images/'.$pupil->photo)}}" alt=""></td>
+                                    <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
+                                    <td>{{$pupil->class}}</td>
+                                    <td>{{$pupil->age}}</td>
+                                    <td>{{$pupil->gender}}</td>
+                                    <td>{{$pupil->parent_phone}}</td>
+                                    <td>{{$pupil->parent_email}}</td>
+                                    <td>
+                                        <a href="#" class="btn-style">View</a>
+                                        <a href="#" class="btn-style">Edit</a>
+                                        <a href="#" class="btn-style btn-style-danger">delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             
-                            <td class="amdin_pay_img"><img src="{{asset('img/pupil.png')}}" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td class="amdin_pay_img"><img src="{{asset('img/pupil.png')}}" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                            <td class="amdin_pay_img"><img src="assets/img/pupil.png" alt=""></td>
-                            <td>Ayinde Adeoluwa</td>
-                            <td>Nursery 1 David</td>
-                            <td>7</td>
-                            <td>Female</td>
-                            <td>08195061453</td>
-                            <td>tnwuzor@mail.com</td>
-                            <td>
-                                <a href="#" class="btn-style">View</a>
-                                <a href="#" class="btn-style">Edit</a>
-                                <a href="#" class="btn-style btn-style-danger">delete</a>
-                            </td>
-                        </tr>
+                        </div>
                         <!-- 2.Single item area start  -->
                     </tbody>
                 </table>
             </div>
             <div class="table_pagination_area">
                 <div class="table_pagination_area_left">
-                    <div class="table_pagination_area_left_sub">
+                    <form action="{{route('pupils')}}" method="get">
+                        <div class="table_pagination_area_left_sub">
                         <p>Rows per page:</p>
-                        <select name="value-type" id="value-type">
-                        <option value="category" selected="" hidden="">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="4">5</option>
-                        </select>
-                    </div>
+                            <select name="per_page" id="per_page" onchange="this.form.submit()">
+                                <option value="15" selected disabled>{{ $pupils->perpage() }}</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="table_pagination_area_right">
                     <ul>
-                        <li>1-6 of 100</li>
-                        <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+                        <li>{{$pupils->firstItem()}}-{{$pupils->lastItem()}} of {{$pupils->total()}}</li>
+                        <li><a href="{{$pupils->previousPageUrl()}}"><i class="fas fa-angle-left"></i></a></li>
+                        <li><a href="{{$pupils->nextPageUrl()}}"><i class="fas fa-angle-right"></i></a></li>
                     </ul>
                 </div>
             </div>

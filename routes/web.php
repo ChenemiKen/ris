@@ -28,9 +28,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/pupils', function () {
-    return view('pupil');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/pupils', [PupilController::class, 'index'])
+                ->middleware(['auth'])
+                ->name('pupils');
 
 Route::get('/add-pupil', [PupilController::class, 'create'])
                 ->middleware('auth')

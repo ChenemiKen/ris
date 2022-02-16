@@ -6,6 +6,9 @@ use App\Models\Pupil;
 use App\Http\Requests\StorePupilRequest;
 use App\Http\Requests\UpdatePupilRequest;
 use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class PupilController extends Controller
 {
@@ -14,9 +17,13 @@ class PupilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // pagination no of rows per page
+        session(['per_page' => $request->get('per_page', 10)]);
+        return view('pupil', [
+            'pupils' => DB::table('pupils')->paginate(session('per_page'))
+        ]);
     }
 
     /**
@@ -82,7 +89,7 @@ class PupilController extends Controller
      */
     public function show(Pupil $pupil)
     {
-        //
+    
     }
 
     /**

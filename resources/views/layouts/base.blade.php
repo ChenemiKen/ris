@@ -86,7 +86,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right pullDown mu_profile_items_a_design">
-                                <a href="User_module_account.html" class="dropdown-item has-icon"> <i class="fas fa-user"></i> Profile </a>
+                                <a href="User_module_account.html" class="dropdown-item has-icon"> 
+                                    <i class="fas fa-user"></i> 
+                                    Profile 
+                                </a>
                                 <a href="User_module_account.html" class="dropdown-item has-icon">
                                     <i class="fas fa-cog"></i>
                                     Account Settings
@@ -94,6 +97,10 @@
                                 <a href="help.html" class="dropdown-item has-icon">
                                     <i class="fas fa-headset"></i>
                                     Help & Support
+                                </a>
+                                <a href="{{route('logout')}}" class="dropdown-item has-icon">
+                                    <i class="fas fa-logout"></i>
+                                    Logout
                                 </a>
                             </div>
                         </li>
@@ -149,7 +156,7 @@
                                 @include('layouts.flash_message')
                                 @yield('content')
                             </div>
-                            @section('content')@show
+                            @section('page-content')@show
                         </div>
                     </section>
                 </div>
