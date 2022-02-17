@@ -38,3 +38,9 @@ Route::get('/add-pupil', [PupilController::class, 'create'])
 Route::post('/add-pupil', [PupilController::class, 'store'])
                 ->middleware('auth')
                 ->name('add-pupil');
+Route::get('/edit-pupil/{id}', [PupilController::class, 'edit'])
+                ->middleware('auth')
+                ->name('edit-pupil');
+Route::post('/update-pupil/{pupil}', [PupilController::class, 'update'])
+                ->middleware('auth')
+                ->name('update-pupil');

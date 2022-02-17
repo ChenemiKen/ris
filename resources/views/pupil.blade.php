@@ -34,7 +34,7 @@
                         <div class="container">
                             @foreach ($pupils as $pupil)
                                 <tr>
-                                    <td class="amdin_pay_img"><img src="{{asset('images/'.$pupil->photo)}}" alt=""></td>
+                                    <td class="amdin_pay_img"><img src="{{asset('pupils_images/'.$pupil->photo)}}" alt=""></td>
                                     <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
                                     <td>{{$pupil->class}}</td>
                                     <td>{{$pupil->age}}</td>
@@ -43,7 +43,7 @@
                                     <td>{{$pupil->parent_email}}</td>
                                     <td>
                                         <a href="#" class="btn-style">View</a>
-                                        <a href="#" class="btn-style">Edit</a>
+                                        <a href="{{route('edit-pupil', $pupil->id)}}" class="btn-style">Edit</a>
                                         <a href="#" class="btn-style btn-style-danger">delete</a>
                                     </td>
                                 </tr>
