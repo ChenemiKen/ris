@@ -132,11 +132,11 @@ class PupilController extends Controller
             'photo' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg'],
         ]);
         $photoName = $pupil->photo;
-        Log::debug($photoName);
+        // Log::debug($photoName);
         if ($request->hasFile('photo') && $request->file('photo')->isValid()){
-            Log::debug('has file!');
+            // Log::debug('has file!');
             if (Storage::disk('pupils')->exists($photoName)) {
-                Log::debug('file exists!');
+                // Log::debug('file exists!');
                 Storage::disk('pupils')->delete($photoName);
             }
             $photoName = $request->firstname.$request->lastname.'.'.$request->photo->extension();
@@ -169,6 +169,11 @@ class PupilController extends Controller
      */
     public function destroy(Pupil $pupil)
     {
+        $photoName = $pupil->photo;
+        if (Storage::disk('pupils')->exists($photoName)) {
+            Storage::disk('pupils')->delete($photoName);
+        }
+        // unlink('pupils_images/'.$pupil->photo);
         $pupil->delete();
         return redirect(RouteServiceProvider::HOME)->with('success','Pupil deleted successfully!');
     }
