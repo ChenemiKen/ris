@@ -44,9 +44,35 @@
                                     <td>
                                         <a href="#" class="btn-style">View</a>
                                         <a href="{{route('edit-pupil', $pupil->id)}}" class="btn-style">Edit</a>
-                                        <a href="#" class="btn-style btn-style-danger">delete</a>
+                                        <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deletePupil{{$pupil->id}}Modal">delete</button>
                                     </td>
+                                    {{-- delete confirmation --}}
+                                    <!-- Modal -->
+                                    <div class="modal fade bd-example-modal-sm" id="deletePupil{{$pupil->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete pupil</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>{{$pupil->firstname}} {{$pupil->lastname}}</p>
+                                                    <p>{{$pupil->admission_no}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
+                                                    <form action="{{route('delete-pupil', $pupil->id)}}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn-style btn-style-danger">delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tr>
+                                
                             @endforeach
                             
                         </div>

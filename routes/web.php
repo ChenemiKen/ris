@@ -44,3 +44,6 @@ Route::get('/edit-pupil/{id}', [PupilController::class, 'edit'])
 Route::post('/update-pupil/{pupil}', [PupilController::class, 'update'])
                 ->middleware('auth')
                 ->name('update-pupil');
+Route::post('/delete-pupil/{pupil}', [PupilController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('delete-pupil');

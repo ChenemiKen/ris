@@ -158,7 +158,7 @@ class PupilController extends Controller
              'photo' => $photoName,
         ]);
  
-         return redirect(RouteServiceProvider::HOME)->with('success','Pupil updated successfully!');
+        return redirect(RouteServiceProvider::HOME)->with('success','Pupil updated successfully!');
     }
 
     /**
@@ -169,6 +169,7 @@ class PupilController extends Controller
      */
     public function destroy(Pupil $pupil)
     {
-        //
+        $pupil->delete();
+        return redirect(RouteServiceProvider::HOME)->with('success','Pupil deleted successfully!');
     }
 }
