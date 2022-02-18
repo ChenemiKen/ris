@@ -34,7 +34,7 @@
                         <div class="container">
                             @foreach ($pupils as $pupil)
                                 <tr>
-                                    <td class="amdin_pay_img"><img src="{{asset('pupils_images/'.$pupil->photo)}}" alt=""></td>
+                                    <td class="amdin_pay_img"><img src="{{asset('storage/pupils/'.$pupil->photo)}}" alt=""></td>
                                     <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
                                     <td>{{$pupil->class}}</td>
                                     <td>{{$pupil->age}}</td>

@@ -41,12 +41,6 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        'pupils' => [
-            'driver' => 'local',
-            'root' => storage_path('app/pupils_images'),
-            'url' => env('APP_URL').'/pupils_images',
-            'visibility' => 'public',
-        ],
 
         's3' => [
             'driver' => 's3',
@@ -74,7 +68,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('pupils_images') => storage_path('app/pupils_images'),
     ],
 
 ];

@@ -63,7 +63,7 @@ class PupilController extends Controller
         ]);
         // save the photo
         $photoName = $request->firstname.$request->lastname.'.'.$request->photo->extension();
-        $request->photo->storeAs('pupils_images', $photoName);
+        $request->photo->storeAs('pupils', $photoName, 'public');
 
         // persist
         $pupil = Pupil::create([
@@ -135,13 +135,13 @@ class PupilController extends Controller
         // Log::debug($photoName);
         if ($request->hasFile('photo') && $request->file('photo')->isValid()){
             // Log::debug('has file!');
-            if (Storage::disk('pupils')->exists($photoName)) {
+            if (Storage::disk('public')->exists('pupils/'.$photoName)) {
                 // Log::debug('file exists!');
-                Storage::disk('pupils')->delete($photoName);
+                Storage::disk('public')->delete('pupils/'.$photoName);
             }
             $photoName = $request->firstname.$request->lastname.'.'.$request->photo->extension();
             // save the photo
-            $request->photo->storeAs('pupils_images', $photoName);
+            $request->photo->storeAs('pupils', $photoName, 'public');
         };
         // persist
         $pupil->update([
@@ -170,8 +170,8 @@ class PupilController extends Controller
     public function destroy(Pupil $pupil)
     {
         $photoName = $pupil->photo;
-        if (Storage::disk('pupils')->exists($photoName)) {
-            Storage::disk('pupils')->delete($photoName);
+        if (Storage::disk('public')->exists('pupils/'.$photoName)) {
+            Storage::disk('public')->delete('pupils/'.$photoName);
         }
         // unlink('pupils_images/'.$pupil->photo);
         $pupil->delete();
