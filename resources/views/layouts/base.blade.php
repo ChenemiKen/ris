@@ -112,16 +112,16 @@
                     <aside id="sidebar-wrapper">
                         <div class="sidebar-brand">
                             <a href="index.html">
-                                <span class="mini-logo"><img alt="img" src="assets/img/" class="header-logo" /></span> 
+                                {{-- <span class="mini-logo "><img alt="img" src="{{asset('img/logo.png')}}" class="header-logo" /></span>  --}}
                                 <span class="logo-name"><img src="{{asset('img/logo.png')}}" /></span>
                             </a>
                         </div>
                         <ul class="sidebar-menu">
                             <li class="dropdown">
-                                <a class="nav-link active" href="pupil.html"><span>Pupils</span></a>
+                                <a class="nav-link active" href="{{route('pupils')}}"><span>Pupils</span></a>
                             </li>
                              <li class="dropdown">
-                                <a class="nav-link" href="teacher.html"><span>Teachers</span></a>
+                                <a class="nav-link" href="{{route('teachers')}}"><span>Teachers</span></a>
                             </li>
                             <li class="dropdown">
                                 <a class="nav-link" href="parent.html"><span>Parents</span></a>

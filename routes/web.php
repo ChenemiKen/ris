@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PupilController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+// pupils
 Route::get('/pupils', [PupilController::class, 'index'])
                 ->middleware(['auth'])
                 ->name('pupils');
@@ -47,3 +49,23 @@ Route::post('/update-pupil/{pupil}', [PupilController::class, 'update'])
 Route::post('/delete-pupil/{pupil}', [PupilController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('delete-pupil');
+                
+// teachers
+Route::get('/teachers', [TeacherController::class, 'index'])
+                ->middleware(['auth'])
+                ->name('teachers');
+Route::get('/add-teacher', [TeacherController::class, 'create'])
+                ->middleware('auth')
+                ->name('add-teacher');
+Route::post('/add-teacher', [TeacherController::class, 'store'])
+                ->middleware('auth')
+                ->name('add-teacher');
+Route::get('/edit-teacher/{id}', [TeacherController::class, 'edit'])
+                ->middleware('auth')
+                ->name('edit-teacher');
+Route::post('/update-teacher/{pupil}', [TeacherController::class, 'update'])
+                ->middleware('auth')
+                ->name('update-teacher');
+Route::post('/delete-teacher/{pupil}', [TeacherController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('delete-teacher');

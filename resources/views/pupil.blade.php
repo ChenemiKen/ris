@@ -5,7 +5,7 @@
 @section('page-content') 
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
-            <a href="/add-pupil" class="crate_btn_area">+ Add a Pupil</a>
+            <a href="{{route('add-pupil')}}" class="crate_btn_area">+ Add a Pupil</a>
             <!-- Header area start  -->
             <div class="deshboard_filter_area">
                 <h4></h4>
