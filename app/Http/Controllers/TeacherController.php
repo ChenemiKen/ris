@@ -146,6 +146,12 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $photoName = $teacher->photo;
+        if (Storage::disk('public')->exists('teachers/'.$photoName)) {
+            Storage::disk('public')->delete('teachers/'.$photoName);
+        }
+        // unlink('pupils_images/'.$pupil->photo);
+        $teacher->delete();
+        return redirect('/teachers')->with('success','Teacher deleted successfully!');
     }
 }
