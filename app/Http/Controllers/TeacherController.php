@@ -91,7 +91,10 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
+        $pupil = Teacher::find($teacher)->first();
+        return view('edit_teacher',[
+            'teacher' => $teacher
+        ]);
     }
 
     /**
@@ -103,7 +106,36 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
-        //
+        $request->validate([
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string'],
+            'phone' => ['required','numeric'],
+            'email' => ['required','string','email'],
+            'photo' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg'],
+        ]);
+        $photoName = $teacher->photo;
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()){
+            if (Storage::disk('public')->exists('teachers/'.$photoName)) {
+                Storage::disk('public')->delete('teachers/'.$photoName);
+            }
+            $photoName = $request->firstname.$request->lastname.'.'.$request->photo->extension();
+            // save the photo
+            $request->photo->storeAs('teachers', $photoName, 'public');
+        };
+        // persist
+        $teacher->update([
+             'firstname' => $request->firstname,
+             'lastname' => $request->lastname,
+             'class' => $request->class,
+             'gender' => $request->gender,
+             'phone' => $request->phone,
+             'email' => $request->email,
+             'photo' => $photoName,
+        ]);
+ 
+        return redirect('/teachers')->with('success','Teacher updated successfully!');
     }
 
     /**

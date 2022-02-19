@@ -52,10 +52,10 @@
                             <label for="gender">Gender</label>
                     
                             <select class="form-control" id="gender" type='select' name='gender' value="{{ old('gender') }}" required>
-                                <option selected disabled>Choose...</option>
-                                <option value="M">M</option>
-                                <option value="F">F</option>
-                                </select>
+                                <option {{ old('gender') == "" ? "selected" : "" }} hidden>Choose...</option>
+                                <option value="M" {{ old('gender') == "M" ? "selected" : "" }}>Male</option>
+                                <option value="F" {{ old('gender') == "F" ? "selected" : "" }}>Female</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">

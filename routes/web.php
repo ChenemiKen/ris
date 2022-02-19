@@ -60,12 +60,12 @@ Route::get('/add-teacher', [TeacherController::class, 'create'])
 Route::post('/add-teacher', [TeacherController::class, 'store'])
                 ->middleware('auth')
                 ->name('add-teacher');
-Route::get('/edit-teacher/{id}', [TeacherController::class, 'edit'])
+Route::get('/edit-teacher/{teacher}', [TeacherController::class, 'edit'])
                 ->middleware('auth')
                 ->name('edit-teacher');
-Route::post('/update-teacher/{pupil}', [TeacherController::class, 'update'])
+Route::post('/update-teacher/{teacher}', [TeacherController::class, 'update'])
                 ->middleware('auth')
                 ->name('update-teacher');
-Route::post('/delete-teacher/{pupil}', [TeacherController::class, 'destroy'])
+Route::post('/delete-teacher/{teacher}', [TeacherController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('delete-teacher');
