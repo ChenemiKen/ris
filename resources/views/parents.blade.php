@@ -36,7 +36,7 @@
                                 <td>{{$parent->phone}}</td>
                                 <td>
                                     <a href="#" class="btn-style">View</a>
-                                    <a href="{{route('edit-pupil', $parent->id)}}" class="btn-style">Edit</a>
+                                    <a href="{{route('edit-parent', $parent->id)}}" class="btn-style">Edit</a>
                                     <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteParent{{$parent->id}}Modal">delete</button>
                                 </td>
                                 {{-- delete confirmation --}}
