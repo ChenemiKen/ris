@@ -124,7 +124,7 @@
                                 <a class="nav-link" href="{{route('teachers')}}"><span>Teachers</span></a>
                             </li>
                             <li class="dropdown">
-                                <a class="nav-link" href="parent.html"><span>Parents</span></a>
+                                <a class="nav-link" href="{{route('parents')}}"><span>Parents</span></a>
                             </li>
                              <li class="dropdown">
                                 <a class="nav-link" href="results.html"><span>Results</span></a>

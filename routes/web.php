@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PupilController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\PupilParentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,3 +70,23 @@ Route::post('/update-teacher/{teacher}', [TeacherController::class, 'update'])
 Route::post('/delete-teacher/{teacher}', [TeacherController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('delete-teacher');
+
+// parents
+Route::get('/parents', [PupilParentController::class, 'index'])
+                ->middleware(['auth'])
+                ->name('parents');
+Route::get('/add-parent', [PupilParentController::class, 'create'])
+                ->middleware('auth')
+                ->name('add-parent');
+Route::post('/add-parent', [PupilParentController::class, 'store'])
+                ->middleware('auth')
+                ->name('add-parent');
+Route::get('/edit-parent/{parent}', [PupilParentController::class, 'edit'])
+                ->middleware('auth')
+                ->name('edit-parent');
+Route::post('/update-parent/{parent}', [PupilParentController::class, 'update'])
+                ->middleware('auth')
+                ->name('update-parent');
+Route::post('/delete-parent/{parent}', [PupilParentController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('delete-parent');

@@ -71,10 +71,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </tr>
-                                
-                            @endforeach
-                            
+                                </tr> 
+                            @endforeach  
                         </div>
                         <!-- 2.Single item area start  -->
                     </tbody>
