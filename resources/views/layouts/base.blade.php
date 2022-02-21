@@ -133,7 +133,7 @@
                                 <a class="nav-link" href="messages.hml"><span>Messages</span></a>
                             </li>
                              <li class="dropdown">
-                                <a class="nav-link" href="homework.html"><span>Homework</span></a>
+                                <a class="nav-link" href="{{route('homeworks')}}"><span>Homework</span></a>
                             </li>
                              <li class="dropdown">
                                 <a class="nav-link" href="calendar.html"><span>School Calendar</span></a>

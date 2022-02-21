@@ -3,6 +3,7 @@
 use App\Http\Controllers\PupilController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PupilParentController;
+use App\Http\Controllers\HomeworkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,3 +91,23 @@ Route::post('/update-parent/{parent}', [PupilParentController::class, 'update'])
 Route::post('/delete-parent/{parent}', [PupilParentController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('delete-parent');
+
+// homeworks
+Route::get('/homeworks', [HomeworkController::class, 'index'])
+                ->middleware(['auth'])
+                ->name('homeworks');
+Route::get('/add-homework', [HomeworkController::class, 'create'])
+                ->middleware('auth')
+                ->name('add-homework');
+Route::post('/create-homework', [HomeworkController::class, 'store'])
+                ->middleware('auth')
+                ->name('create-homework');
+Route::get('/edit-homework/{homework}', [HomeworkController::class, 'edit'])
+                ->middleware('auth')
+                ->name('edit-homework');
+Route::post('/update-homework/{homework}', [HomeworkController::class, 'update'])
+                ->middleware('auth')
+                ->name('update-homework');
+Route::post('/delete-homework/{homework}', [HomeworkController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('delete-homework');
