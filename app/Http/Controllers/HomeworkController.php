@@ -81,7 +81,10 @@ class HomeworkController extends Controller
      */
     public function edit(Homework $homework)
     {
-        //
+        $homework = Homework::find($homework)->first();
+        return view('edit-homework',[
+            'homework' => $homework
+        ]);
     }
 
     /**
@@ -93,7 +96,21 @@ class HomeworkController extends Controller
      */
     public function update(UpdateHomeworkRequest $request, Homework $homework)
     {
-        //
+        $request->validate([
+            'date' => ['required', 'date'],
+            'class' => ['required', 'string', 'max:255'],
+            'submission_date' => ['required', 'date'],
+            'homework' => ['required', 'string'],
+        ]);
+
+        // persist
+        $homework->update([
+            'date' => $request->date,
+            'class' => $request->class,
+            'submission_date' => $request->submission_date,
+            'homework' => $request->homework,
+        ]);
+        return redirect('/homeworks')->with('success','Homework updated successfully!');
     }
 
     /**
@@ -104,6 +121,7 @@ class HomeworkController extends Controller
      */
     public function destroy(Homework $homework)
     {
-        //
+        $homework->delete();
+        return redirect('/homeworks')->with('success','Homework deleted successfully!');
     }
 }
