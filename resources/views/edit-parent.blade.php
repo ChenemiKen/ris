@@ -23,13 +23,19 @@
                             <input class="form-control" type="text" id="fullname" name="fullname" value="{{ old('fullname', $parent->fullname)}}" required>
                         </div>
                     </div>
-                        <div class="col-md-3">
+                    <div class="col-md-6">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <label for="admission_no">Admission code</label>
+                            <input class="form-control" type="text" id="admission_no" name="admission_no" value="{{ old('admission_no', $parent->username) }}" required>
+                        </div>
+                    </div>
+                        <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="phone"> Phone</label>
                             <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone', $parent->phone) }}" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="email"> Email	</label>
                             <input class="form-control" type="text" id="email" name="email" value="{{ old('email', $parent->email) }}" required>

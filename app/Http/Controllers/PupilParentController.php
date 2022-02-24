@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PupilParent;
-use App\Http\Requests\StorePupilParentRequest;
-use App\Http\Requests\UpdatePupilParentRequest;
-use App\Providers\RouteServiceProvider;
-use App\Http\Controllers\Controller;
-use App\Models\Pupil;
-use Illuminate\Support\Facades\DB;
+
+// use App\Http\Requests\StorePupilParentRequest;
+// use App\Http\Requests\UpdatePupilParentRequest;
+use App\Models\User;
+// use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class PupilParentController extends Controller
 {
@@ -24,7 +27,7 @@ class PupilParentController extends Controller
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('parents', [
-            'parents' => DB::table('pupil_parents')->paginate(session('per_page'))
+            'parents' => DB::table('users')->where('is_admin', false)->paginate(session('per_page'))
         ]);
     }
 
@@ -41,26 +44,36 @@ class PupilParentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePupilParentRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(StorePupilParentRequest $request)
+    public function store(Request $request)
     {
         $request->validate([
             'fullname' => ['required', 'string', 'max:255'],
-            'phone' => ['required','numeric'],
-            'email' => ['required','string','email'],
+            'admission_no' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required','string', 'max:255'],
             'address' => ['required', 'string'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // persist
-        $parent = PupilParent::create([
+        $user = User::create([
             'fullname' => $request->fullname,
-            'phone' => $request->phone,
+            'username' => $request->admission_no,
             'email' => $request->email,
+            'phone' => $request->phone,
             'address' => $request->address,
+            'password' => Hash::make($request->admission_no),
         ]);
 
+        event(new Registered($user));
+
+        // Auth::login($user);
+
+        // return redirect(RouteServiceProvider::HOME);
         return redirect('/parents')->with('success','Parent added successfully!');
     }
 
@@ -70,7 +83,7 @@ class PupilParentController extends Controller
      * @param  \App\Models\PupilParent  $pupilParent
      * @return \Illuminate\Http\Response
      */
-    public function show(PupilParent $pupilParent)
+    public function show(User $user)
     {
         //
     }
@@ -78,12 +91,12 @@ class PupilParentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PupilParent  $parent
+     * @param  \App\Models\User  $parent
      * @return \Illuminate\Http\Response
      */
-    public function edit(PupilParent $parent)
+    public function edit(User $parent)
     {
-        $parent = PupilParent::find($parent)->first();
+        $parent = User::find($parent)->first();
         return view('edit-parent',[
             'parent' => $parent
         ]);
@@ -92,24 +105,26 @@ class PupilParentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePupilParentRequest  $request
-     * @param  \App\Models\PupilParent  $parent
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\User  $parent
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePupilParentRequest $request, PupilParent $parent)
+    public function update(Request $request, User $parent)
     {
         $request->validate([
             'fullname' => ['required', 'string', 'max:255'],
-            'phone' => ['required','numeric'],
-            'email' => ['required','string','email'],
+            'admission_no' => ['required', 'string', 'max:255', Rule::unique('users,username')->ignore($parent->id)],
+            'email' => ['required', 'string', 'email', Rule::unique('users')->ignore($parent->id)],
+            'phone' => ['required','string', 'max:255'],
             'address' => ['required', 'string'],
         ]);
         
         // persist
         $parent->update([
             'fullname' => $request->fullname,
-            'phone' => $request->phone,
+            'username' => $request->admission_no,
             'email' => $request->email,
+            'phone' => $request->phone,
             'address' => $request->address,
         ]);
  
@@ -119,10 +134,10 @@ class PupilParentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PupilParent  $parent
+     * @param  \App\Models\User  $parent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PupilParent $parent)
+    public function destroy(User $parent)
     {
         $parent->delete();
         return redirect('/parents')->with('success','Parent deleted successfully!');

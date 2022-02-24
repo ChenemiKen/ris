@@ -20,8 +20,9 @@
                     <thead>
                         <tr>
                             <th>Full Name</th>
+                            <th>Admission No.</th>
                             <th>Contact Address</th>
-                            <th>Phone</th>
+                            <th>Email</th>
                             <th>Phone</th>
                             <th>Action</th>
                         </tr>
@@ -31,11 +32,11 @@
                         @foreach ($parents as $parent)
                             <tr>
                                 <td>{{$parent->fullname}}</td>
+                                <td>{{$parent->username}}</td>
                                 <td>{{$parent->address}}</td>
-                                <td>{{$parent->phone}}</td>
+                                <td>{{$parent->email}}</td>
                                 <td>{{$parent->phone}}</td>
                                 <td>
-                                    <a href="#" class="btn-style">View</a>
                                     <a href="{{route('edit-parent', $parent->id)}}" class="btn-style">Edit</a>
                                     <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteParent{{$parent->id}}Modal">delete</button>
                                 </td>

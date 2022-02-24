@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('parent')->nullable();
             $table->string('parent_phone');
             $table->string('parent_email');
-            $table->string('admission_no');
+            $table->string('admission_no')->unique();
             $table->date('entry_date');
             $table->string('photo')->unique();
             $table->timestamps();

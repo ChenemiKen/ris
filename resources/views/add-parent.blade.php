@@ -23,13 +23,19 @@
                             <input class="form-control" type="text" id="fullname" name="fullname" value="{{ old('fullname') }}" required>
                         </div>
                     </div>
-                        <div class="col-md-3">
+                    <div class="col-md-6">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <label for="admission_no">Admission code</label>
+                            <input class="form-control" type="text" id="admission_no" name="admission_no" value="{{ old('admission_no') }}" required>
+                        </div>
+                    </div>
+                        <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="phone"> Phone</label>
                             <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone') }}" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="email"> Email	</label>
                             <input class="form-control" type="text" id="email" name="email" value="{{ old('email') }}" required>
@@ -43,8 +49,6 @@
                             </div>
                             
                         </div>
-                    </div>
-                    
                     <div class="col-md-12">
                         <div class="deshboard_single_item_editor_btn_area">
                             <input type="submit" value="Add Parent" name="edit-btn-area">

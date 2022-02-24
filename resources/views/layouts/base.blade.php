@@ -80,7 +80,7 @@
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="mu_profile_items nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <span class="d-none d-lg-inline-block mu_profile_items_right">
-                                    <span class="mu_profile_items_right2"> Welcome, {{Auth::user()->firstname}} {{Auth::user()->lastname}}</i></span>
+                                    <span class="mu_profile_items_right2"> Welcome, {{Auth::user()->fullname}}</i></span>
                                 </span>
                                 <span class="mu_profile_items_left"><img alt="image" src="{{asset('img/profile.png')}}" class="user-img-radious-style" /></span>
                             </a>
