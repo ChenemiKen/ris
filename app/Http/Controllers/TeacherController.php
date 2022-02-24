@@ -20,6 +20,7 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('is-admin');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('teacher', [
@@ -34,6 +35,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
+        $this->authorize('is-admin');
         return view('add-teacher');
     }
 
@@ -45,6 +47,7 @@ class TeacherController extends Controller
      */
     public function store(StoreTeacherRequest $request)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -69,7 +72,7 @@ class TeacherController extends Controller
             'photo' => $photoName,
         ]);
 
-        return redirect('/teachers')->with('success','Teacher added successfully!');
+        return redirect()->route('teachers')->with('success','Teacher added successfully!');
     }
 
     /**
@@ -91,6 +94,7 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
+        $this->authorize('is-admin');
         $pupil = Teacher::find($teacher)->first();
         return view('edit_teacher',[
             'teacher' => $teacher
@@ -106,6 +110,7 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -135,7 +140,7 @@ class TeacherController extends Controller
              'photo' => $photoName,
         ]);
  
-        return redirect('/teachers')->with('success','Teacher updated successfully!');
+        return redirect()->route('teachers')->with('success','Teacher updated successfully!');
     }
 
     /**
@@ -146,12 +151,13 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
+        $this->authorize('is-admin');
         $photoName = $teacher->photo;
         if (Storage::disk('public')->exists('teachers/'.$photoName)) {
             Storage::disk('public')->delete('teachers/'.$photoName);
         }
         // unlink('pupils_images/'.$pupil->photo);
         $teacher->delete();
-        return redirect('/teachers')->with('success','Teacher deleted successfully!');
+        return redirect()->route('teachers')->with('success','Teacher deleted successfully!');
     }
 }

@@ -38,35 +38,36 @@
                                 <td>{{$teacher->gender}}</td>
                                 <td>{{$teacher->phone}}</td>
                                 <td>{{$teacher->email}}</td>
-                                <td>
-                                    <a href="#" class="btn-style">View</a>
-                                    <a href="{{route('edit-teacher', $teacher->id)}}" class="btn-style">Edit</a>
-                                    <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteTeacher{{$teacher->id}}Modal">delete</button>
-                                </td>
-                                {{-- delete confirmation --}}
-                                <!-- Modal -->
-                                <div class="modal fade bd-example-modal-sm" id="deleteTeacher{{$teacher->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Delete teacher</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>{{$teacher->firstname}} {{$teacher->lastname}}</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
-                                                <form action="{{route('delete-teacher', $teacher->id)}}" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn-style btn-style-danger">delete</button>
-                                                </form>
+                                @can('is-admin')
+                                    <td>
+                                        <a href="{{route('edit-teacher', $teacher->id)}}" class="btn-style">Edit</a>
+                                        <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteTeacher{{$teacher->id}}Modal">delete</button>
+                                    </td>
+                                    {{-- delete confirmation --}}
+                                    <!-- Modal -->
+                                    <div class="modal fade bd-example-modal-sm" id="deleteTeacher{{$teacher->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete teacher</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>{{$teacher->firstname}} {{$teacher->lastname}}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
+                                                    <form action="{{route('delete-teacher', $teacher->id)}}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn-style btn-style-danger">delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endcan
                             </tr>
                         @endforeach 
                     </tbody>

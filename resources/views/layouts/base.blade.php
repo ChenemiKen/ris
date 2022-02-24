@@ -41,42 +41,7 @@
                             </li>
                         </ul>
                     </div>
-                    <ul class="navbar-nav navbar-right">
-                        {{-- <li class="dropdown dropdown-list-toggle mu_notific_pos">
-                            <a href="#" data-toggle="dropdown" class="noti_red nav-link notification-toggle nav-link-lg">
-                                <i data-feather="bell" class="bell"></i>
-                                <span class="noti_red_posi"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                                <div class="dropdown-list-content dropdown-list-message">
-                                    <a href="#" class="dropdown-item">
-                                        <span class="dropdown-item-avatar text-white"> <img alt="image" src="{{asset('img/profile.png')}}" class="rounded-circle" /> </span>
-                                        <span class="dropdown-item-desc">
-                                            <span class="message-user">Victoria <span class="mu_not_light_font"> added to wishlist iPhone.</span></span>
-                                            <span class="time">2 Min Ago</span>
-                                        </span>
-                                    </a>
-                                    <a href="#" class="dropdown-item">
-                                        <span class="dropdown-item-avatar text-white">
-                                            <img alt="image" src="{{asset('img/profile.png')}}" class="rounded-circle" />
-                                        </span>
-                                        <span class="dropdown-item-desc">
-                                            <span class="message-user">Victoria <span class="mu_not_light_font">added to wishlist apple.</span></span>
-                                            <span class="time">5 Min Ago</span>
-                                        </span>
-                                    </a>
-                                    
-                                    <a href="#" class="dropdown-item">
-                                        <span class="dropdown-item-avatar text-white">
-                                            <img alt="image" src="{{asset('img/profile.png')}}" class="rounded-circle" />
-                                        </span>
-                                        <span class="dropdown-item-desc">
-                                            <span class="message-user">Victoria <span class="mu_not_light_font">added to wishlist apple.</span></span> <span class="time">1 Days Ago</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li> --}}
+                    <ul class="navbar-nav navbar-right">     
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="mu_profile_items nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <span class="d-none d-lg-inline-block mu_profile_items_right">
@@ -117,15 +82,17 @@
                             </a>
                         </div>
                         <ul class="sidebar-menu">
-                            <li class="dropdown">
-                                <a class="nav-link active" href="{{route('pupils')}}"><span>Pupils</span></a>
-                            </li>
-                             <li class="dropdown">
-                                <a class="nav-link" href="{{route('teachers')}}"><span>Teachers</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a class="nav-link" href="{{route('parents')}}"><span>Parents</span></a>
-                            </li>
+                            @can('is-admin')
+                                <li class="dropdown">
+                                    <a class="nav-link active" href="{{route('pupils')}}"><span>Pupils</span></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link" href="{{route('teachers')}}"><span>Teachers</span></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link" href="{{route('parents')}}"><span>Parents</span></a>
+                                </li>
+                            @endcan
                              <li class="dropdown">
                                 <a class="nav-link" href="results.html"><span>Results</span></a>
                             </li>

@@ -5,7 +5,9 @@
 @section('page-content')
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
-            <a href="{{route('add-homework')}}" class="crate_btn_area">+ Add Homework</a>
+            @can('is-admin')
+                <a href="{{route('add-homework')}}" class="crate_btn_area">+ Add Homework</a>
+            @endcan
             <!-- Header area start  -->
             <div class="deshboard_filter_area">
                 <h4></h4>
@@ -21,6 +23,7 @@
                         <tr>
                             <th>Date</th>
                             <th>Homework</th>
+                            <th>Class</th>
                             <th>Submission Date</th>
                             <th>Action</th>
                         </tr>
@@ -31,33 +34,39 @@
                         <tr>
                             <td>{{$homework->date}}</td>
                             <td>{{$homework->homework}}</td>
+                            <td>{{$homework->class}}</td>
                             <td>{{$homework->submission_date}}</td>
                             <td>
                                 <a href="#" class="btn-style">View</a>
-                                <a href="{{route('edit-homework', $homework->id)}}" class="btn-style">Edit</a>
-                                <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteHomework{{$homework->id}}Modal">delete</button>
+                                @can('is-admin')
+                                    <a href="{{route('edit-homework', $homework->id)}}" class="btn-style">Edit</a>
+                                    <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteHomework{{$homework->id}}Modal">delete</button>
+                                @endcan
                             </td>
-                            {{-- delete confirmation --}}
-                            <!-- Modal -->
-                            <div class="modal fade bd-example-modal-sm" id="deleteHomework{{$homework->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Sure to delete this homework?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body"></div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
-                                            <form action="{{route('delete-homework', $homework->id)}}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn-style btn-style-danger">delete</button>
-                                            </form>
+                            @can('is-admin')
+                                {{-- delete confirmation --}}
+                                <!-- Modal -->
+                                <div class="modal fade bd-example-modal-sm" id="deleteHomework{{$homework->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Sure to delete this homework?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body"></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
+                                                <form action="{{route('delete-homework', $homework->id)}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn-style btn-style-danger">delete</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            @endcan
                         </tr>
                         @endforeach
                     </tbody>

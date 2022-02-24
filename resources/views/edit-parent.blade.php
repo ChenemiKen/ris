@@ -53,7 +53,7 @@
                     
                     <div class="col-md-12">
                         <div class="deshboard_single_item_editor_btn_area">
-                            <input type="submit" value="Add Parent" name="edit-btn-area">
+                            <input type="submit" value="Update Parent" name="edit-btn-area">
                         </div>
                     </div>
 

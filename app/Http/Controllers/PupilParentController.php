@@ -24,6 +24,7 @@ class PupilParentController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('is-admin');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('parents', [
@@ -38,6 +39,7 @@ class PupilParentController extends Controller
      */
     public function create()
     {
+        $this->authorize('is-admin');
         return view('add-parent');
     }
 
@@ -51,6 +53,7 @@ class PupilParentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'fullname' => ['required', 'string', 'max:255'],
             'admission_no' => ['required', 'string', 'max:255', 'unique:users,username'],
@@ -74,7 +77,7 @@ class PupilParentController extends Controller
         // Auth::login($user);
 
         // return redirect(RouteServiceProvider::HOME);
-        return redirect('/parents')->with('success','Parent added successfully!');
+        return redirect()->route('parents')->with('success','Parent added successfully!');
     }
 
     /**
@@ -96,6 +99,7 @@ class PupilParentController extends Controller
      */
     public function edit(User $parent)
     {
+        $this->authorize('is-admin');
         $parent = User::find($parent)->first();
         return view('edit-parent',[
             'parent' => $parent
@@ -111,9 +115,10 @@ class PupilParentController extends Controller
      */
     public function update(Request $request, User $parent)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'fullname' => ['required', 'string', 'max:255'],
-            'admission_no' => ['required', 'string', 'max:255', Rule::unique('users,username')->ignore($parent->id)],
+            'admission_no' => ['required', 'string', 'max:255', Rule::unique('users','username')->ignore($parent->id)],
             'email' => ['required', 'string', 'email', Rule::unique('users')->ignore($parent->id)],
             'phone' => ['required','string', 'max:255'],
             'address' => ['required', 'string'],
@@ -128,7 +133,7 @@ class PupilParentController extends Controller
             'address' => $request->address,
         ]);
  
-        return redirect('/parents')->with('success','Parent updated successfully!');
+        return redirect()->route('parents')->with('success','Parent updated successfully!');
     }
 
     /**
@@ -139,7 +144,8 @@ class PupilParentController extends Controller
      */
     public function destroy(User $parent)
     {
+        $this->authorize('is-admin');
         $parent->delete();
-        return redirect('/parents')->with('success','Parent deleted successfully!');
+        return redirect()->route('parents')->with('success','Parent deleted successfully!');
     }
 }

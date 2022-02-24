@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class PupilController extends Controller
 {
@@ -21,6 +21,7 @@ class PupilController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('is-admin');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('pupil', [
@@ -35,6 +36,7 @@ class PupilController extends Controller
      */
     public function create()
     {
+        $this->authorize('is-admin');
         return view('add-pupil');
     }
 
@@ -48,6 +50,7 @@ class PupilController extends Controller
      */
     public function store(StorePupilRequest $request)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -57,7 +60,7 @@ class PupilController extends Controller
             'gender' => ['required', 'string'],
             'parent_phone' => ['required','numeric'],
             'parent_email' => ['required','string','email'],
-            'admission_no' => ['required','string','max:255'],
+            'admission_no' => ['required','string','unique:pupils'],
             'entry_date' => ['required','date'],
             'photo' => ['required','image','mimes:jpeg,png,jpg,gif,svg'],
         ]);
@@ -80,7 +83,7 @@ class PupilController extends Controller
             'photo' => $photoName,
         ]);
 
-        return redirect(RouteServiceProvider::HOME)->with('success','Pupil added successfully!');
+        return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil added successfully!');
     }
 
     /**
@@ -103,6 +106,7 @@ class PupilController extends Controller
      */
     public function edit(Pupil $id)
     {
+        $this->authorize('is-admin');
         $pupil = Pupil::find($id)->first();
         return view('edit_pupil',[
             'pupil' => $pupil
@@ -118,6 +122,7 @@ class PupilController extends Controller
      */
     public function update(UpdatePupilRequest $request, Pupil $pupil)
     {
+        $this->authorize('is-admin');
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -127,7 +132,7 @@ class PupilController extends Controller
             'gender' => ['required', 'string'],
             'parent_phone' => ['required','numeric'],
             'parent_email' => ['required','string','email'],
-            'admission_no' => ['required','string','max:255'],
+            'admission_no' => ['required','string', Rule::unique('pupils')->ignore($pupil->id)],
             'entry_date' => ['required','date'],
             'photo' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg'],
         ]);
@@ -158,7 +163,7 @@ class PupilController extends Controller
              'photo' => $photoName,
         ]);
  
-        return redirect(RouteServiceProvider::HOME)->with('success','Pupil updated successfully!');
+        return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil updated successfully!');
     }
 
     /**
@@ -169,12 +174,13 @@ class PupilController extends Controller
      */
     public function destroy(Pupil $pupil)
     {
+        $this->authorize('is-admin');
         $photoName = $pupil->photo;
         if (Storage::disk('public')->exists('pupils/'.$photoName)) {
             Storage::disk('public')->delete('pupils/'.$photoName);
         }
         // unlink('pupils_images/'.$pupil->photo);
         $pupil->delete();
-        return redirect(RouteServiceProvider::HOME)->with('success','Pupil deleted successfully!');
+        return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil deleted successfully!');
     }
 }
