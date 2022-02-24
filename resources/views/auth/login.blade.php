@@ -158,7 +158,7 @@
 		
 		<form method="post" action="{{ route('login') }}">
 			@csrf
-			<label for="login">EMAIL OR USERNAME:</label></br><input type="text" name="login" :value="old('login')" required autofocus/></br></br>
+			<label for="login">EMAIL/USERNAME/ADMISSION NO :</label></br><input type="text" name="login" :value="old('login')" required autofocus/></br></br>
 			<label for="password">PASSWORD:</label></br><input type="password" name="password"  required autocomplete="current-password"></br></br>
 			<input type="submit" name="" value="Log In"></br>
 
