@@ -4,6 +4,7 @@ use App\Http\Controllers\PupilController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PupilParentController;
 use App\Http\Controllers\HomeworkController;
+use App\Http\Controllers\ResultController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,26 @@ Route::get('/', function () {
 
 // Users area
 Route::group(['middleware'=>'auth'], function(){
+    // results
+    Route::get('/results', [ResultController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('results');
+    Route::get('/add-result', [ResultController::class, 'create'])
+                    ->middleware('auth')
+                    ->name('add-result');
+    Route::post('/create-result', [ResultController::class, 'store'])
+                    ->middleware('auth')
+                    ->name('create-result');
+    Route::get('/edit-result/{result}', [ResultController::class, 'edit'])
+                    ->middleware('auth')
+                    ->name('edit-result');
+    Route::post('/update-result/{result}', [ResultController::class, 'update'])
+                    ->middleware('auth')
+                    ->name('update-result');
+    Route::post('/delete-result/{result}', [ResultController::class, 'destroy'])
+                    ->middleware('auth')
+                    ->name('delete-result');
+
     // homeworks
     Route::get('/homeworks', [HomeworkController::class, 'index'])
                     ->middleware(['auth'])

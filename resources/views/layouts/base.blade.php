@@ -94,7 +94,7 @@
                                 </li>
                             @endcan
                              <li class="dropdown">
-                                <a class="nav-link" href="results.html"><span>Results</span></a>
+                                <a class="nav-link" href="{{route('results')}}"><span>Results</span></a>
                             </li>
                              <li class="dropdown">
                                 <a class="nav-link" href="messages.hml"><span>Messages</span></a>

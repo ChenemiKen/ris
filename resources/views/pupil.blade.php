@@ -21,11 +21,13 @@
                         <tr>
                             <th>Photo</th>
                             <th>Full Name</th>
+                            <th>Admsn no.</th>
                             <th>Class</th>
                             <th>Age</th>
                             <th>Gender</th>
                             <th>Parent Phone</th>
                             <th>Parent Email</th>
+                            <th>Entry date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -36,11 +38,13 @@
                                 <tr>
                                     <td class="amdin_pay_img"><img src="{{asset('uploads/pupils/'.$pupil->photo)}}" alt=""></td>
                                     <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
+                                    <td>{{$pupil->admission_no}}</td>
                                     <td>{{$pupil->class}}</td>
                                     <td>{{$pupil->age}}</td>
                                     <td>{{$pupil->gender}}</td>
                                     <td>{{$pupil->parent_phone}}</td>
                                     <td>{{$pupil->parent_email}}</td>
+                                    <td>{{$pupil->entry_date}}</td>
                                     @can('is-admin')
                                         <td>
                                             <a href="{{route('edit-pupil', $pupil->id)}}" class="btn-style">Edit</a>

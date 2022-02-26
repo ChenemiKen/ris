@@ -27,4 +27,12 @@ class Pupil extends Model
         'entry_date',
         'photo',
     ];
+
+    /**
+     * Get the results for the pupil.
+     */
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }
