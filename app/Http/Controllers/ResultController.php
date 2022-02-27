@@ -57,7 +57,7 @@ class ResultController extends Controller
         ]);
         $pupil = Pupil::find($request->pupil);
         // save the file
-        $fileName = $pupil->firstname.$pupil->lastname.$request->term.$request->date.$request->file->extension();
+        $fileName = $pupil->firstname.$pupil->lastname.$request->term.$request->date.'.'.$request->file->extension();
         $request->file->storeAs('results', $fileName, 'public');
         
         $result = new Result();

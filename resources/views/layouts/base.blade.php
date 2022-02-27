@@ -97,7 +97,7 @@
                                 <a class="nav-link" href="{{route('results')}}"><span>Results</span></a>
                             </li>
                              <li class="dropdown">
-                                <a class="nav-link" href="messages.hml"><span>Messages</span></a>
+                                <a class="nav-link" href="{{route('messages')}}"><span>Messages</span></a>
                             </li>
                              <li class="dropdown">
                                 <a class="nav-link" href="{{route('homeworks')}}"><span>Homework</span></a>
@@ -106,7 +106,7 @@
                                 <a class="nav-link" href="calendar.html"><span>School Calendar</span></a>
                             </li>
                             <li class="dropdown">
-                                <a class="nav-link" href="birthday.html"><span>Today's Birthdays</span></a>
+                                <a class="nav-link" href="{{route('birthdays')}}"><span>Today's Birthdays</span></a>
                             </li>
                         </ul>
                     </aside>

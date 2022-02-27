@@ -35,4 +35,12 @@ class Pupil extends Model
     {
         return $this->hasMany(Result::class);
     }
+
+    /**
+     * the pupils birthday.
+     */
+    public function birthdays()
+    {
+        return $this->hasMany(Birthday::class);
+    }
 }

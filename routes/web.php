@@ -5,6 +5,8 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PupilParentController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\BirthdayController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,6 +75,53 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/delete-homework/{homework}', [HomeworkController::class, 'destroy'])
                     ->middleware('auth')
                     ->name('delete-homework');
+
+    // messages
+    Route::get('/messages', [MessageController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('messages');
+    Route::get('/add-message', [MessageController::class, 'create'])
+                    ->middleware('auth')
+                    ->name('add-message');
+    Route::post('/create-message', [MessageController::class, 'store'])
+                    ->middleware('auth')
+                    ->name('create-message');
+    Route::get('/view-message/{message}', [MessageController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-message');
+    // Route::get('/edit-message/{message}', [MessageController::class, 'edit'])
+    //                 ->middleware('auth')
+    //                 ->name('edit-message');
+    // Route::post('/update-message/{message}', [MessageController::class, 'update'])
+    //                 ->middleware('auth')
+    //                 ->name('update-message');
+    // Route::post('/delete-message/{message}', [MessageController::class, 'destroy'])
+    //                 ->middleware('auth')
+    //                 ->name('delete-message');
+
+
+    // birthdays
+    Route::get('/birthdays', [BirthdayController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('birthdays');
+    Route::get('/add-birthday', [BirthdayController::class, 'create'])
+                    ->middleware('auth')
+                    ->name('add-birthday');
+    Route::post('/create-birthday', [BirthdayController::class, 'store'])
+                    ->middleware('auth')
+                    ->name('create-birthday');
+    // Route::get('/view-message/{message}', [BirthdayController::class, 'show'])
+    //                 ->middleware('auth')
+    //                 ->name('view-message');
+    // Route::get('/edit-message/{message}', [BirthdayController::class, 'edit'])
+    //                 ->middleware('auth')
+    //                 ->name('edit-message');
+    // Route::post('/update-message/{message}', [BirthdayController::class, 'update'])
+    //                 ->middleware('auth')
+    //                 ->name('update-message');
+    // Route::post('/delete-message/{message}', [BirthdayController::class, 'destroy'])
+    //                 ->middleware('auth')
+    //                 ->name('delete-message');
     
 
     // Admin area
