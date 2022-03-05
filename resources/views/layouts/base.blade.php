@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{asset('css/custom.css')}}" />
         <!-- Responsive CSS -->
         <link rel="stylesheet" type="text/css" href="{{asset('css/responsive.css')}}" />
+        @section('page-extrahead')@show
     </head>
 
     <body>
@@ -103,7 +104,7 @@
                                 <a class="nav-link" href="{{route('homeworks')}}"><span>Homework</span></a>
                             </li>
                              <li class="dropdown">
-                                <a class="nav-link" href="calendar.html"><span>School Calendar</span></a>
+                                <a class="nav-link" href="{{route('calendar')}}"><span>School Calendar</span></a>
                             </li>
                             <li class="dropdown">
                                 <a class="nav-link" href="{{route('birthdays')}}"><span>Today's Birthdays</span></a>
@@ -131,42 +132,7 @@
             </div>
         </div>
 
-        <!--Start Gift Exchange Modal -->
-        {{-- <div class="gift-modal modal fade" id="add-modals" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <!-- Start gift exchange -->
-                    <div class="gift-exchange">
-                        <!-- start gift exchange left content -->
-                        <div class="gift-exchange-left-content">
-                            <div class="gift-exchange-heading-text">
-                                <h2>Create Gift Exchange</h2>
-                                <p>Just need a few details from you, and our elves will do the rest!</p>
-                            </div>
-                            <div class="gift-exchange-form-btn">
-                                <form action="">
-                                    <input type="text" placeholder="New Gift Exchnage" name="exchange" id="exchange" />
-                                </form>
-                                <div class="gift-exchange-btn">
-                                    <button>Create Event</button>
-                                    <button data-dismiss="modal" aria-label="Close">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end gift exchange left content -->
-
-                        <!-- start gift exchange right content -->
-                        <div class="gift-exchange-right-content">
-                            <img src="assets/img/popup/gift.png" alt="Images" />
-                        </div>
-                        <!-- end gift exchange right content -->
-                    </div>
-                    <!-- End gift exchange -->
-                </div>
-            </div>
-        </div> --}}
-        <!--End Gift Exchange Modal -->
-
+        @section('page-extrascripts')@show
         <!-- General JS Scripts -->
         <script src="{{asset('js/app.min.js')}}"></script>
         <!-- JS Libraies -->
@@ -174,9 +140,9 @@
         <!-- Template JS File -->
         <script src="{{asset('js/scripts.js')}}"></script>
         {{-- <script src="{{asset('js/scripts2.js')}}"></script> --}}
-        <script src="{{asset('js/calendar.js')}}"></script>
+        {{-- <script src="{{asset('js/calendar.js')}}"></script> --}}
         <!-- Start Main JS -->
-        <script src="{{asset('js/main.js')}}"></script>
+        {{-- <script src="{{asset('js/main.js')}}"></script> --}}
     </body>
     <!-- blank.html  21 Nov 2019 03:54:41 GMT -->
 </html>

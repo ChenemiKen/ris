@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\BirthdayController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,6 +121,30 @@ Route::group(['middleware'=>'auth'], function(){
     //                 ->middleware('auth')
     //                 ->name('update-message');
     // Route::post('/delete-message/{message}', [BirthdayController::class, 'destroy'])
+    //                 ->middleware('auth')
+    //                 ->name('delete-message');
+   
+   
+    // events
+    Route::get('/calendar', [EventController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('calendar');
+    Route::get('/add-event', [EventController::class, 'create'])
+                    ->middleware('auth')
+                    ->name('add-event');
+    Route::post('/create-event', [EventController::class, 'store'])
+                    ->middleware('auth')
+                    ->name('create-event');
+    // Route::get('/view-message/{message}', [EventController::class, 'show'])
+    //                 ->middleware('auth')
+    //                 ->name('view-message');
+    // Route::get('/edit-message/{message}', [EventController::class, 'edit'])
+    //                 ->middleware('auth')
+    //                 ->name('edit-message');
+    // Route::post('/update-message/{message}', [EventController::class, 'update'])
+    //                 ->middleware('auth')
+    //                 ->name('update-message');
+    // Route::post('/delete-message/{message}', [EventController::class, 'destroy'])
     //                 ->middleware('auth')
     //                 ->name('delete-message');
     
