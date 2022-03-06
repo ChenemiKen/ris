@@ -32,14 +32,14 @@
                         @foreach($results as $result)
                             <!-- 1.Single item area start  -->
                             <tr>
-                                <td>{{$result->date}}</td>
+                                <td>{{\Carbon\Carbon::parse($result->date)->format('d M Y')}}</td>
                                 <td>{{$result->pupil->firstname}} {{$result->pupil->lastname}}</td>
                                 <td>{{$result->term}}</td>
-                                <td>
-                                    <a href="{{route('view-result',$result->id)}}" class="btn-style">View</a>
+                                <td class="text-center">
+                                    <a href="{{route('view-result',$result->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
                                     @can('is-admin')
-                                        <a href="{{route('edit-result', $result->id)}}" class="btn-style">Edit</a>
-                                        <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteResult{{$result->id}}Modal">delete</button>
+                                        <a href="{{route('edit-result', $result->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
+                                        <span data-toggle="modal" data-target="#deleteResult{{$result->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
                                     @endcan
                                 </td>
                                 @can('is-admin')

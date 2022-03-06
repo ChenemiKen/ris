@@ -8,7 +8,7 @@
             {{-- <h3>View Message</h3> --}}
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table ">
-                <p><span><strong>Date: </strong></span><span> {{$message->date}}</span></p>
+                <p><span><strong>Date: </strong></span><span> {{\Carbon\Carbon::parse($message->date)->format('d M Y')}}</span></p>
                 <hr class="my-4">
                 <p><span><strong>Subject: </strong></span><span> {{$message->subject}}</span></p>
                 <hr class="my-4">

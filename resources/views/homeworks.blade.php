@@ -32,15 +32,15 @@
                         <!-- 1.Single item area start  -->
                         @foreach($homeworks as $homework)
                         <tr>
-                            <td>{{$homework->date}}</td>
+                            <td>{{\Carbon\Carbon::parse($homework->date)->format('d M Y')}}</td>
                             <td>{{Str::limit($homework->homework, 60)}}</td>
                             <td>{{$homework->class}}</td>
-                            <td>{{$homework->submission_date}}</td>
-                            <td>
-                                <a href="{{route('view-homework', $homework->id)}}" class="btn-style">View</a>
+                            <td>{{\Carbon\Carbon::parse($homework->submission_date)->format('d M Y')}}</td>
+                            <td class="text-center">
+                                <a href="{{route('view-homework', $homework->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
                                 @can('is-admin')
-                                    <a href="{{route('edit-homework', $homework->id)}}" class="btn-style">Edit</a>
-                                    <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteHomework{{$homework->id}}Modal">delete</button>
+                                    <a href="{{route('edit-homework', $homework->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
+                                    <span data-toggle="modal" data-target="#deleteHomework{{$homework->id}}Modal"><i class="fa-solid fa-trash mr-4 fa-lg red"></i></span>
                                 @endcan
                             </td>
                             @can('is-admin')

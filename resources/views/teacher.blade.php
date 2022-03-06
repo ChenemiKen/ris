@@ -39,9 +39,9 @@
                                 <td>{{$teacher->phone}}</td>
                                 <td>{{$teacher->email}}</td>
                                 @can('is-admin')
-                                    <td>
-                                        <a href="{{route('edit-teacher', $teacher->id)}}" class="btn-style">Edit</a>
-                                        <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteTeacher{{$teacher->id}}Modal">delete</button>
+                                    <td class="text-center">
+                                        <a href="{{route('edit-teacher', $teacher->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
+                                        <span data-toggle="modal" data-target="#deleteTeacher{{$teacher->id}}Modal"><i class="fa-solid fa-trash mr-4 fa-lg red"></i></span>
                                     </td>
                                     {{-- delete confirmation --}}
                                     <!-- Modal -->

@@ -34,13 +34,13 @@
                                 @foreach($messages as $message)
                                     <!-- 1.Single item area start  -->
                                     <tr>
-                                        <td>{{$message->date}}</td>
+                                        <td>{{\Carbon\Carbon::parse($message->date)->format('d M Y')}}</td>
                                         <td>{{$message->subject}}</td>
                                         @can('is-admin')
                                             <td>{{$message->recipient->fullname}}</td>
                                         @endcan
-                                        <td>
-                                            <a href="{{route('view-message', $message->id)}}" class="btn-style">View Message</a>    
+                                        <td class="text-center">
+                                            <a href="{{route('view-message', $message->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>    
                                         </td>
                                     </tr>
                                 @endforeach   

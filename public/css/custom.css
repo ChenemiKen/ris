@@ -40,11 +40,9 @@ ol, ul, menu {
 	height: 16rem;
 }
 .blue{
-	color: blue !important;
+	color: rgb(111, 0, 255) !important;
 }
-.purple{
-	color: purple !important;
-}
+
 .red{
-	color: red !important;
+	color: rgb(255, 0, 0) !important;
 }

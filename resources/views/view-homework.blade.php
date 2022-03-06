@@ -8,9 +8,9 @@
             {{-- <h3>View Message</h3> --}}
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table ">
-                <p><span><strong>Date: </strong></span><span> {{$homework->date}}</span></p>
+                <p><span><strong>Date: </strong></span><span>{{\Carbon\Carbon::parse($homework->date)->format('d M Y')}}</span></p>
                 <hr class="my-4">
-                <p><span><strong>Submit Date: </strong></span><span> {{$homework->submission_date}}</span></p>
+                <p><span><strong>Submit Date: </strong></span><span> {{\Carbon\Carbon::parse($homework->submission_date)->format('d M Y')}}</span></p>
                 <hr class="my-4">
                 <p class="mb-4">{{$homework->homework}}</p>
             </div>
