@@ -54,15 +54,11 @@
                             <div class="dropdown-menu dropdown-menu-right pullDown mu_profile_items_a_design">
                                 <a href="User_module_account.html" class="dropdown-item has-icon"> 
                                     <i class="fas fa-user"></i> 
-                                    Profile 
+                                    Edit Profile 
                                 </a>
                                 <a href="User_module_account.html" class="dropdown-item has-icon">
                                     <i class="fas fa-cog"></i>
-                                    Account Settings
-                                </a>
-                                <a href="help.html" class="dropdown-item has-icon">
-                                    <i class="fas fa-headset"></i>
-                                    Help & Support
+                                    Change password
                                 </a>
                                 <a href="{{route('logout')}}" class="dropdown-item has-icon">
                                     <i class="fa-solid fa-right-from-bracket"></i>

@@ -33,11 +33,11 @@
                         @foreach($homeworks as $homework)
                         <tr>
                             <td>{{$homework->date}}</td>
-                            <td>{{$homework->homework}}</td>
+                            <td>{{Str::limit($homework->homework, 60)}}</td>
                             <td>{{$homework->class}}</td>
                             <td>{{$homework->submission_date}}</td>
                             <td>
-                                <a href="#" class="btn-style">View</a>
+                                <a href="{{route('view-homework', $homework->id)}}" class="btn-style">View</a>
                                 @can('is-admin')
                                     <a href="{{route('edit-homework', $homework->id)}}" class="btn-style">Edit</a>
                                     <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteHomework{{$homework->id}}Modal">delete</button>

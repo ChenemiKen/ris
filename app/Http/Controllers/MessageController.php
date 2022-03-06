@@ -22,9 +22,16 @@ class MessageController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
-        return view('messages', [
-            'messages' => Message::with('recipient')->paginate(session('per_page'))
-        ]);
+        if(auth()->user()->is_admin){
+            return view('messages', [
+                'messages' => Message::with('recipient')->paginate(session('per_page'))
+            ]);
+        }else{
+            return view('messages', [
+                'messages' => Message::where('recipient_id', auth()->user()->id)->paginate(session('per_page'))
+            ]);
+        }
+        
     }
 
     /**

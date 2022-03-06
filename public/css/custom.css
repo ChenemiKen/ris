@@ -39,3 +39,12 @@ ol, ul, menu {
 	width: 13rem;
 	height: 16rem;
 }
+.blue{
+	color: blue !important;
+}
+.purple{
+	color: purple !important;
+}
+.red{
+	color: red !important;
+}

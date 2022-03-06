@@ -72,7 +72,9 @@ class HomeworkController extends Controller
      */
     public function show(Homework $homework)
     {
-        //
+        return view('view-homework',[
+            'homework' => $homework,
+        ]);
     }
 
     /**

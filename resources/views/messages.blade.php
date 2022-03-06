@@ -18,33 +18,37 @@
             </div>
                 <!-- Header area End  -->
                 <div class="deshboard_main_edit_task_area table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Subject</th>
-                            @can('is-admin')
-                                <th>To</th>
-                            @endcan
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($messages as $message)
-                            <!-- 1.Single item area start  -->
+                    @if (!$messages->isEmpty())
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{$message->date}}</td>
-                                <td>{{$message->subject}}</td>
+                                <th>Date</th>
+                                <th>Subject</th>
                                 @can('is-admin')
-                                    <td>{{$message->recipient->fullname}}</td>
+                                    <th>To</th>
                                 @endcan
-                                <td>
-                                    <a href="{{route('view-message', $message->id)}}" class="btn-style">View Message</a>    
-                                </td>
+                                <th>Action</th>
                             </tr>
-                        @endforeach   
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                                @foreach($messages as $message)
+                                    <!-- 1.Single item area start  -->
+                                    <tr>
+                                        <td>{{$message->date}}</td>
+                                        <td>{{$message->subject}}</td>
+                                        @can('is-admin')
+                                            <td>{{$message->recipient->fullname}}</td>
+                                        @endcan
+                                        <td>
+                                            <a href="{{route('view-message', $message->id)}}" class="btn-style">View Message</a>    
+                                        </td>
+                                    </tr>
+                                @endforeach   
+                        </tbody>
+                    </table>
+                    @else
+                        <p class="text-center">There are no messages for you at this time.</p>
+                    @endif
                 </div>
                 <div class="table_pagination_area">
                     <div class="table_pagination_area_left">

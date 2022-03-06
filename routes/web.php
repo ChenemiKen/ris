@@ -56,6 +56,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/delete-result/{result}', [ResultController::class, 'destroy'])
                     ->middleware('auth')
                     ->name('delete-result');
+    Route::get('/view-result/{result}', [ResultController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-result');
 
     // homeworks
     Route::get('/homeworks', [HomeworkController::class, 'index'])
@@ -76,6 +79,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/delete-homework/{homework}', [HomeworkController::class, 'destroy'])
                     ->middleware('auth')
                     ->name('delete-homework');
+    Route::get('/view-homework/{homework}', [HomeworkController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-homework');
 
     // messages
     Route::get('/messages', [MessageController::class, 'index'])

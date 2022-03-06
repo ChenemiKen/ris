@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
+use function PHPUnit\Framework\isNull;
+
 class ResultController extends Controller
 {
     /**
@@ -22,9 +24,22 @@ class ResultController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
-        return view('results', [
-            'results' => Result::with('pupil')->paginate(session('per_page'))
-        ]);
+        if(auth()->user()->is_admin){
+            return view('results', [
+                'results' => Result::with('pupil')->paginate(session('per_page'))
+            ]);
+        }else{
+            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            if(!is_null($ward)){
+                return view('results', [
+                    'results' => Result::where('pupil_id',$ward->id)->paginate(session('per_page'))
+                ]);
+            }else{
+                return view('results', [
+                    'results' => Result::where('pupil_id',' ')->paginate(session('per_page'))
+                ]); 
+            }
+        }
     }
 
     /**
@@ -80,7 +95,12 @@ class ResultController extends Controller
      */
     public function show(Result $result)
     {
-        //
+        // $message = DB::table('messages')->find($message);
+        $pupil = Pupil::where('id',$result->pupil_id)->first();
+        return view('view-result',[
+            'result' => $result,
+            'pupil' =>$pupil
+        ]);
     }
 
     /**

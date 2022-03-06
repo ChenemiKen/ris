@@ -18,6 +18,7 @@
             </div>
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table">
+                @if (!$results->isEmpty())
                 <table>
                     <thead>
                         <tr>
@@ -35,7 +36,7 @@
                                 <td>{{$result->pupil->firstname}} {{$result->pupil->lastname}}</td>
                                 <td>{{$result->term}}</td>
                                 <td>
-                                    <a href="#" class="btn-style">View</a>
+                                    <a href="{{route('view-result',$result->id)}}" class="btn-style">View</a>
                                     @can('is-admin')
                                         <a href="{{route('edit-result', $result->id)}}" class="btn-style">Edit</a>
                                         <button class="btn-style btn-style-danger" data-toggle="modal" data-target="#deleteResult{{$result->id}}Modal">delete</button>
@@ -72,6 +73,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                    <p class="text-center">There are no results added for {{Auth::user()->username}} at this time.</p>
+                @endif
             </div>
             <div class="table_pagination_area">
                 <div class="table_pagination_area_left">
