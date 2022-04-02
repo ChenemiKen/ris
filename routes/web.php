@@ -4,11 +4,12 @@ use App\Http\Controllers\PupilController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\PupilParentController;
 use App\Http\Controllers\HomeworkController;
-use App\Http\Controllers\ResultController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\BirthdayController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,47 +21,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
+ 
 require __DIR__.'/auth.php';
+require __DIR__.'/web/results.php';
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', function(){
+    $home = Auth::user()->is_admin ? RouteServiceProvider::ADMIN_HOME : RouteServiceProvider::PARENT_HOME ;
+    return redirect()->intended($home);
+}) ->middleware('auth')
+    ->name('home');
 
-// Users area
+// Routes
 Route::group(['middleware'=>'auth'], function(){
-    // results
-    Route::get('/results', [ResultController::class, 'index'])
-                    ->middleware(['auth'])
-                    ->name('results');
-    Route::get('/add-result', [ResultController::class, 'create'])
-                    ->middleware('auth')
-                    ->name('add-result');
-    Route::post('/create-result', [ResultController::class, 'store'])
-                    ->middleware('auth')
-                    ->name('create-result');
-    Route::get('/edit-result/{result}', [ResultController::class, 'edit'])
-                    ->middleware('auth')
-                    ->name('edit-result');
-    Route::post('/update-result/{result}', [ResultController::class, 'update'])
-                    ->middleware('auth')
-                    ->name('update-result');
-    Route::post('/delete-result/{result}', [ResultController::class, 'destroy'])
-                    ->middleware('auth')
-                    ->name('delete-result');
-    Route::get('/view-result/{result}', [ResultController::class, 'show'])
-                    ->middleware('auth')
-                    ->name('view-result');
-
-    // homeworks
+    // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
+    //manage homeworks
     Route::get('/homeworks', [HomeworkController::class, 'index'])
                     ->middleware(['auth'])
                     ->name('homeworks');
@@ -83,7 +57,7 @@ Route::group(['middleware'=>'auth'], function(){
                     ->middleware('auth')
                     ->name('view-homework');
 
-    // messages
+    //manage messages
     Route::get('/messages', [MessageController::class, 'index'])
                     ->middleware(['auth'])
                     ->name('messages');
@@ -96,18 +70,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/view-message/{message}', [MessageController::class, 'show'])
                     ->middleware('auth')
                     ->name('view-message');
-    // Route::get('/edit-message/{message}', [MessageController::class, 'edit'])
-    //                 ->middleware('auth')
-    //                 ->name('edit-message');
-    // Route::post('/update-message/{message}', [MessageController::class, 'update'])
-    //                 ->middleware('auth')
-    //                 ->name('update-message');
-    // Route::post('/delete-message/{message}', [MessageController::class, 'destroy'])
-    //                 ->middleware('auth')
-    //                 ->name('delete-message');
 
 
-    // birthdays
+
+    // manage birthdays
     Route::get('/birthdays', [BirthdayController::class, 'index'])
                     ->middleware(['auth'])
                     ->name('birthdays');
@@ -117,21 +83,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/create-birthday', [BirthdayController::class, 'store'])
                     ->middleware('auth')
                     ->name('create-birthday');
-    // Route::get('/view-message/{message}', [BirthdayController::class, 'show'])
-    //                 ->middleware('auth')
-    //                 ->name('view-message');
-    // Route::get('/edit-message/{message}', [BirthdayController::class, 'edit'])
-    //                 ->middleware('auth')
-    //                 ->name('edit-message');
-    // Route::post('/update-message/{message}', [BirthdayController::class, 'update'])
-    //                 ->middleware('auth')
-    //                 ->name('update-message');
-    // Route::post('/delete-message/{message}', [BirthdayController::class, 'destroy'])
-    //                 ->middleware('auth')
-    //                 ->name('delete-message');
+
    
    
-    // events
+    // manage events
     Route::get('/calendar', [EventController::class, 'index'])
                     ->middleware(['auth'])
                     ->name('calendar');
@@ -141,27 +96,16 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/create-event', [EventController::class, 'store'])
                     ->middleware('auth')
                     ->name('create-event');
-    // Route::get('/view-message/{message}', [EventController::class, 'show'])
-    //                 ->middleware('auth')
-    //                 ->name('view-message');
-    // Route::get('/edit-message/{message}', [EventController::class, 'edit'])
-    //                 ->middleware('auth')
-    //                 ->name('edit-message');
-    // Route::post('/update-message/{message}', [EventController::class, 'update'])
-    //                 ->middleware('auth')
-    //                 ->name('update-message');
-    // Route::post('/delete-message/{message}', [EventController::class, 'destroy'])
-    //                 ->middleware('auth')
-    //                 ->name('delete-message');
+
     
 
-    // Admin area
+    // Admin area (Routes accessible to only admin users)-----------------//
     Route::group([
         'prefix'=>'admin',
         'middleware'=>'is_admin',
         // 'as'=>'admin.'
     ], function(){
-        // pupils
+        // manage pupils
         Route::get('/pupils', [PupilController::class, 'index'])
                         ->middleware(['auth'])
                         ->name('pupils');
@@ -183,7 +127,7 @@ Route::group(['middleware'=>'auth'], function(){
                         ->name('delete-pupil');
 
                         
-        // teachers
+        // manage teachers
         Route::get('/teachers', [TeacherController::class, 'index'])
                         ->middleware(['auth'])
                         ->name('teachers');
@@ -204,7 +148,7 @@ Route::group(['middleware'=>'auth'], function(){
                         ->name('delete-teacher');
 
         
-        // parents
+        // manage parents
         Route::get('/parents', [PupilParentController::class, 'index'])
                         ->middleware(['auth'])
                         ->name('parents');
@@ -223,16 +167,15 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete-parent/{parent}', [PupilParentController::class, 'destroy'])
                         ->middleware('auth')
                         ->name('delete-parent');
-
-        
+  
     });
 
+
     
-    // Parents area
+    // Parents area (Routes accessible by only Parent users. quite rare.)
     Route::group([
         'prefix'=>'parent',
         'as'=>'parent',
-    ], function(){
+    ], function(){});
 
-    });
 });

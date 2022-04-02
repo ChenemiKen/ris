@@ -7,9 +7,8 @@ use App\Models\Pupil;
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
+
 
 use function PHPUnit\Framework\isNull;
 
@@ -25,17 +24,17 @@ class ResultController extends Controller
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         if(auth()->user()->is_admin){
-            return view('results', [
+            return view('results/results', [
                 'results' => Result::with('pupil')->paginate(session('per_page'))
             ]);
         }else{
             $ward = Pupil::where('admission_no', auth()->user()->username)->first();
             if(!is_null($ward)){
-                return view('results', [
+                return view('results/results', [
                     'results' => Result::where('pupil_id',$ward->id)->paginate(session('per_page'))
                 ]);
             }else{
-                return view('results', [
+                return view('results/results', [
                     'results' => Result::where('pupil_id',' ')->paginate(session('per_page'))
                 ]); 
             }

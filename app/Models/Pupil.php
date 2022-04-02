@@ -31,9 +31,9 @@ class Pupil extends Model
     /**
      * Get the results for the pupil.
      */
-    public function results()
+    public function tests()
     {
-        return $this->hasMany(Result::class);
+        return $this->hasMany(Test::class);
     }
 
     /**
