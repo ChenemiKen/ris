@@ -84,10 +84,10 @@
                             </li>
                             @can('is-admin')
                                 <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('pupils')}}"><span>Pupils</span></a>
+                                    <a class="nav-link active" href="{{route('tests')}}"><span>Manage Test Results</span></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('teachers')}}"><span>Manage</span></a>
+                                    <a class="nav-link" href="{{route('teachers')}}"><span>Manage Term Results</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>

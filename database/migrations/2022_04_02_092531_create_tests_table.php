@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->set('test_no',[1,2,3,4]);
             $table->foreignId('pupil_id')
                     ->constrained('pupils')
                     ->onUpdate('cascade')
@@ -24,10 +25,13 @@ return new class extends Migration
                     ->constrained('terms')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->foreignId('testResult_id')
-                    ->constrained('testResults')
+            $table->set('class', ['primary_1','primary_2','primary_3','primary_4','primary_5','primary_6'])->nullable();
+            $table->foreignId('teacher_id')->nullable()
+                    ->constrained('teachers')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+            $table->date('date')->nullable();
+
         });
     }
 

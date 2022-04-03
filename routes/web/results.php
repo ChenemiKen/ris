@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ResultController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Result\SubjectController;
 use App\Http\Controllers\Result\TermController;
+use App\Http\Controllers\Result\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,28 +16,32 @@ use App\Http\Controllers\Result\TermController;
 // Routes
 Route::group(['middleware'=>'auth'], function(){
     // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
-    // Manage results
-    Route::get('/results', [ResultController::class, 'index'])
+    Route::get('/results', [TestController::class, 'index'])
                     ->middleware(['auth'])
                     ->name('results');
-    Route::get('/add-result', [ResultController::class, 'create'])
+                    
+    // Manage tests
+    Route::get('/tests', [TestController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('tests');
+    Route::get('/add-test', [TestController::class, 'create'])
                     ->middleware('auth')
-                    ->name('add-result');
-    Route::post('/create-result', [ResultController::class, 'store'])
+                    ->name('add-test');
+    Route::post('/create-test', [TestController::class, 'store'])
                     ->middleware('auth')
-                    ->name('create-result');
-    Route::get('/edit-result/{result}', [ResultController::class, 'edit'])
+                    ->name('create-test');
+    Route::get('/edit-test/{test}', [TestController::class, 'edit'])
                     ->middleware('auth')
-                    ->name('edit-result');
-    Route::post('/update-result/{result}', [ResultController::class, 'update'])
+                    ->name('edit-test');
+    Route::post('/update-test/{test}', [TestController::class, 'update'])
                     ->middleware('auth')
-                    ->name('update-result');
-    Route::post('/delete-result/{result}', [ResultController::class, 'destroy'])
+                    ->name('update-test');
+    Route::post('/delete-test/{test}', [TestController::class, 'destroy'])
                     ->middleware('auth')
-                    ->name('delete-result');
-    Route::get('/view-result/{result}', [ResultController::class, 'show'])
+                    ->name('delete-test');
+    Route::get('/view-test/{test}', [TestController::class, 'show'])
                     ->middleware('auth')
-                    ->name('view-result');
+                    ->name('view-test');
 
     
 

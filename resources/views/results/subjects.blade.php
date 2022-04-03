@@ -32,7 +32,7 @@
                         @foreach($subjects as $subject)
                             <!-- 1.Single item area start  -->
                             <tr>
-                                <td>{{$loop->count}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$subject->name}}</td>
                                 <td>{{$subject->max_score}}</td>
                                 <td class="text-center">

@@ -29,7 +29,15 @@ class Pupil extends Model
     ];
 
     /**
-     * Get the results for the pupil.
+     * the pupils birthday.
+     */
+    public function birthdays()
+    {
+        return $this->hasMany(Birthday::class);
+    }
+
+    /**
+     * Get the tests for the pupil.
      */
     public function tests()
     {
@@ -37,10 +45,10 @@ class Pupil extends Model
     }
 
     /**
-     * the pupils birthday.
+     * Get the testResults for the pupil.
      */
-    public function birthdays()
+    public function testResults()
     {
-        return $this->hasMany(Birthday::class);
+        return $this->hasMany(TestResult::class);
     }
 }

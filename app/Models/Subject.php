@@ -19,4 +19,12 @@ class Subject extends Model
         'class',
         'max_score',
     ];
+
+    /**
+     * Get the results for the test.
+     */
+    public function testResults()
+    {
+        return $this->hasMany(TestResult::class);
+    }
 }

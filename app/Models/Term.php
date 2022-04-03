@@ -19,4 +19,20 @@ class Term extends Model
         'start_date',
         'end_date',
     ];
+
+     /**
+     * Get the tests for the term.
+     */
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
+
+     /**
+     * Get the testResults for the pupil.
+     */
+    public function testResults()
+    {
+        return $this->hasMany(TestResult::class);
+    }
 }

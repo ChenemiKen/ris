@@ -1,12 +1,12 @@
 @extends('results.base')
-@section('title', 'Results')
-@section('page-heading', 'Results')
+@section('title', 'Test Results')
+@section('page-heading', 'Test Results')
 
 @section('page-content')
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
             @can('is-admin')
-                <a href="{{route('add-result')}}" class="crate_btn_area">+ Add new Result</a>
+                <a href="{{route('add-test')}}" class="crate_btn_area">+ Add Test Result</a>
             @endcan
             <!-- Header area start  -->
             <div class="deshboard_filter_area">
@@ -18,49 +18,53 @@
             </div>
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table">
-                @if (!$results->isEmpty())
+                @if (!$tests->isEmpty())
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Pupil’s Name</th>
-                            <th>Term</th>
+                            <th>S/N</th>
+                            <th>Pupil</th>
+                            <th>Admission No.</th>
+                            <th>Test</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($results as $result)
+                        @foreach($tests as $test)
                             <!-- 1.Single item area start  -->
                             <tr>
-                                <td>{{\Carbon\Carbon::parse($result->date)->format('d M Y')}}</td>
-                                <td>{{$result->pupil->firstname}} {{$result->pupil->lastname}}</td>
-                                <td>{{$result->term}}</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$test->pupil->firstname}} {{$test->pupil->lastname}}</td>
+                                <td>{{$test->pupil->admission_no}}</td>
+                                <td>{{$test->term->name}} Term-@th($test->test_no)</td>
                                 <td class="text-center">
-                                    <a href="{{route('view-result',$result->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
+                                    <a href="{{route('view-test',$test->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
                                     @can('is-admin')
-                                        <a href="{{route('edit-result', $result->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
-                                        <span data-toggle="modal" data-target="#deleteResult{{$result->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
+                                        <a href="{{route('edit-test', $test->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
+                                        <span data-toggle="modal" data-target="#deleteTest{{$test->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
                                     @endcan
                                 </td>
                                 @can('is-admin')
                                     {{-- delete confirmation --}}
                                     <!-- Modal -->
-                                    <div class="modal fade bd-example-modal-sm" id="deleteResult{{$result->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-sm" id="deleteTest{{$test->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete result for</h5>
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Test result for</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>{{$result->pupil->firstname}} {{$result->pupil->lastname}}</p>
-                                                    <p>{{$result->term}}</p>
+                                                    <p>{{$test->pupil->firstname}} {{$test->pupil->lastname}}</p>
+                                                    <p>{{$test->pupil->admission_no}}</p>
+                                                    <p>{{$test->term->name}} Term</p>
+                                                    <p>@th($test->test_no) test</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
-                                                    <form action="{{route('delete-result', $result->id)}}" method="post">
+                                                    <form action="{{route('delete-test', $test->id)}}" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn-style btn-style-danger">delete</button>
                                                     </form>
@@ -79,11 +83,11 @@
             </div>
             <div class="table_pagination_area">
                 <div class="table_pagination_area_left">
-                    <form action="{{route('results')}}" method="get">
+                    <form action="{{route('tests')}}" method="get">
                         <div class="table_pagination_area_left_sub">
                         <p>Rows per page:</p>
                             <select name="per_page" id="per_page" onchange="this.form.submit()">
-                                <option value="15" selected disabled>{{ $results->perpage() }}</option>
+                                <option value="15" selected disabled>{{ $tests->perpage() }}</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
                                 <option value="20">20</option>
@@ -96,9 +100,9 @@
                 </div>
                 <div class="table_pagination_area_right">
                     <ul>
-                        <li>{{$results->firstItem()}}-{{$results->lastItem()}} of {{$results->total()}}</li>
-                        <li><a href="{{$results->previousPageUrl()}}"><i class="fas fa-angle-left"></i></a></li>
-                        <li><a href="{{$results->nextPageUrl()}}"><i class="fas fa-angle-right"></i></a></li>
+                        <li>{{$tests->firstItem()}}-{{$tests->lastItem()}} of {{$tests->total()}}</li>
+                        <li><a href="{{$tests->previousPageUrl()}}"><i class="fas fa-angle-left"></i></a></li>
+                        <li><a href="{{$tests->nextPageUrl()}}"><i class="fas fa-angle-right"></i></a></li>
                     </ul>
                 </div>
             </div>
