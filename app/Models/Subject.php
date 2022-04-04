@@ -27,4 +27,12 @@ class Subject extends Model
     {
         return $this->hasMany(TestResult::class);
     }
+
+    /**
+     * Get the results for the test.
+     */
+    public function termResults()
+    {
+        return $this->hasMany(TermResult::class);
+    }
 }

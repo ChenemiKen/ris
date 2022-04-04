@@ -35,4 +35,20 @@ class Term extends Model
     {
         return $this->hasMany(TestResult::class);
     }
+
+     /**
+     * Get the tests for the term.
+     */
+    public function termResult()
+    {
+        return $this->hasMany(TermReport::class);
+    }
+
+     /**
+     * Get the testResults for the pupil.
+     */
+    public function termResults()
+    {
+        return $this->hasMany(TermResult::class);
+    }
 }

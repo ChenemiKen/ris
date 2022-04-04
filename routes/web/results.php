@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Result\SubjectController;
 use App\Http\Controllers\Result\TermController;
 use App\Http\Controllers\Result\TestController;
+use App\Http\Controllers\Result\TermReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,33 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/view-test/{test}', [TestController::class, 'show'])
                     ->middleware('auth')
                     ->name('view-test');
+    
+    
+    // Manage term reports
+    Route::get('/reports', [TermReportController::class, 'index'])
+                    ->middleware(['auth'])
+                    ->name('reports');
+    Route::get('/add-report', [TermReportController::class, 'create'])
+                    ->middleware('auth')
+                    ->name('add-report');
+    Route::post('/create-report', [TermReportController::class, 'store'])
+                    ->middleware('auth')
+                    ->name('create-report');
+    Route::post('/view-report/{report}', [TermReportController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-report');
+    Route::get('/edit-report/{report}', [TermReportController::class, 'edit'])
+                    ->middleware('auth')
+                    ->name('edit-report');
+    Route::post('/update-report/{report}', [TermReportController::class, 'update'])
+                    ->middleware('auth')
+                    ->name('update-report');
+    Route::post('/delete-report/{report}', [TermReportController::class, 'destroy'])
+                    ->middleware('auth')
+                    ->name('delete-report');
+    Route::get('/view-report/{report}', [TermReportController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-report');
 
     
 

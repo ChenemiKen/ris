@@ -51,4 +51,20 @@ class Pupil extends Model
     {
         return $this->hasMany(TestResult::class);
     }
+
+    /**
+     * Get the tests for the pupil.
+     */
+    public function termReports()
+    {
+        return $this->hasMany(TermReport::class);
+    }
+
+    /**
+     * Get the testResults for the pupil.
+     */
+    public function termResults()
+    {
+        return $this->hasMany(TermResult::class);
+    }
 }
