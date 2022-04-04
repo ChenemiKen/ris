@@ -42,7 +42,29 @@ ol, ul, menu {
 .blue{
 	color: rgb(111, 0, 255) !important;
 }
-
+.text-blue{
+	color: #192F59;
+}
 .red{
 	color: rgb(255, 0, 0) !important;
+}
+.pupil-details-table,.pupil-details-table td{
+	border: none !important;
+}
+
+.pupil-details-table tr {
+	border-bottom: 1px solid rgb(145, 143, 143);
+}
+.pupil-details-table td{
+	padding: 2rem 2rem 1rem 0rem;
+}
+.pupil-result-table th{
+	background-color: #192F59;
+	color: #fff;
+}
+.pupil-result-table td{
+	background-color: #F4F4F4;
+}
+.pupil-result-table th, .pupil-result-table td{
+	padding: 1rem;
 }

@@ -33,4 +33,12 @@ class TestResult extends Model
         return $this->belongsTo(Test::class);
     }
 
+     /**
+     * Get the test that this result belongs to.
+     */
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
 }

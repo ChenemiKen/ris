@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
         <!-- General CSS Files -->
         <link rel="stylesheet" href="{{asset('css/app.min.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+        <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{asset('css/style.css')}}" />
         <link rel="stylesheet" href="{{asset('css/main.css')}}" />

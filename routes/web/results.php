@@ -30,6 +30,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/create-test', [TestController::class, 'store'])
                     ->middleware('auth')
                     ->name('create-test');
+    Route::post('/view-test/{test}', [TestController::class, 'show'])
+                    ->middleware('auth')
+                    ->name('view-test');
     Route::get('/edit-test/{test}', [TestController::class, 'edit'])
                     ->middleware('auth')
                     ->name('edit-test');

@@ -106,7 +106,9 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
-        //
+        return view('results.view-test',[
+            'test' => $test,
+        ]);
     }
 
     /**

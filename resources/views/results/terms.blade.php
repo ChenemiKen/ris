@@ -34,7 +34,7 @@
                         @foreach($terms as $term)
                             <!-- 1.Single item area start  -->
                             <tr>
-                                <td>{{$loop->count}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$term->name}}</td>
                                 <td>{{$term->session}}</td>
                                 <td>{{$term->start_date}}</td>
