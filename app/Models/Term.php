@@ -39,7 +39,7 @@ class Term extends Model
      /**
      * Get the tests for the term.
      */
-    public function termResult()
+    public function termReports()
     {
         return $this->hasMany(TermReport::class);
     }

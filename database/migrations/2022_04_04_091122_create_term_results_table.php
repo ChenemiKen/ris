@@ -35,11 +35,12 @@ return new class extends Migration
             $table->integer('test_1');
             $table->integer('test_2');
             $table->integer('test_3');
+            $table->integer('test_4');
             $table->integer('exam');
             $table->integer('percentage');
             $table->set('grade', ['A','B','C','D','E','F']);
             $table->set('effort_grade', ['A','B','C','D','E','F']);
-            $table->string('teacher_comment');
+            $table->set('remark', ['excellent', 'very_good', 'good', 'fair', 'poor', 'fail']);
         });
     }
 

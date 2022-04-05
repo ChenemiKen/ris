@@ -22,11 +22,12 @@ class TermResult extends Model
         'test_1',
         'test_2',
         'test_3',
+        'test_4',
         'exam',
         'percentage',
         'grade',
         'effort_grade',
-        'teacher_comment',
+        'remark',
     ];
 
          /**

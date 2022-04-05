@@ -44,6 +44,7 @@ return new class extends Migration
             $table->integer('height_end')->nullable();
             $table->integer('weight_start')->nullable();
             $table->integer('weight_end')->nullable();
+            $table->integer('illness_days')->nullable();
             $table->string('nature_of_illness')->nullable();
             $table->set('cleanliness_rating',['A','B','C','D','E','F'])->nullable();
             $table->set('cleanliness_remark', ['excellent', 'very_good', 'good', 'fair', 'poor', 'fail'])->nullable();

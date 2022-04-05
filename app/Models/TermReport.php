@@ -37,6 +37,7 @@ class TermReport extends Model
         'height_end',
         'weight_start',
         'weight_end',
+        'illness_days',
         'nature_of_illness',
         'cleanliness_rating',
         'remarks',
@@ -65,7 +66,7 @@ class TermReport extends Model
     }
 
     /**
-     * Get the term of the test.
+     * Get the term of the report.
      */
     public function term()
     {
@@ -75,8 +76,8 @@ class TermReport extends Model
     /**
      * Get the results for the test.
      */
-    public function testResults()
+    public function termResults()
     {
-        return $this->hasMany(TestResult::class);
+        return $this->hasMany(TermResult::class);
     }
 }

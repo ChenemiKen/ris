@@ -131,7 +131,7 @@
                     @endforeach
                 </div>
                 <hr class="mb-3 mt-5">
-                <h5 class="text-blue mb-4">Attendance</h5>
+                <h5 class="text-blue mb-5">Attendance</h5>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <hr class="mb-3 mt-5">
-                <h5 class="text-blue mb-4">Conduct</h5>
+                <h5 class="text-blue mb-5">Conduct</h5>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
