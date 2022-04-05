@@ -14,7 +14,6 @@
         <!-- General CSS Files -->
         <link rel="stylesheet" href="{{asset('css/app.min.css')}}" />
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
-        <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
         <!-- Template CSS -->
         <link rel="stylesheet" href="{{asset('css/style.css')}}" />
         <link rel="stylesheet" href="{{asset('css/main.css')}}" />
@@ -131,6 +130,7 @@
         <!-- Page Specific JS File -->
         <!-- Template JS File -->
         <script src="{{asset('js/scripts.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
         {{-- <script src="{{asset('js/scripts2.js')}}"></script> --}}
         {{-- <script src="{{asset('js/calendar.js')}}"></script> --}}
         <!-- Start Main JS -->

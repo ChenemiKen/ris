@@ -80,7 +80,7 @@ class TestController extends Controller
             'test_no' => $request->test_no,
             'term_id' => $request->term,
         ]);
-        Log::debug($test);
+        // Log::debug($test);
         foreach($request->subject as $subject){
             $testResult = new TestResult();
             $testResult->test_id = $test->id;
@@ -119,7 +119,16 @@ class TestController extends Controller
      */
     public function edit(Test $test)
     {
-        //
+        $this->authorize('is-admin');
+        $pupils = Pupil::all('id','firstname','lastname');
+        $terms = Term::all('id','name','session');
+        $subjects = Subject::all('id','name');
+        return view('results.edit-test', [
+            'test'=>$test,
+            'pupils'=>$pupils, 
+            'terms'=>$terms, 
+            'subjects'=>$subjects
+        ]);
     }
 
     /**
@@ -131,7 +140,39 @@ class TestController extends Controller
      */
     public function update(UpdateTestRequest $request, Test $test)
     {
-        //
+        $this->authorize('is-admin');
+        $request->validate([
+            'pupil' => ['required', 'integer', 'exists:pupils,id'],
+            'term' => ['required', 'integer', 'exists:terms,id'],
+            'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
+            'result.*.id' => ['required', 'integer', 'exists:test_results,id'],
+            'result.*.name' => ['required', 'string'],
+            'result.*.score' => ['required', 'integer'],
+            'result.*.grade' => ['required', 'string', Rule::in(['A','B','C','D','E','F'])],
+            'result.*.remark' => ['required', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
+        ]);
+        $pupil = Pupil::find($request->pupil);
+        
+        // persist test update
+        $test->update([
+            'pupil_id' => $request->pupil,
+            'term_id' => $request->term,
+            'test_no' => $request->test_no,
+        ]);
+        foreach($request->result as $result){
+            $testResult = TestResult::find($result['id']);
+            $testResult->test_id = $test->id;
+            $testResult->pupil_id = $pupil->id;
+            $testResult->term_id = $request->term;
+            $testResult->score = $result['score'];
+            $testResult->grade = $result['grade'];
+            $testResult->remark = $result['remark'];
+
+            // persist testResult update
+            $testResult->update();
+        }
+
+        return redirect()->route('tests')->with('success','Test Result updated successfully!');
     }
 
     /**
@@ -142,6 +183,8 @@ class TestController extends Controller
      */
     public function destroy(Test $test)
     {
-        //
+        $this->authorize('is-admin');
+        $test->delete();
+        return redirect()->route('tests')->with('success','Test Result deleted successfully!');
     }
 }
