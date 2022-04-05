@@ -79,9 +79,9 @@ class TermReportController extends Controller
             'sport_activities_1' => [ 'integer'],
             'sport_activities_2' => [ 'integer'],
             'sport_activities_3' => [ 'integer'],
-            'other_activities_1' => [ 'integer'],
-            'other_activities_2' => [ 'integer'],
-            'other_activities_3' => [ 'integer'],
+            'other_activities_1' => [ 'string'],
+            'other_activities_2' => [ 'string'],
+            'other_activities_3' => [ 'string'],
             'conduct_good' => [ 'integer'],
             'conduct_bad' => [ 'integer'],
             'conduct_examplary' => [ 'integer'],
@@ -157,13 +157,13 @@ class TermReportController extends Controller
             $termResult->term_id = $request->term;
             $termResult->subject_id = $subject['id'];
             $termResult->test_1 = $subject['test_1'];
-            $termResult->test_2 = $subject['test_1'];
-            $termResult->test_3 = $subject['test_1'];
-            $termResult->test_4 = $subject['test_1'];
-            $termResult->exam = $subject['test_1'];
-            $termResult->percentage = $subject['test_1'];
+            $termResult->test_2 = $subject['test_2'];
+            $termResult->test_3 = $subject['test_2'];
+            $termResult->test_4 = $subject['test_3'];
+            $termResult->exam = $subject['exam'];
+            $termResult->percentage = $subject['mark'];
             $termResult->grade = $subject['grade'];
-            $termResult->effort_grade = $subject['grade'];
+            $termResult->effort_grade = $subject['effort_grade'];
             $termResult->remark = $subject['comment'];
 
             // persist testResult
