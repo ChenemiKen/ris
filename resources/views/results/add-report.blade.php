@@ -205,8 +205,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="conduct_examplary">Examplary Conduct</label>
-                            <input class="form-control" type="number" id="conduct_examplary" name="conduct_examplary" value="{{old("conduct_examplary")}}">
+                            <label for="conduct_exemplary">Examplary Conduct</label>
+                            <input class="form-control" type="number" id="conduct_exemplary" name="conduct_exemplary" value="{{old("conduct_exemplary")}}">
                         </div>
                     </div>
                     <div class="col-md-3">

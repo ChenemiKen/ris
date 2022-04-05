@@ -84,7 +84,7 @@ class TermReportController extends Controller
             'other_activities_3' => [ 'integer'],
             'conduct_good' => [ 'integer'],
             'conduct_bad' => [ 'integer'],
-            'conduct_examplary' => [ 'integer'],
+            'conduct_exemplary' => [ 'integer'],
             'conduct_comment' => [ 'string'],
             'height_start' => [ 'integer'],
             'height_end' => [ 'integer'],
