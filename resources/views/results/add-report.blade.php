@@ -172,19 +172,19 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="other_activities_1">Other Organized Activities</label>
-                            <input class="form-control" type="number" id="other_activities_1" name="other_activities_1" value="{{old("other_activities_1")}}">
+                            <input class="form-control" type="text" id="other_activities_1" name="other_activities_1" value="{{old("other_activities_1")}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="other_activities_2">Other Organized Activities</label>
-                            <input class="form-control" type="number" id="other_activities_2" name="other_activities_2" value="{{old("other_activities_2")}}">
+                            <input class="form-control" type="text" id="other_activities_2" name="other_activities_2" value="{{old("other_activities_2")}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="other_activities_1">Other Organized Activities</label>
-                            <input class="form-control" type="number" id="other_activities_3" name="other_activities_3" value="{{old("other_activities_3")}}">
+                            <input class="form-control" type="text" id="other_activities_3" name="other_activities_3" value="{{old("other_activities_3")}}">
                         </div>
                     </div>
                 </div>
