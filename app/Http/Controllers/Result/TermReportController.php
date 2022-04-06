@@ -73,40 +73,6 @@ class TermReportController extends Controller
             'subject.*.effort_grade' => ['required', 'string', Rule::in(['A','B','C','D','E','F'])],
             'subject.*.comment' => ['required', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
             // I removed required for now to ease testing
-<<<<<<< HEAD
-            'times_school_opened' => [ 'integer'],
-            'times_present' => [ 'integer'],
-            'times_punctual' => ['integer'],
-            'sport_activities_1' => [ 'integer'],
-            'sport_activities_2' => [ 'integer'],
-            'sport_activities_3' => [ 'integer'],
-            'other_activities_1' => [ 'string'],
-            'other_activities_2' => [ 'string'],
-            'other_activities_3' => [ 'string'],
-            'conduct_good' => [ 'integer'],
-            'conduct_bad' => [ 'integer'],
-            'conduct_exemplary' => [ 'integer'],
-            'conduct_comment' => [ 'string'],
-            'height_start' => [ 'integer'],
-            'height_end' => [ 'integer'],
-            'weight_start' => [ 'integer'],
-            'weight_end' => [ 'integer'],
-            'illness_days' => ['integer'],
-            'illness_nature' => ['string'],
-            'cleanliness_rating' => [ 'string', Rule::in(['A','B','C','D','E','F'])],
-            'cleanliness_remark' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
-            'ball_games' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'tracks' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'jumps' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'throws' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'swimming' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'others' => [ 'string', Rule::in(['excellent','very_good','good','fair','poor','fail','nil'])],
-            'organisation'=> [ 'string'],
-            'organisation_office'=> [ 'string'],
-            'organisation_contribution'=> [ 'string'],
-            'teacher_remark'=> [ 'string'],
-            'head_remark'=> [ 'string'],
-=======
             'times_school_opened' => ['nullable','integer'],
             'times_present' => [ 'nullable','integer'],
             'times_punctual' => ['nullable','integer'],
@@ -139,7 +105,6 @@ class TermReportController extends Controller
             'organisation_contribution'=> [ 'nullable','string'],
             'teacher_remark'=> [ 'nullable','string'],
             'head_remark'=> [ 'nullable','string'],
->>>>>>> new-results
         ]);
         $pupil = Pupil::find($request->pupil);
 
