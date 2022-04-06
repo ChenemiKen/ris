@@ -40,7 +40,7 @@ class TermReport extends Model
         'illness_days',
         'nature_of_illness',
         'cleanliness_rating',
-        'remarks',
+        'cleanliness_remark',
         // sports
         'ball_games',
         'tracks',
