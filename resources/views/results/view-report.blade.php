@@ -135,13 +135,11 @@
                         </tr>
                         <tr>
                             <td>Cleanliness Rating</td>
-                            <td>{{$report->cleanliness_rating}}</td>
-                            <td></td>
+                            <td colspan="2">{{$report->cleanliness_rating}}</td>
                         </tr>
                         <tr>
                             <td>Remarks</td>
-                            <td>{{$report->cleanliness_remark}}</td>
-                            <td></td>
+                            <td colspan="2">{{$report->cleanliness_remark}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -198,8 +196,9 @@
                 <table class="pupil-result-table mt-5">
                     <tbody>
                         <tr>
-                            <td>March 7, 2022</td>
-                            <td>
+                            <td class="text-center pt-5"><strong>March 7, 2022</strong></td>
+                            <td class="text-center">
+                                <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>
                                 <p>(Head of School)</p>
                             </td>
