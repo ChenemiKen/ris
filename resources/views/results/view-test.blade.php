@@ -59,8 +59,9 @@
                         <tr>
                             <td><strong>TOTAL(max )</strong></td>
                             <td><strong></strong></td>
-                            <td rowspan="2"><strong>March 7 2022</strong></td>
-                            <td rowspan="2">
+                            <td class="text-center pt-5" rowspan="2"><strong>March 7 2022</strong></td>
+                            <td class="text-center" rowspan="2">
+                                <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>
                                 <p>(Head of School)</p>
                             </td>
