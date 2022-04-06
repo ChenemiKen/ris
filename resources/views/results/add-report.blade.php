@@ -131,7 +131,7 @@
                     @endforeach
                 </div>
                 <hr class="mb-3 mt-5">
-                <h5 class="text-blue mb-5">Attendance</h5>
+                <h5 class="text-blue mb-5">ATTENDANCE</h5>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <hr class="mb-3 mt-5">
-                <h5 class="text-blue mb-5">Conduct</h5>
+                <h5 class="text-blue mb-5">CONDUCT</h5>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
@@ -205,8 +205,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="conduct_examplary">Examplary Conduct</label>
-                            <input class="form-control" type="number" id="conduct_examplary" name="conduct_examplary" value="{{old("conduct_examplary")}}">
+                            <label for="conduct_exemplary">Exemplary Conduct</label>
+                            <input class="form-control" type="number" id="conduct_exemplary" name="conduct_exemplary" value="{{old("conduct_exemplary")}}">
                         </div>
                     </div>
                     <div class="col-md-3">
