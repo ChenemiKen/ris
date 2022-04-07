@@ -6,16 +6,25 @@
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
             @can('is-admin')
-                <a href="{{route('add-subject')}}" class="crate_btn_area">+ Add subject</a>
+                <div class="text-right"><a href="{{route('add-subject')}}" class="crate_btn_area">+ Add subject</a></div>
             @endcan
             <!-- Header area start  -->
-            <div class="deshboard_filter_area">
-                <h4></h4>
-                <ul>
-                    <li><a href="#"><img src="{{asset('img/sort.svg')}}" alt="photos">Sort</a></li>
-                    <li><a href="#"><img src="{{asset('img/filter.svg')}}" alt="photos">Filter</a></li>
-                </ul>
-            </div>
+            <form action={{route('subjects')}} name="filter-form" method="get">
+                @csrf
+                <img src="{{asset('img/filter.svg')}}" width="25px" height="25px" alt="photos">
+                <div class="deshboard_main_top_edit_area_single_item col-md-4" style="display:inline-block">
+                    <select name="class" class="form-control" onchange="this.form.submit()">
+                        <option value="" selected hidden="">Select Class</option>
+                        <option value="all" {{ request('class') == 'all' ? "selected" : "" }}>All Classes</option>
+                        <option value="primary_1" {{ request('class') == 'primary_1' ? "selected" : "" }}>Primary 1</option>
+                        <option value="primary_2" {{ request('class') == 'primary_2' ? "selected" : "" }}>Primary 2</option>
+                        <option value="primary_3" {{ request('class') == 'primary_3' ? "selected" : "" }}>Primary 3</option>
+                        <option value="primary_4" {{ request('class') == 'primary_4' ? "selected" : "" }}>Primary 4</option>
+                        <option value="primary_5" {{ request('class') == 'primary_5' ? "selected" : "" }}>Primary 5</option>
+                        <option value="primary_6" {{ request('class') == 'primary_6' ? "selected" : "" }}>Primary 6</option>
+                    </select>                                
+                </div>
+            </form>
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table">
                 @if (!$subjects->isEmpty())

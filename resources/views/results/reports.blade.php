@@ -6,16 +6,28 @@
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
             @can('is-admin')
-                <a href="{{route('add-report')}}" class="crate_btn_area">+ Add Term Report</a>
+                <div class="text-right">
+                    <a href="{{route('add-report')}}" class="crate_btn_area">+ Add Term Report</a>
+                </div>
             @endcan
             <!-- Header area start  -->
-            <div class="deshboard_filter_area">
-                <h4></h4>
-                <ul>
-                    <li><a href="#"><img src="{{asset('img/sort.svg')}}" alt="photos">Sort</a></li>
-                    <li><a href="#"><img src="{{asset('img/filter.svg')}}" alt="photos">Filter</a></li>
-                </ul>
-            </div>
+            <form action={{route('reports')}} name="filter-form" method="get">
+                @csrf
+                <img src="{{asset('img/filter.svg')}}" width="25px" height="25px" alt="photos">
+                <div class="deshboard_main_top_edit_area_single_item col-md-4" style="display:inline-block">
+                    <div class="row">
+                        <div class="col">
+                            <select name="term" class="form-control" onchange="this.form.submit()">
+                                <option value="" selected hidden="">Select Term</option>
+                                <option value="all" {{ request('term') == 'all' ? "selected" : "" }}>All terms</option>
+                                @foreach($terms as $term)
+                                    <option value={{$term->id}} {{request('term') == $term->id ? "selected" : "" }}>{{$term->name}}{{$term->session}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>                                                            
+                </div>
+            </form>
             <!-- Header area End  -->
             <div class="deshboard_main_edit_task_area table">
                 @if (!$reports->isEmpty())

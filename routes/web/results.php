@@ -86,6 +86,9 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/subjects', [SubjectController::class, 'index'])
                         ->middleware(['auth'])
                         ->name('subjects');
+        Route::post('/subjects', [SubjectController::class, 'index'])
+                        ->middleware(['auth'])
+                        ->name('subjects');
         Route::get('/add-subject', [SubjectController::class, 'create'])
                         ->middleware('auth')
                         ->name('add-subject');

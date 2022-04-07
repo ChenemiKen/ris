@@ -12,6 +12,7 @@ use App\Http\Requests\Result\StoreTermReportRequest;
 use App\Http\Requests\Result\UpdateTermReportRequest;
 use App\Models\TermResult;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TermReportController extends Controller
 {
@@ -24,9 +25,17 @@ class TermReportController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
+        $terms = Term::all('id','name','session');
+        $filter = [];
+        if(isset($request->term) && (!($request->term == 'all'))){
+            $filter['term_id']= $request->term;    
+        }
+        Log::debug($request->term);
+        Log::debug($filter);
         // if(auth()->user()->is_admin){
             return view('results.reports', [
-                'reports' => TermReport::with('pupil','term')->paginate(session('per_page'))
+                'reports' => TermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
             ]);
         // }else{
         //     return view('results.tests', [

@@ -25,9 +25,18 @@ class TestController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
+        $terms = Term::all('id','name','session');
+        $filter = [];
+        if(isset($request->term) && (!($request->term == 'all'))){
+            $filter['term_id']= $request->term;    
+        }
+        if(isset($request->test) && (!($request->test == 'all'))){
+            $filter['test_no']= $request->test;    
+        }
         // if(auth()->user()->is_admin){
             return view('results.tests', [
-                'tests' => Test::with('pupil', 'term')->paginate(session('per_page'))
+                'tests' => Test::with('pupil','term')->where($filter)->paginate(session('per_page')),
+                'terms' => $terms,
             ]);
         // }else{
         //     return view('results.tests', [

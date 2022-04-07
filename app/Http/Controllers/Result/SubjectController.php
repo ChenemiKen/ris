@@ -8,6 +8,7 @@ use App\Http\Requests\Result\StoreSubjectRequest;
 use App\Http\Requests\Result\UpdateSubjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class SubjectController extends Controller
@@ -21,9 +22,15 @@ class SubjectController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
+        $filter = [];
+        if(isset($request->class) && (!($request->class == 'all'))){
+            $filter['class'] = $request->class;    
+        }
+        Log::debug($request->class);
+        Log::debug($filter);
         return view('results/subjects', [
-            'subjects' => DB::table('subjects')->paginate(session('per_page'))
-        ]); 
+            'subjects' => DB::table('subjects')->where($filter)->paginate(session('per_page'))
+        ]);     
     }
 
     /**

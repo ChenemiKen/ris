@@ -134,7 +134,7 @@
         {{-- <script src="{{asset('js/scripts2.js')}}"></script> --}}
         {{-- <script src="{{asset('js/calendar.js')}}"></script> --}}
         <!-- Start Main JS -->
-        {{-- <script src="{{asset('js/main.js')}}"></script> --}}
+        <script src="{{asset('js/custom.js')}}"></script>
     </body>
     <!-- blank.html  21 Nov 2019 03:54:41 GMT -->
 </html>
