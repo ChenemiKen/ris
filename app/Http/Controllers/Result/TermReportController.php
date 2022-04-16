@@ -30,18 +30,26 @@ class TermReportController extends Controller
         if(isset($request->term) && (!($request->term == 'all'))){
             $filter['term_id']= $request->term;    
         }
-        Log::debug($request->term);
-        Log::debug($filter);
-        // if(auth()->user()->is_admin){
+
+        if(auth()->user()->is_admin){
             return view('results.reports', [
                 'reports' => TermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
-        // }else{
-        //     return view('results.tests', [
-        //         'tests' => Test::where('pupil_id', auth()->user()->id)->paginate(session('per_page'))
-        //     ]);
-        // }
+        }else{
+            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            if(!is_null($ward)){
+                return view('results.reports', [
+                    'reports' => TermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+                    'terms' => $terms
+                ]);
+            }else{
+                return view('results.reports', [
+                    'reports' => TermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
+                    'terms' => $terms
+                ]); 
+            }   
+        }
     }
 
     /**
@@ -190,9 +198,15 @@ class TermReportController extends Controller
      */
     public function show(TermReport $report)
     {
-        return view('results.view-report',[
-            'report' => $report,
-        ]);
+        if(auth()->user()->is_admin){
+            return view('results.view-report',[
+                'report' => $report,
+            ]);
+        }else{
+            return view('results.parent-report-view',[
+                'report' => $report,
+            ]);
+        }
     }
 
     /**

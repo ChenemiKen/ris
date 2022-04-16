@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{asset('css/app.min.css')}}" />
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
         <!-- Template CSS -->
-        <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+        {{-- <link rel="stylesheet" href="{{asset('css/style.css')}}" /> --}}
         <link rel="stylesheet" href="{{asset('css/main.css')}}" />
         <link rel="stylesheet" href="{{asset('css/components.css')}}" />
         <!-- Custom style CSS -->
@@ -32,7 +32,7 @@
                 <!--============================== Start Dashboard (Edit) ==============================-->
                 <div class="navbar-bg"></div>
                 {{-- navbar --}}
-                <nav class="navbar navbar-expand-lg main-navbar sticky mu_mes_not_pro_dashboard">
+                {{-- <nav class="navbar navbar-expand-lg main-navbar sticky mu_mes_not_pro_dashboard">
                     <div class="form-inline mr-auto">
                         <ul class="navbar-nav mr-3">
                             <li>
@@ -68,55 +68,12 @@
                             </div>
                         </li>
                     </ul>
-                </nav>
+                </nav> --}}
                 {{-- end navbar --}}
-                {{-- sidebar --}}
-                @section('sidebar')
-                <div class="main-sidebar sidebar-style-2">
-                    <aside id="sidebar-wrapper">
-                        <div class="sidebar-brand">
-                            <a href="index.html">
-                                <span class="logo-name"><img src="{{asset('img/logo.png')}}" /></span>
-                            </a>
-                        </div>
-                        <ul class="sidebar-menu">
-                            <li class="dropdown">
-                                <a class="nav-link" href="{{route('results')}}"><span><strong>Results</strong></span></a>
-                            </li>
-                            @can('is-admin')
-                                <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('tests')}}"><span>Manage Test Results</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Manage Term Reports</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
-                                </li>
-                            @endcan
-                            @can('is-parent')
-                                <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('tests')}}"><span>Test Results</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Term Reports</span></a>
-                                </li>
-                            @endcan
-                            <li class="dropdown">
-                                <a class="nav-link" href="{{route('home')}}"><span><strong>Back to Dashboard</strong></span></a>
-                            </li>
-                        </ul>
-                    </aside>
-                </div>
-                @show
-                {{-- end sidebar --}}
                 <!--============================== End Dashboard (Edit) ==============================-->
                 
                 <!--============================== Start Main Content ==============================-->
-                <div class="main-content">
+                <div class="main-content container my-5 py-5">
                     <section class="section">
                         <div class="section-body"> 
                             {{-- Session messages --}}

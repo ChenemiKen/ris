@@ -33,16 +33,26 @@ class TestController extends Controller
         if(isset($request->test) && (!($request->test == 'all'))){
             $filter['test_no']= $request->test;    
         }
-        // if(auth()->user()->is_admin){
+        if(auth()->user()->is_admin){
             return view('results.tests', [
                 'tests' => Test::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms,
             ]);
-        // }else{
-        //     return view('results.tests', [
-        //         'tests' => Test::where('pupil_id', auth()->user()->id)->paginate(session('per_page'))
-        //     ]);
-        // }
+        }else{
+            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            if(!is_null($ward)){
+                return view('results.tests', [
+                    'tests' => Test::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+                    'terms' => $terms,
+                ]);
+            }else{
+                return view('results.tests', [
+                    'tests' => Test::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
+                    'terms' => $terms,
+                ]); 
+            }
+            
+        }
     }
 
     /**
@@ -115,9 +125,15 @@ class TestController extends Controller
      */
     public function show(Test $test)
     {
-        return view('results.view-test',[
-            'test' => $test,
-        ]);
+        if(auth()->user()->is_admin){
+            return view('results.view-test',[
+                'test' => $test,
+            ]);
+        }else{
+            return view('results.parent-test-view',[
+                'test' => $test,
+            ]);
+        }
     }
 
     /**
