@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
@@ -51,7 +52,7 @@ class TeacherController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'class' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'gender' => ['required', 'string'],
             'phone' => ['required','numeric'],
             'email' => ['required','string','email'],
@@ -114,7 +115,7 @@ class TeacherController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'class' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'gender' => ['required', 'string'],
             'phone' => ['required','numeric'],
             'email' => ['required','string','email'],

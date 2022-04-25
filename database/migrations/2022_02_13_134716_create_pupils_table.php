@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('class');
+            $table->set('class', ['beacon','lower_primary','upper_primary','nursery','playgroup']);
             $table->date('dob');
             $table->integer('age');
             $table->string('gender');

@@ -54,7 +54,7 @@ class PupilController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'class' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'DOB' => ['required', 'date'],
             'age' => ['required', 'numeric'],
             'gender' => ['required', 'string'],
@@ -126,7 +126,7 @@ class PupilController extends Controller
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'class' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'DOB' => ['required', 'date'],
             'age' => ['required', 'numeric'],
             'gender' => ['required', 'string'],

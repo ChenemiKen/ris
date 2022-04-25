@@ -34,12 +34,11 @@
                             <label for="class"> Class</label>
                             <select name="class" class="form-control" id="class" required>
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden="">Select Class</option>
-                                <option value="Primary 1" {{ old('class') == "Prim 1" ? "selected" : "" }}>Primary 1</option>
-                                <option value="Primary 2" {{ old('class') == "Prim 2" ? "selected" : "" }}>Primary 2</option>
-                                <option value="Primary 3" {{ old('class') == "Prim 3" ? "selected" : "" }}>Primary 3</option>
-                                <option value="Primary 4" {{ old('class') == "Prim 4" ? "selected" : "" }}>Primary 4</option>
-                                <option value="Primary 5" {{ old('class') == "Prim 5" ? "selected" : "" }}>Primary 5</option>
-                                <option value="Primary 6" {{ old('class') == "Prim 6" ? "selected" : "" }}>Primary 6</option>
+                                <option value="beacon" {{ old('class') == "beacon" ? "selected" : "" }}>Beacon</option>
+                                <option value="lower_primary" {{ old('class') == "lower_primary" ? "selected" : "" }}>Lower Primary</option>
+                                <option value="upper_primary" {{ old('class') == "upper_primary" ? "selected" : "" }}>Upper Primary</option>
+                                <option value="nursery" {{ old('class') == "nursery" ? "selected" : "" }}>Nursery</option>
+                                <option value="playgroup" {{ old('class') == "playgroup" ? "selected" : "" }}>Playgroup</option>
                             </select>
                         </div>
                     </div>

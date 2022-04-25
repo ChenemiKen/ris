@@ -34,12 +34,11 @@
                             <label for="class"> Class</label>
                             <select name="class" class="form-control" id="class" required>
                                 <option value="" {{ old('class',  $pupil->class) == "" ? "selected" : "" }} hidden="">Select Class</option>
-                                <option value="Primary 1" {{ old('class',  $pupil->class) == "Primary 1" ? "selected" : "" }}>Primary 1</option>
-                                <option value="Primary 2" {{ old('class',  $pupil->class) == "Primary 2" ? "selected" : "" }}>Primary 2</option>
-                                <option value="Primary 3" {{ old('class',  $pupil->class) == "Primary 3" ? "selected" : "" }}>Primary 3</option>
-                                <option value="Primary 4" {{ old('class',  $pupil->class) == "Primary 4" ? "selected" : "" }}>Primary 4</option>
-                                <option value="Primary 5" {{ old('class',  $pupil->class) == "Primary 5" ? "selected" : "" }}>Primary 5</option>
-                                <option value="Primary 6" {{ old('class',  $pupil->class) == "Primary 6" ? "selected" : "" }}>Primary 6</option>
+                                <option value="beacon" {{ old('class',  $pupil->class) == "beacon" ? "selected" : "" }}>Beacon</option>
+                                <option value="lower_primary" {{ old('class',  $pupil->class) == "lower_primary" ? "selected" : "" }}>Lower Primary</option>
+                                <option value="upper_primary" {{ old('class',  $pupil->class) == "upper_primary" ? "selected" : "" }}>Upper Primary</option>
+                                <option value="nursery" {{ old('class',  $pupil->class) == "nursery" ? "selected" : "" }}>Nursery</option>
+                                <option value="playgroup" {{ old('class',  $pupil->class) == "playgroup" ? "selected" : "" }}>Playgroup</option>
                             </select>
                         </div>
                     </div>
