@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Observers\UserObserver;
 
 class User extends Authenticatable
 {
@@ -21,9 +22,8 @@ class User extends Authenticatable
         'username',
         'fullname',
         'email',
-        'phone',
-        'address',
-        'is_admin',
+        'type_id',
+        'type_type',
         'password',
         'photo',
     ];
@@ -46,6 +46,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function type(){
+        return $this->morphTo();
+    }
+
+    public static function boot(){
+        parent::boot();
+        User::observe(new UserObserver());
+    }
+
+    public function teacher(){
+        return $this->hasOne(Teacher::class, 'user_id');
+    }
+    public function pupil_parent(){
+        return $this->hasOne(PupilParent::class, 'user_id');
+    }
+    public function admin(){
+        return $this->hasOne(Admin::class, 'user_id');
+    }
 
     /**
      * Get the messages for the user.

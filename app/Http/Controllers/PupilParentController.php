@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 
-// use App\Http\Requests\StorePupilParentRequest;
-// use App\Http\Requests\UpdatePupilParentRequest;
+use App\Http\Requests\StorePupilParentRequest;
+use App\Http\Requests\UpdatePupilParentRequest;
 use App\Models\User;
+use App\Models\PupilParent;
 // use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -63,13 +64,19 @@ class PupilParentController extends Controller
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'fullname' => $request->fullname,
-            'username' => $request->admission_no,
-            'email' => $request->email,
+        $pupil_parent = PupilParent::create([
+            'admission_no' => $request->addmission_no,
             'phone' => $request->phone,
             'address' => $request->address,
+        ]);
+
+        $user = User::create([
+            'fullname' => $request->lastname.' '.$request->firstname,
+            'username' => $request->admission_no,
+            'email' => $request->email,
             'password' => Hash::make($request->admission_no),
+            'type_id' => $pupil_parent->id,
+            'type_type' => get_class($pupil_parent),
         ]);
 
         event(new Registered($user));

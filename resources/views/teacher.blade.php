@@ -32,12 +32,12 @@
                         <!-- 1.Single item area start  -->
                         @foreach ($teachers as $teacher)
                             <tr>
-                                <td class="amdin_pay_img"><img src="{{asset('uploads/teachers/'.$teacher->photo)}}" alt=""></td>
+                                <td class="amdin_pay_img"><img src="{{asset('uploads/teachers/'.$teacher->user->photo)}}" alt=""></td>
                                 <td>{{$teacher->firstname}} {{$teacher->lastname}}</td>
                                 <td>{{$teacher->class}}</td>
                                 <td>{{$teacher->gender}}</td>
                                 <td>{{$teacher->phone}}</td>
-                                <td>{{$teacher->email}}</td>
+                                <td>{{$teacher->user->email}}</td>
                                 @can('is-admin')
                                     <td class="text-center">
                                         <a href="{{route('edit-teacher', $teacher->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>

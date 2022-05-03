@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('skill_categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->set('class',['beacon','lower_primary','upper_primary','nursery','playgroup']);
-            $table->string('name')->unique();
-            $table->integer('max_score');
+            $table->string('name');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('skill_categories');
     }
 };

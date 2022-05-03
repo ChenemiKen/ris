@@ -20,7 +20,7 @@ return new class extends Migration
             $table->set('class', ['beacon','lower_primary','upper_primary','nursery','playgroup']);
             $table->date('dob');
             $table->integer('age');
-            $table->string('gender');
+            $table->set('gender', ['M','F']);
             $table->string('parent')->nullable();
             $table->string('parent_phone');
             $table->string('parent_email');

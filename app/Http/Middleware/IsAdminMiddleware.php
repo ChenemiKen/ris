@@ -16,7 +16,7 @@ class IsAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || !auth()->user()->is_admin){
+        if(!auth()->check() || !(auth()->user()->type_type == "App\\Models\\Admin")){
             abort(code:403);
         }
         return $next($request);

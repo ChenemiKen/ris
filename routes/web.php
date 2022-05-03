@@ -24,9 +24,16 @@ use Illuminate\Support\Facades\Auth;
  
 require __DIR__.'/auth.php';
 require __DIR__.'/web/results.php';
+require __DIR__.'/web/results/nursery.php';
 
 Route::get('/', function(){
-    $home = Auth::user()->is_admin ? RouteServiceProvider::ADMIN_HOME : RouteServiceProvider::PARENT_HOME ;
+    if(Auth::user()->type_type == "App\\Models\\Admin"){
+        $home = RouteServiceProvider::ADMIN_HOME;
+    }elseif( Auth::user()->type_type == "App\\Models\\Teacher"){
+        $home = RouteServiceProvider::PARENT_HOME;
+    }elseif( Auth::user()->type_type == "App\\Models\\PupilParent"){
+        $home = RouteServiceProvider::PARENT_HOME;
+    }
     return redirect()->intended($home);
 }) ->middleware('auth')
     ->name('home');

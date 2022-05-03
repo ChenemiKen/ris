@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Models\User;
 use App\Http\Requests\StoreTeacherRequest;
 use App\Http\Requests\UpdateTeacherRequest;
 use App\Providers\RouteServiceProvider;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class TeacherController extends Controller
 {
@@ -25,7 +28,7 @@ class TeacherController extends Controller
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('teacher', [
-            'teachers' => DB::table('teachers')->paginate(session('per_page'))
+            'teachers' => Teacher::with('user')->paginate(session('per_page'))
         ]);
     }
 
@@ -53,7 +56,7 @@ class TeacherController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
-            'gender' => ['required', 'string'],
+            'gender' => ['required', RULE::in(['M','F'])],
             'phone' => ['required','numeric'],
             'email' => ['required','string','email'],
             'photo' => ['required','image','mimes:jpeg,png,jpg,gif,svg'],
@@ -63,15 +66,30 @@ class TeacherController extends Controller
         $request->photo->storeAs('teachers', $photoName, 'public');
 
         // persist
+        $user = User::create([
+            'fullname' => $request->lastname.' '.$request->firstname,
+            'username' => $request->lastname.$request->firstname,
+            'email' => $request->email,
+            'photo' => $photoName,
+            'password' => Hash::make('12345678'),
+           
+        ]);
+
         $teacher = Teacher::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'class' => $request->class,
             'gender' => $request->gender,
             'phone' => $request->phone,
-            'email' => $request->email,
-            'photo' => $photoName,
+            'user_id'=> $user->id,
         ]);
+
+        $user->update([
+            'type_id' => $teacher->id,
+            'type_type' => get_class($teacher),
+        ]);
+
+        event(new Registered($user));
 
         return redirect()->route('teachers')->with('success','Teacher added successfully!');
     }

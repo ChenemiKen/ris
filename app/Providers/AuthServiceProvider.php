@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -27,10 +28,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('is-admin', function(User $user){
-            return $user->is_admin;
+            return (($user->type_type) == "App\\Models\\Admin");
         });
         Gate::define('is-parent', function(User $user){
-            return !($user->is_admin);
+            return (($user->type_type) == "App\\Models\\PupilParent");
+        });
+        Gate::define('is-teacher', function(User $user){
+            return (($user->type_type) == "App\\Models\\Teacher");
         });
 
     }

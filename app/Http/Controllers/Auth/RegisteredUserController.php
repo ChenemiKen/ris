@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use phpDocumentor\Reflection\PseudoTypes\True_;
+
+use function PHPSTORM_META\type;
 
 class RegisteredUserController extends Controller
 {
@@ -39,15 +42,25 @@ class RegisteredUserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ]); 
 
         $user = User::create([
             'fullname' => $request->fullname,
             'username' => $request->username,
             'email' => $request->email,
-            'is_admin' =>True,
             'password' => Hash::make($request->password),
         ]);
+
+        $admin = Admin::create([
+            'username'=>$request->username,
+            'email' =>$request->email,
+            'user_id' => $user->id
+        ]);
+
+        $user-> update([
+            'type_id' => $admin->id,
+            'type_type' => get_class($admin),
+        ]);     
 
         event(new Registered($user));
 

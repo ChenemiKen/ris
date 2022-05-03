@@ -2,25 +2,35 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Result\SubjectController;
+use App\Http\Controllers\Result\SkillController;
+use App\Http\Controllers\Result\SkillCategoryController;
 use App\Http\Controllers\Result\TermController;
 use App\Http\Controllers\Result\TestController;
 use App\Http\Controllers\Result\TermReportController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
 | Result Routes
 |--------------------------------------------------------------------------
-| Here is where I register web routes pertaining to the results section of the application
+| Here I register web routes pertaining to the entire results section of the application
 |
 */
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){
     // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
-    Route::get('/results', [TestController::class, 'index'])
-                    ->middleware(['auth'])
-                    ->name('results');
-                    
+    Route::get('/results', function(){
+        if(Auth::user()->type_type == 'App\\Models\\Admin'){
+            return redirect()->route('result-directory');
+        }elseif(Auth::user()->type_type == 'App\\Models\\Teacher'){
+
+        }else{
+
+        }
+    })->middleware(['auth'])
+        ->name('results');
+                  
     // Manage tests
     Route::get('/tests', [TestController::class, 'index'])
                     ->middleware(['auth'])
@@ -104,8 +114,38 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete-subject/{subject}', [SubjectController::class, 'destroy'])
                         ->middleware('auth')
                         ->name('delete-subject');
+        
+        
+        // Manage subjects
+        Route::get('/skills', [SkillController::class, 'index'])
+                        ->middleware(['auth'])
+                        ->name('skills');
+        Route::post('/skills', [SkillController::class, 'index'])
+                        ->middleware(['auth'])
+                        ->name('skills');
+        Route::get('/add-skill', [SkillController::class, 'create'])
+                        ->middleware('auth')
+                        ->name('add-skill');
+        Route::post('/create-skill', [SkillController::class, 'store'])
+                        ->middleware('auth')
+                        ->name('create-skill');
+        Route::get('/edit-skill/{skill}', [SkillController::class, 'edit'])
+                        ->middleware('auth')
+                        ->name('edit-skill');
+        Route::post('/update-skill/{skill}', [SkillController::class, 'update'])
+                        ->middleware('auth')
+                        ->name('update-skill');
+        Route::post('/delete-skill/{skill}', [SkillController::class, 'destroy'])
+                        ->middleware('auth')
+                        ->name('delete-skill');
        
+
+        // Manage skill category
+        Route::post('/create-skill-category', [SkillCategoryController::class, 'store'])
+                        ->middleware('auth')
+                        ->name('create-skill-category');
        
+
         // Manage Terms
         Route::get('/terms', [TermController::class, 'index'])
                         ->middleware(['auth'])
@@ -125,6 +165,13 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete-term/{term}', [TermController::class, 'destroy'])
                         ->middleware('auth')
                         ->name('delete-term');
+
+        
+        //intermediate result router page for admins  
+        Route::get('/result-directory', function(){
+            return view('results.result-directory');
+        })->middleware('auth')
+            ->name('result-directory');
         
     });
 

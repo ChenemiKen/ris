@@ -22,12 +22,11 @@
                             <label for="class">Class</label>
                             <select name="class" class="form-control" id="class" required>
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden=""> </option>
-                                <option value="primary_1" {{ old('class') == 'primary_1' ? "selected" : "" }}>Primary 1</option>                         
-                                <option value="primary_2" {{ old('class') == 'primary_2' ? "selected" : "" }}>Primary 2</option>                         
-                                <option value="primary_3" {{ old('class') == 'primary_3' ? "selected" : "" }}>Primary 3</option>                         
-                                <option value="primary_4" {{ old('class') == 'primary_4' ? "selected" : "" }}>Primary 4</option>                         
-                                <option value="primary_5" {{ old('class') == 'primary_5' ? "selected" : "" }}>Primary 5</option>                         
-                                <option value="primary_6" {{ old('class') == 'primary_6' ? "selected" : "" }}>Primary 6</option>                         
+                                <option value="nursery" {{ old('class') == 'nursery' ? "selected" : "" }}>Nursery</option>                         
+                                <option value="lower_primary" {{ old('class') == 'lower_primary' ? "selected" : "" }}>Lower primary</option>                         
+                                <option value="upper_primary" {{ old('class') == 'upper_primary' ? "selected" : "" }}>Upper primary</option>                         
+                                <option value="beacon" {{ old('class') == 'primary_4' ? "beacon" : "" }}>Beacon</option>                         
+                                <option value="playgroup" {{ old('class') == 'primary_5' ? "playgroup" : "" }}>Playgroup</option>                         
                             </select>
                         </div>
                     </div>

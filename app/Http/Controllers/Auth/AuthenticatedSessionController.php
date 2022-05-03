@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -31,9 +32,16 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        
-        $home = Auth::user()->is_admin ? RouteServiceProvider::ADMIN_HOME : RouteServiceProvider::PARENT_HOME ;
-        return redirect()->intended($home);
+
+        // if(Auth::user()->type_type == "App\\Models\\Admin"){
+        //     $home = RouteServiceProvider::ADMIN_HOME;
+        // }elseif( Auth::user()->type_type == "App\\Models\\Teacher"){
+        //     $home = RouteServiceProvider::PARENT_HOME;
+        // }elseif( Auth::user()->type_type == "App\\Models\\PupilParent"){
+        //     $home = RouteServiceProvider::PARENT_HOME;
+        // }
+
+        return redirect()->intended(route('home'));
     }
 
     /**

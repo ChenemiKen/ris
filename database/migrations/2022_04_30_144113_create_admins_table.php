@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->set('class', ['beacon','lower_primary','upper_primary','nursery','playgroup']);
-            $table->set('gender',['M','F']);
-            $table->string('phone');
+            $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->foreignId('user_id')
                     ->constrained('users')
                     ->onUpdate('cascade')
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('admins');
     }
 };
