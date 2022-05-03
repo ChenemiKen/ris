@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Result;
 use App\Http\Controllers\Controller;
 
-use App\Models\Skill;
+use App\Models\Result\Skill;
 use App\Http\Requests\Result\StoreSkillRequest;
 use App\Http\Requests\Result\UpdateSkillRequest;
 use App\Models\Result\SkillCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class SkillController extends Controller
 {
@@ -27,7 +28,7 @@ class SkillController extends Controller
         }
         // Log::debug($request->class);
         return view('results/skills', [
-            'skills' => DB::table('skills')->where($filter)->paginate(session('per_page'))
+            'skills' => Skill::with('skill_category')->where($filter)->paginate(session('per_page'))
         ]); 
     }
 
@@ -51,7 +52,21 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request)
     {
-        //
+        $this->authorize('is-admin');
+        $request->validate([
+            'name' => ['required', 'string', 'unique:skill_categories'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'category' => ['required', 'numeric', 'exists:skill_categories,id'],
+        ]);
+
+        // persist
+        $skill = Skill::create([
+            'name' => $request->name,
+            'class'=>$request->class,
+            'skill_category_id'=>$request->category,
+        ]);
+
+        return redirect()->route('skills')->with('success','new skill added successfully!');
     }
 
     /**
@@ -73,7 +88,13 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
-        //
+        $this->authorize('is-admin');
+        $skill = Skill::find($skill)->first();
+        $categories = SkillCategory::all('id','name');
+        return view('results.edit-skill',[
+            'skill' => $skill,
+            'categories'=> $categories,
+        ]);
     }
 
     /**
@@ -85,7 +106,21 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        //
+        $this->authorize('is-admin');
+        $request->validate([
+            'name' => ['required', 'string', 'unique:skill_categories'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'category' => ['required', 'numeric', 'exists:skill_categories,id'],
+        ]);
+ 
+        // persist
+        $skill->update([
+            'name' => $request->name,
+            'class'=>$request->class,
+            'skill_category_id'=>$request->category,
+        ]);
+ 
+        return redirect()->route('skills')->with('success','Skill updated successfully!');
     }
 
     /**
@@ -96,6 +131,8 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        //
+        $this->authorize('is-admin');
+        $skill->delete();
+        return redirect()->route('skills')->with('success','Skill deleted successfully!');
     }
 }

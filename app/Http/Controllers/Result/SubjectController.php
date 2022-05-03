@@ -55,7 +55,7 @@ class SubjectController extends Controller
         $this->authorize('is-admin');
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:subjects'],
-            'class' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'max_score' => ['required', 'numeric'],
         ]);
 

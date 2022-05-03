@@ -33,6 +33,7 @@
                             <th>S/N</th>
                             <th>Skills</th>
                             <th>Category</th>
+                            <th>Class</th>
                             <th><strong>Action</strong></th>
                         </tr>
                     </thead>
@@ -42,7 +43,8 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$skill->name}}</td>
-                                <td>{{$skill->category}}</td>
+                                <td>{{$skill->skill_category->name}}</td>
+                                <td>{{$skill->class}}</td>
                                 <td class="text-center">
                                     @can('is-admin')
                                         <a href="{{route('edit-skill', $skill->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
@@ -63,11 +65,11 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>{{$skill->name}}</p>
-                                                    <p><strong>Category: </strong>{{$skill->category}}</p>
+                                                    <p><strong>Category: </strong>{{$skill->skill_category->name}}</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
-                                                    <form action="{{route('delete-subject', $skill->id)}}" method="post">
+                                                    <form action="{{route('delete-skill', $skill->id)}}" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn-style btn-style-danger">delete</button>
                                                     </form>

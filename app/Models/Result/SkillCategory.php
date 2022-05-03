@@ -17,4 +17,12 @@ class SkillCategory extends Model
         'name',
     ];
 
+    /**
+     * Get the skills in the category.
+     */
+    public function skills()
+    {
+        return $this->hasMany(Skill::class);
+    }
+
 }

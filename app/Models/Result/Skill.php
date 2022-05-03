@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Result;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,5 +18,13 @@ class Skill extends Model
         'class',
         'skill_category_id',
     ];
+
+    /**
+     * Get the category of the skill.
+     */
+    public function skill_category()
+    {
+        return $this->belongsTo(SkillCategory::class);
+    }
 
 }
