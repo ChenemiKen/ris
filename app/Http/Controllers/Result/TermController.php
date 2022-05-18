@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Result;
 use App\Http\Controllers\Controller;
 
-use App\Models\Term;
+use App\Models\Result\Term;
 use App\Http\Requests\Result\StoreTermRequest;
 use App\Http\Requests\Result\UpdateTermRequest;
 use Illuminate\Http\Request;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Result;
 use App\Http\Controllers\Controller;
 
-use App\Models\Subject;
+use App\Models\Result\Subject;
 use App\Http\Requests\Result\StoreSubjectRequest;
 use App\Http\Requests\Result\UpdateSubjectRequest;
 use Illuminate\Http\Request;
@@ -72,7 +72,7 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Result\Subject  $subject
      * @return \Illuminate\Http\Response
      */
     public function show(Subject $subject)
@@ -83,7 +83,7 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Result\Subject  $subject
      * @return \Illuminate\Http\Response
      */
     public function edit(Subject $subject)
@@ -99,7 +99,7 @@ class SubjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateSubjectRequest  $request
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Result\Subject  $subject
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateSubjectRequest $request, Subject $subject)
@@ -124,7 +124,7 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subject  $subject
+     * @param  \App\Models\Result\Subject  $subject
      * @return \Illuminate\Http\Response
      */
     public function destroy(Subject $subject)

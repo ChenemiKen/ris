@@ -88,7 +88,7 @@
                                     <a class="nav-link active" href="{{route('tests')}}"><span>Primary results</span></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Nursery results</span></a>
+                                    <a class="nav-link" href="{{route('nursery-reports')}}"><span>Nursery results</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('reports')}}"><span>Playgroup results</span></a>

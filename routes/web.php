@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 require __DIR__.'/auth.php';
 require __DIR__.'/web/results.php';
 require __DIR__.'/web/results/nursery.php';
+require __DIR__.'/web/results/primary.php';
 
 Route::get('/', function(){
     if(Auth::user()->type_type == "App\\Models\\Admin"){

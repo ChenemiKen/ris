@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use App\Models\Result\Nursery\NurseryTermReport;
+use App\Models\Result\Primary;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -47,17 +49,26 @@ class Pupil extends Model
     /**
      * Get the testResults for the pupil.
      */
-    public function testResults()
+    public function primaryTestResults()
     {
-        return $this->hasMany(TestResult::class);
+        return $this->hasMany(PrimaryTestResult::class);
     }
 
     /**
      * Get the tests for the pupil.
      */
-    public function termReports()
+    public function primaryTermReports()
     {
-        return $this->hasMany(TermReport::class);
+        return $this->hasMany(PrimaryTermReport::class);
+    }
+
+
+    /**
+     * Get the tests for the pupil.
+     */
+    public function nurseryTermReports()
+    {
+        return $this->hasMany(NurseryTermReport::class);
     }
 
     /**

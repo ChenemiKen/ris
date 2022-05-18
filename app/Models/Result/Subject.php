@@ -2,13 +2,13 @@
 
 namespace App\Models\Result;
 
-use App\Models\Result\Nursery\NurserySkillResult;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SkillCategory extends Model
+class Subject extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -16,22 +16,23 @@ class SkillCategory extends Model
      */
     protected $fillable = [
         'name',
+        'class',
+        'max_score',
     ];
 
     /**
-     * Get the skills in the category.
+     * Get the results for the test.
      */
-    public function skills()
+    public function testResults()
     {
-        return $this->hasMany(Skill::class);
+        return $this->hasMany(TestResult::class);
     }
 
     /**
-     * Get the skills in the category.
+     * Get the results for the test.
      */
-    public function nurserySkillResults()
+    public function termResults()
     {
-        return $this->hasMany(NurserySkillResult::class);
+        return $this->hasMany(TermResult::class);
     }
-
 }
