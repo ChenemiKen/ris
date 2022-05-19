@@ -1,100 +1,72 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Result\TestController;
-use App\Http\Controllers\Result\TermReportController;
+use App\Http\Controllers\Result\Primary\PrimaryTestController;
+use App\Http\Controllers\Result\Primary\PrimaryTermReportController;
 use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
-| Result Routes
+| Nursery Result Routes
 |--------------------------------------------------------------------------
-| Here I register web routes pertaining to the entire results section of the application
+| Here I register web routes pertaining to the primary results section of the application
 |
 */
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){
-    // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
-    Route::get('/results', function(){
-        if(Auth::user()->type_type == 'App\\Models\\Admin'){
-            return redirect()->route('result-directory');
-        }elseif(Auth::user()->type_type == 'App\\Models\\Teacher'){
-
-        }else{
-
-        }
-    })->middleware(['auth'])
-        ->name('results');
-                  
+    //Users area(routes accessible to all types of users)-------------------              
     // Manage tests
-    Route::get('/tests', [TestController::class, 'index'])
+    Route::get('/primary-tests', [PrimaryTestController::class, 'index'])
                     ->middleware(['auth'])
-                    ->name('tests');
-    Route::get('/add-test', [TestController::class, 'create'])
+                    ->name('primary-tests');
+    Route::get('/add-primary-test', [PrimaryTestController::class, 'create'])
                     ->middleware('auth')
-                    ->name('add-test');
-    Route::post('/create-test', [TestController::class, 'store'])
+                    ->name('add-primary-test');
+    Route::post('/create-primary-test', [PrimaryTestController::class, 'store'])
                     ->middleware('auth')
-                    ->name('create-test');
-    Route::post('/view-test/{test}', [TestController::class, 'show'])
+                    ->name('create-primary-test');
+    Route::post('/view-primary-test/{test}', [PrimaryTestController::class, 'show'])
                     ->middleware('auth')
-                    ->name('view-test');
-    Route::get('/edit-test/{test}', [TestController::class, 'edit'])
+                    ->name('view-primary-test');
+    Route::get('/edit-primary-test/{test}', [PrimaryTestController::class, 'edit'])
                     ->middleware('auth')
-                    ->name('edit-test');
-    Route::post('/update-test/{test}', [TestController::class, 'update'])
+                    ->name('edit-primary-test');
+    Route::post('/update-primary-test/{test}', [PrimaryTestController::class, 'update'])
                     ->middleware('auth')
-                    ->name('update-test');
-    Route::post('/delete-test/{test}', [TestController::class, 'destroy'])
+                    ->name('update-primary-test');
+    Route::post('/delete-primary-test/{test}', [PrimaryTestController::class, 'destroy'])
                     ->middleware('auth')
-                    ->name('delete-test');
-    Route::get('/view-test/{test}', [TestController::class, 'show'])
+                    ->name('delete-primary-test');
+    Route::get('/view-primary-test/{test}', [PrimaryTestController::class, 'show'])
                     ->middleware('auth')
-                    ->name('view-test');
+                    ->name('view-primary-test');
     
     
     // Manage term reports
-    Route::get('/reports', [TermReportController::class, 'index'])
+    Route::get('/primary-reports', [PrimaryTermReportController::class, 'index'])
                     ->middleware(['auth'])
-                    ->name('reports');
-    Route::get('/add-report', [TermReportController::class, 'create'])
+                    ->name('primary-reports');
+    Route::get('/add-primary-report', [PrimaryTermReportController::class, 'create'])
                     ->middleware('auth')
-                    ->name('add-report');
-    Route::post('/create-report', [TermReportController::class, 'store'])
+                    ->name('add-primary-report');
+    Route::post('/create-primary-report', [PrimaryTermReportController::class, 'store'])
                     ->middleware('auth')
-                    ->name('create-report');
-    Route::post('/view-report/{report}', [TermReportController::class, 'show'])
+                    ->name('create-primary-report');
+    Route::post('/view-primary-report/{report}', [PrimaryTermReportController::class, 'show'])
                     ->middleware('auth')
-                    ->name('view-report');
-    Route::get('/edit-report/{report}', [TermReportController::class, 'edit'])
+                    ->name('view-primary-report');
+    Route::get('/edit-primary-report/{report}', [PrimaryTermReportController::class, 'edit'])
                     ->middleware('auth')
-                    ->name('edit-report');
-    Route::post('/update-report/{report}', [TermReportController::class, 'update'])
+                    ->name('edit-primary-report');
+    Route::post('/update-primary-report/{report}', [PrimaryTermReportController::class, 'update'])
                     ->middleware('auth')
-                    ->name('update-report');
-    Route::post('/delete-report/{report}', [TermReportController::class, 'destroy'])
+                    ->name('update-primary-report');
+    Route::post('/delete-primary-report/{report}', [PrimaryTermReportController::class, 'destroy'])
                     ->middleware('auth')
-                    ->name('delete-report');
-    Route::get('/view-report/{report}', [TermReportController::class, 'show'])
+                    ->name('delete-primary-report');
+    Route::get('/view-primary-report/{report}', [PrimaryTermReportController::class, 'show'])
                     ->middleware('auth')
-                    ->name('view-report');
-
-    
-
-    // Admin area (Routes accessible to only admin users)-----------------//
-    Route::group([
-        'prefix'=>'admin',
-        'middleware'=>'is_admin',
-        // 'as'=>'admin.'
-    ], function(){});
-
-
-    
-    // Parents area (Routes accessible by only Parent users. quite rare.)
-    Route::group([
-        'prefix'=>'parent',
-        'as'=>'parent',
-    ], function(){});
+                    ->name('view-primary-report');
     
 });

@@ -26,8 +26,6 @@ class SubjectController extends Controller
         if(isset($request->class) && (!($request->class == 'all'))){
             $filter['class'] = $request->class;    
         }
-        Log::debug($request->class);
-        Log::debug($filter);
         return view('results/subjects', [
             'subjects' => DB::table('subjects')->where($filter)->paginate(session('per_page'))
         ]);     

@@ -12,6 +12,7 @@ use App\Models\Result\Subject;
 use App\Http\Requests\Result\Primary\StorePrimaryTermReportRequest;
 use App\Http\Requests\Result\Primary\UpdatePrimaryTermReportRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class PrimaryTermReportController extends Controller
@@ -31,24 +32,34 @@ class PrimaryTermReportController extends Controller
             $filter['term_id']= $request->term;    
         }
 
-        if(auth()->user()->is_admin){
-            return view('results.reports', [
+        if(Gate::allows('is-admin')){
+            return view('results.primary.primary-reports', [
+                'reports' => PrimaryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
+            ]); 
+        }elseif(Gate::allows('is-teacher')){
+            return view('results.primary.primary-reports', [
                 'reports' => PrimaryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
-        }else{
-            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            if(!is_null($ward)){
-                return view('results.reports', [
-                    'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms
-                ]);
-            }else{
-                return view('results.reports', [
-                    'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms
-                ]); 
-            }   
+        }elseif(Gate::allows('is-parent')){
+            $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
+            return view('results.nursery.nursery-reports', [
+                'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
+            ]);
+            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            // if(!is_null($ward)){
+            //     return view('results.primary.primary-reports', [
+            //         'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms
+            //     ]);
+            // }else{
+            //     return view('results.primary.primary-reports', [
+            //         'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms
+            //     ]); 
+            // }   
         }
     }
 
@@ -59,7 +70,7 @@ class PrimaryTermReportController extends Controller
      */
     public function create()
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
@@ -74,7 +85,7 @@ class PrimaryTermReportController extends Controller
      */
     public function store(StorePrimaryTermReportRequest $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
@@ -198,7 +209,7 @@ class PrimaryTermReportController extends Controller
      */
     public function show(PrimaryTermReport $report)
     {
-        if(auth()->user()->is_admin){
+        if(Gate::allows('is-staff')){
             return view('results.view-report',[
                 'report' => $report,
             ]);
@@ -217,7 +228,7 @@ class PrimaryTermReportController extends Controller
      */
     public function edit(PrimaryTermReport $report)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
@@ -238,7 +249,7 @@ class PrimaryTermReportController extends Controller
      */
     public function update(UpdatePrimaryTermReportRequest $request, PrimaryTermReport $report)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
@@ -362,7 +373,7 @@ class PrimaryTermReportController extends Controller
      */
     public function destroy(PrimaryTermReport $report)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $report->delete();
         return redirect()->route('reports')->with('success','Term report deleted successfully!');
     }

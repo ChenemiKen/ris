@@ -1,4 +1,4 @@
-@extends('results.base')
+@extends('results.primary.base')
 @section('title', 'Edit Term Report')
 @section('page-heading', 'Edit Term Report')
 

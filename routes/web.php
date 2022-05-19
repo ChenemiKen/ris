@@ -9,7 +9,9 @@ use App\Http\Controllers\BirthdayController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +29,23 @@ require __DIR__.'/web/results.php';
 require __DIR__.'/web/results/nursery.php';
 require __DIR__.'/web/results/primary.php';
 
-Route::get('/', function(){
-    if(Auth::user()->type_type == "App\\Models\\Admin"){
-        $home = RouteServiceProvider::ADMIN_HOME;
-    }elseif( Auth::user()->type_type == "App\\Models\\Teacher"){
-        $home = RouteServiceProvider::PARENT_HOME;
-    }elseif( Auth::user()->type_type == "App\\Models\\PupilParent"){
-        $home = RouteServiceProvider::PARENT_HOME;
-    }
-    return redirect()->intended($home);
-}) ->middleware('auth')
-    ->name('home');
-
 // Routes
 Route::group(['middleware'=>'auth'], function(){
-    // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
+    // Index or home
+    Route::get('/', function(){
+        if(Gate::allows('is-admin')){
+            $home = RouteServiceProvider::ADMIN_HOME;
+        }elseif(Gate::allows('is-teacher')){
+            $home = RouteServiceProvider::TEACHER_HOME;
+        }elseif(Gate::allows('is-parent')){
+            $home = RouteServiceProvider::PARENT_HOME;
+        }
+        return redirect()->intended($home);
+    }) ->middleware('auth')
+        ->name('home');
+
+
+    // -------------Users area(routes accessible to all types of users)-------------//
     //manage homeworks
     Route::get('/homeworks', [HomeworkController::class, 'index'])
                     ->middleware(['auth'])
@@ -65,6 +69,7 @@ Route::group(['middleware'=>'auth'], function(){
                     ->middleware('auth')
                     ->name('view-homework');
 
+
     //manage messages
     Route::get('/messages', [MessageController::class, 'index'])
                     ->middleware(['auth'])
@@ -80,7 +85,6 @@ Route::group(['middleware'=>'auth'], function(){
                     ->name('view-message');
 
 
-
     // manage birthdays
     Route::get('/birthdays', [BirthdayController::class, 'index'])
                     ->middleware(['auth'])
@@ -92,7 +96,6 @@ Route::group(['middleware'=>'auth'], function(){
                     ->middleware('auth')
                     ->name('create-birthday');
 
-   
    
     // manage events
     Route::get('/calendar', [EventController::class, 'index'])
@@ -106,18 +109,15 @@ Route::group(['middleware'=>'auth'], function(){
                     ->name('create-event');
 
     
-
-    // Admin area (Routes accessible to only admin users)-----------------//
+    // Staff area (Routes accessible to only Teacher and Admin users)-----------------//
     Route::group([
-        'prefix'=>'admin',
-        'middleware'=>'is_admin',
-        // 'as'=>'admin.'
+        'middleware'=>'is_staff',
+        'prefix'=>'staff',
     ], function(){
         // manage pupils
         Route::get('/pupils', [PupilController::class, 'index'])
                         ->middleware(['auth'])
                         ->name('pupils');
-
         Route::get('/add-pupil', [PupilController::class, 'create'])
                         ->middleware('auth')
                         ->name('add-pupil');
@@ -134,26 +134,31 @@ Route::group(['middleware'=>'auth'], function(){
                         ->middleware('auth')
                         ->name('delete-pupil');
 
-                        
-        // manage teachers
-        Route::get('/teachers', [TeacherController::class, 'index'])
-                        ->middleware(['auth'])
-                        ->name('teachers');
-        Route::get('/add-teacher', [TeacherController::class, 'create'])
-                        ->middleware('auth')
-                        ->name('add-teacher');
-        Route::post('/add-teacher', [TeacherController::class, 'store'])
-                        ->middleware('auth')
-                        ->name('add-teacher');
-        Route::get('/edit-teacher/{teacher}', [TeacherController::class, 'edit'])
-                        ->middleware('auth')
-                        ->name('edit-teacher');
-        Route::post('/update-teacher/{teacher}', [TeacherController::class, 'update'])
-                        ->middleware('auth')
-                        ->name('update-teacher');
-        Route::post('/delete-teacher/{teacher}', [TeacherController::class, 'destroy'])
-                        ->middleware('auth')
-                        ->name('delete-teacher');
+         // Admin area (Routes accessible to only Admin users)-----------------//
+        Route::group([
+            'middleware'=>'is_admin',
+            'prefix'=>'staff',
+        ], function(){               
+            // manage teachers
+            Route::get('/teachers', [TeacherController::class, 'index'])
+                            ->middleware(['auth'])
+                            ->name('teachers');
+            Route::get('/add-teacher', [TeacherController::class, 'create'])
+                            ->middleware('auth')
+                            ->name('add-teacher');
+            Route::post('/add-teacher', [TeacherController::class, 'store'])
+                            ->middleware('auth')
+                            ->name('add-teacher');
+            Route::get('/edit-teacher/{teacher}', [TeacherController::class, 'edit'])
+                            ->middleware('auth')
+                            ->name('edit-teacher');
+            Route::post('/update-teacher/{teacher}', [TeacherController::class, 'update'])
+                            ->middleware('auth')
+                            ->name('update-teacher');
+            Route::post('/delete-teacher/{teacher}', [TeacherController::class, 'destroy'])
+                            ->middleware('auth')
+                            ->name('delete-teacher');
+        });
 
         
         // manage parents

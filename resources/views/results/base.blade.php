@@ -85,24 +85,13 @@
                             </li>
                             @can('is-admin')
                                 <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('tests')}}"><span>Manage Test Results</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Manage Term Reports</span></a>
-                                </li>
-                                <li class="dropdown">
                                     <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
                                 </li>
                                 <li class="dropdown">
+                                    <a class="nav-link" href="{{route('skills')}}"><span>Manage Skills</span></a>
+                                </li>
+                                <li class="dropdown">
                                     <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
-                                </li>
-                            @endcan
-                            @can('is-parent')
-                                <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('tests')}}"><span>Test Results</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Term Reports</span></a>
                                 </li>
                             @endcan
                             <li class="dropdown">

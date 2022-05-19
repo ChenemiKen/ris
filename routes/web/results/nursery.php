@@ -5,7 +5,7 @@ use App\Http\Controllers\Result\Nursery\NurseryTermReportController;
 
 /*
 |--------------------------------------------------------------------------
-| Result Routes
+| Nursery Result Routes
 |--------------------------------------------------------------------------
 | Here is where I register web routes pertaining to the nursery section of results.
 |
@@ -13,7 +13,7 @@ use App\Http\Controllers\Result\Nursery\NurseryTermReportController;
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){
-    // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
+        //Users area(routes accessible to all types of users)-------------//
         // Manage term reports
         Route::get('/nursery-reports', [NurseryTermReportController::class, 'index'])
                 ->middleware(['auth'])
@@ -39,22 +39,4 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/view-nursery-report/{nursery-report}', [NurseryTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-nursery-report');
-
-
-    // Admin area (Routes accessible to only admin users)-----------------//
-    Route::group([
-        'prefix'=>'admin',
-        'middleware'=>'is_admin',
-        // 'as'=>'admin.'
-    ], function(){
-        
-    });
-
-    
-    // Parents area (Routes accessible by only Parent users. quite rare.)
-    Route::group([
-        'prefix'=>'parent',
-        'as'=>'parent',
-    ], function(){});
-    
 });

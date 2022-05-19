@@ -1,4 +1,4 @@
-@extends('results.base')
+@extends('results.primary.base')
 @section('title', 'Test Results')
 @section('page-heading', 'Test Results')
 
@@ -7,11 +7,11 @@
         <div class="deshboard_booking_main_content_area_container">
             @can('is-admin')
                 <div class="text-right">
-                    <a href="{{route('add-test')}}" class="crate_btn_area">+ Add Test Result</a>
+                    <a href="{{route('add-primary-test')}}" class="crate_btn_area">+ Add Test Result</a>
                 </div>
             @endcan
             <!-- Header area start  -->
-            <form action={{route('tests')}} name="filter-form" method="get">
+            <form action={{route('primary-tests')}} name="filter-form" method="get">
                 @csrf
                 <img src="{{asset('img/filter.svg')}}" width="25px" height="25px" alt="photos">
                 <div class="deshboard_main_top_edit_area_single_item col-md-6" style="display:inline-block">
@@ -60,9 +60,9 @@
                                 <td>{{$test->pupil->admission_no}}</td>
                                 <td>{{$test->term->name}} Term-@th($test->test_no)</td>
                                 <td class="text-center">
-                                    <a href="{{route('view-test',$test->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
+                                    <a href="{{route('view-primary-test',$test->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
                                     @can('is-admin')
-                                        <a href="{{route('edit-test', $test->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
+                                        <a href="{{route('edit-primary-test', $test->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
                                         <span data-toggle="modal" data-target="#deleteTest{{$test->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
                                     @endcan
                                 </td>
@@ -86,7 +86,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-style btn-sm" data-dismiss="modal">Cancel</button>
-                                                    <form action="{{route('delete-test', $test->id)}}" method="post">
+                                                    <form action="{{route('delete-primary-test', $test->id)}}" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn-style btn-style-danger">delete</button>
                                                     </form>
@@ -105,7 +105,7 @@
             </div>
             <div class="table_pagination_area">
                 <div class="table_pagination_area_left">
-                    <form action="{{route('tests')}}" method="get">
+                    <form action="{{route('primary-tests')}}" method="get">
                         <div class="table_pagination_area_left_sub">
                         <p>Rows per page:</p>
                             <select name="per_page" id="per_page" onchange="this.form.submit()">

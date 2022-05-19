@@ -63,14 +63,14 @@
                     <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="email"> Email</label>
-                            <input class="form-control" type="email" id="email" name="email" value="{{ old('class', $teacher->email)}}" required>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ old('class', $teacher->user->email)}}" required>
                         </div>
                     </div>
                     
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="photo">Add Passport Photo</label>
-                            <input class="form-control" type="file" id="photo" name="photo" value="{{ old('class', $teacher->photo)}}">
+                            <input class="form-control" type="file" id="photo" name="photo" value="{{ old('class', $teacher->user->photo)}}">
                         </div>
                     </div>
                     

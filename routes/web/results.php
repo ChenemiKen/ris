@@ -8,6 +8,7 @@ use App\Http\Controllers\Result\TermController;
 use App\Http\Controllers\Result\TestController;
 use App\Http\Controllers\Result\TermReportController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,77 +20,56 @@ use Illuminate\Support\Facades\Auth;
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){
-    // -------------Users area(routes accessible to all types of users, both Parents and Admins)-------------//
+    // Users area(routes accessible to all types of users)-------------//
     Route::get('/results', function(){
-        if(Auth::user()->type_type == 'App\\Models\\Admin'){
+        if(Gate::allows('is-admin')){
             return redirect()->route('result-directory');
-        }elseif(Auth::user()->type_type == 'App\\Models\\Teacher'){
-
-        }else{
-
+        }elseif(Gate::allows('is-teacher')){
+            switch(auth()->user()->teacher->class){
+                case "beacon":
+                    $reports = 'beacon-reports';
+                    break;
+                case "lower_primary":
+                    $reports = 'primary-reports';
+                    break;
+                case "upper_primary":
+                    $reports = 'primary-reports';
+                    break;
+                case "nursery":
+                    $reports = 'nursery-reports';
+                    break;
+                case "playgroup":
+                    $reports = 'playgroup-reports';
+                    break;
+            }
+            return redirect()->route($reports);
+        }elseif(Gate::allows('is-parent')){
+            switch(auth()->user()->pupil_parent->pupil->class){
+                case "beacon":
+                    $reports = 'beacon-reports';
+                    break;
+                case "lower_primary":
+                    $reports = 'primary-reports';
+                    break;
+                case "upper_primary":
+                    $reports = 'primary-reports';
+                    break;
+                case "nursery":
+                    $reports = 'nursery-reports';
+                    break;
+                case "playgroup":
+                    $reports = 'playgroup-reports';
+                    break;
+            }
+            return redirect()->route($reports);
         }
     })->middleware(['auth'])
         ->name('results');
-                  
-    // Manage tests
-    Route::get('/tests', [TestController::class, 'index'])
-                    ->middleware(['auth'])
-                    ->name('tests');
-    Route::get('/add-test', [TestController::class, 'create'])
-                    ->middleware('auth')
-                    ->name('add-test');
-    Route::post('/create-test', [TestController::class, 'store'])
-                    ->middleware('auth')
-                    ->name('create-test');
-    Route::post('/view-test/{test}', [TestController::class, 'show'])
-                    ->middleware('auth')
-                    ->name('view-test');
-    Route::get('/edit-test/{test}', [TestController::class, 'edit'])
-                    ->middleware('auth')
-                    ->name('edit-test');
-    Route::post('/update-test/{test}', [TestController::class, 'update'])
-                    ->middleware('auth')
-                    ->name('update-test');
-    Route::post('/delete-test/{test}', [TestController::class, 'destroy'])
-                    ->middleware('auth')
-                    ->name('delete-test');
-    Route::get('/view-test/{test}', [TestController::class, 'show'])
-                    ->middleware('auth')
-                    ->name('view-test');
-    
-    
-    // Manage term reports
-    Route::get('/reports', [TermReportController::class, 'index'])
-                    ->middleware(['auth'])
-                    ->name('reports');
-    Route::get('/add-report', [TermReportController::class, 'create'])
-                    ->middleware('auth')
-                    ->name('add-report');
-    Route::post('/create-report', [TermReportController::class, 'store'])
-                    ->middleware('auth')
-                    ->name('create-report');
-    Route::post('/view-report/{report}', [TermReportController::class, 'show'])
-                    ->middleware('auth')
-                    ->name('view-report');
-    Route::get('/edit-report/{report}', [TermReportController::class, 'edit'])
-                    ->middleware('auth')
-                    ->name('edit-report');
-    Route::post('/update-report/{report}', [TermReportController::class, 'update'])
-                    ->middleware('auth')
-                    ->name('update-report');
-    Route::post('/delete-report/{report}', [TermReportController::class, 'destroy'])
-                    ->middleware('auth')
-                    ->name('delete-report');
-    Route::get('/view-report/{report}', [TermReportController::class, 'show'])
-                    ->middleware('auth')
-                    ->name('view-report');
 
-    
-
-    // Admin area (Routes accessible to only admin users)-----------------//
+    // Staff area (Routes accessible to only Teachers and Admin users)-----------------//
     Route::group([
-        'prefix'=>'admin',
-        'middleware'=>'is_admin',
+        'prefix'=>'staff',
+        'middleware'=>'is_staff',
         // 'as'=>'admin.'
     ], function(){
         // Manage subjects
@@ -146,41 +126,39 @@ Route::group(['middleware'=>'auth'], function(){
                         ->name('create-skill-category');
        
 
-        // Manage Terms
-        Route::get('/terms', [TermController::class, 'index'])
-                        ->middleware(['auth'])
-                        ->name('terms');
-        Route::get('/add-term', [TermController::class, 'create'])
-                        ->middleware('auth')
-                        ->name('add-term');
-        Route::post('/create-term', [TermController::class, 'store'])
-                        ->middleware('auth')
-                        ->name('create-term');
-        Route::get('/edit-term/{term}', [TermController::class, 'edit'])
-                        ->middleware('auth')
-                        ->name('edit-term');
-        Route::post('/update-term/{term}', [TermController::class, 'update'])
-                        ->middleware('auth')
-                        ->name('update-term');
-        Route::post('/delete-term/{term}', [TermController::class, 'destroy'])
-                        ->middleware('auth')
-                        ->name('delete-term');
+        // Admin area (Routes accessible to only Admin users)-----------------//
+        Route::group([
+            'prefix'=>'admin',
+            'middleware'=>'is_admin',
+            // 'as'=>'admin.'
+        ], function(){
+            // Manage Terms
+            Route::get('/terms', [TermController::class, 'index'])
+                            ->middleware(['auth'])
+                            ->name('terms');
+            Route::get('/add-term', [TermController::class, 'create'])
+                            ->middleware('auth')
+                            ->name('add-term');
+            Route::post('/create-term', [TermController::class, 'store'])
+                            ->middleware('auth')
+                            ->name('create-term');
+            Route::get('/edit-term/{term}', [TermController::class, 'edit'])
+                            ->middleware('auth')
+                            ->name('edit-term');
+            Route::post('/update-term/{term}', [TermController::class, 'update'])
+                            ->middleware('auth')
+                            ->name('update-term');
+            Route::post('/delete-term/{term}', [TermController::class, 'destroy'])
+                            ->middleware('auth')
+                            ->name('delete-term');
 
-        
-        //intermediate result router page for admins  
-        Route::get('/result-directory', function(){
-            return view('results.result-directory');
-        })->middleware('auth')
-            ->name('result-directory');
-        
+            
+            //intermediate result router page for admins  
+            Route::get('/result-directory', function(){
+                return view('results.result-directory');
+            })->middleware('auth')
+                ->name('result-directory');
+        });
     });
-
-    
-
-    // Parents area (Routes accessible by only Parent users. quite rare.)
-    Route::group([
-        'prefix'=>'parent',
-        'as'=>'parent',
-    ], function(){});
     
 });

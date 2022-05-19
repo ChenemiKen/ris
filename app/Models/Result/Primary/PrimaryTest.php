@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Result\Primary;
+use App\Models\Pupil;
+use App\Models\Result\Term;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +25,8 @@ class PrimaryTest extends Model
         'date',
     ];
 
+    // Belongs to
+    // --------------------------------------------
     /**
      * Get the pupil that owns the test.
      */
@@ -39,6 +43,10 @@ class PrimaryTest extends Model
         return $this->belongsTo(Term::class);
     }
 
+
+
+    // Has
+    // ----------------------------------------
     /**
      * Get the results for the test.
      */

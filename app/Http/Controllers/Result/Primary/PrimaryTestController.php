@@ -12,6 +12,7 @@ use App\Models\Result\Primary\PrimaryTestResult;
 use App\Http\Requests\Result\Primary\StorePrimaryTestRequest;
 use App\Http\Requests\Result\Primary\UpdatePrimaryTestRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 class PrimaryTestController extends Controller
@@ -33,24 +34,34 @@ class PrimaryTestController extends Controller
         if(isset($request->test) && (!($request->test == 'all'))){
             $filter['test_no']= $request->test;    
         }
-        if(auth()->user()->is_admin){
+        if(Gate::allows('is-admin')){
             return view('results.primary.primary-tests', [
                 'tests' => PrimaryTest::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms,
             ]);
-        }else{
-            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            if(!is_null($ward)){
-                return view('results.primary.primary-tests', [
-                    'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms,
-                ]);
-            }else{
-                return view('results.primary.primary-tests', [
-                    'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms,
-                ]); 
-            }
+        }elseif(Gate::allows('is-teacher')){
+            return view('results.primary.primary-tests', [
+                'tests' => PrimaryTest::with('pupil','term')->where($filter)->paginate(session('per_page')),
+                'terms' => $terms,
+            ]);
+        }elseif(Gate::allows('is-parent')){
+            $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
+            return view('results.nursery.nursery-reports', [
+                'reports' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
+            ]);
+            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            // if(!is_null($ward)){
+            //     return view('results.primary.primary-tests', [
+            //         'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms,
+            //     ]);
+            // }else{
+            //     return view('results.primary.primary-tests', [
+            //         'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms,
+            //     ]); 
+            // }
             
         }
     }
@@ -62,11 +73,11 @@ class PrimaryTestController extends Controller
      */
     public function create()
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
-        return view('results.add-test', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
+        return view('results.primary.add-primary-test', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
     }
 
     /**
@@ -77,7 +88,7 @@ class PrimaryTestController extends Controller
      */
     public function store(StorePrimaryTestRequest $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
@@ -89,20 +100,15 @@ class PrimaryTestController extends Controller
             'subject.*.remark' => ['required', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);
         $pupil = Pupil::find($request->pupil);
-        
-        // $test = new Test();
-        // $test->test_no = $request->test_no;
-        // $test->term_id = $request->term;
 
         // persist test
-        $test = $pupil->tests()->create([
+        $test = $pupil->primaryTests()->create([
             'test_no' => $request->test_no,
             'term_id' => $request->term,
         ]);
-        // Log::debug($test);
         foreach($request->subject as $subject){
             $testResult = new PrimaryTestResult();
-            $testResult->test_id = $test->id;
+            $testResult->primary_test_id = $test->id;
             $testResult->pupil_id = $pupil->id;
             $testResult->term_id = $request->term;
             $testResult->subject_id = $subject['id'];
@@ -114,7 +120,7 @@ class PrimaryTestController extends Controller
             $testResult->save();
         }
 
-        return redirect()->route('tests')->with('success','Test Result added successfully!');
+        return redirect()->route('primary-tests')->with('success','Test Result added successfully!');
     }
 
     /**
@@ -125,12 +131,12 @@ class PrimaryTestController extends Controller
      */
     public function show(PrimaryTest $test)
     {
-        if(auth()->user()->is_admin){
-            return view('results.view-test',[
+        if(Gate::allows('is-staff')){
+            return view('results.primary.view-primary-test',[
                 'test' => $test,
             ]);
         }else{
-            return view('results.parent-test-view',[
+            return view('results.primary.parent-primary-test-view',[
                 'test' => $test,
             ]);
         }
@@ -144,7 +150,7 @@ class PrimaryTestController extends Controller
      */
     public function edit(PrimaryTest $test)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
@@ -165,7 +171,7 @@ class PrimaryTestController extends Controller
      */
     public function update(UpdatePrimaryTestRequest $request, PrimaryTest $test)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
@@ -208,7 +214,7 @@ class PrimaryTestController extends Controller
      */
     public function destroy(PrimaryTest $test)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $test->delete();
         return redirect()->route('tests')->with('success','Test Result deleted successfully!');
     }

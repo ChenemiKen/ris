@@ -40,20 +40,28 @@ class NurseryTermReportController extends Controller
                 'terms' => $terms
             ]);
         }elseif(Gate::allows('is-teacher')){
-
+            return view('results.nursery.nursery-reports', [
+                'reports' => NurseryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
+            ]);
         }elseif(Gate::allows('is-parent')){
-            $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            if(!is_null($ward)){
-                return view('results.nursery.nursery-reports', [
-                    'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms
-                ]);
-            }else{
-                return view('results.reports', [
-                    'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-                    'terms' => $terms
-                ]); 
-            }   
+            $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
+            return view('results.nursery.nursery-reports', [
+                'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+                'terms' => $terms
+            ]);
+            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
+            // if(!is_null($ward)){
+            //     return view('results.nursery.nursery-reports', [
+            //         'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms
+            //     ]);
+            // }else{
+            //     return view('results.reports', [
+            //         'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
+            //         'terms' => $terms
+            //     ]); 
+            // }   
         }
     }
 
@@ -64,7 +72,7 @@ class NurseryTermReportController extends Controller
      */
     public function create()
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
@@ -81,7 +89,7 @@ class NurseryTermReportController extends Controller
      */
     public function store(StoreNurseryTermReportRequest $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
@@ -191,7 +199,7 @@ class NurseryTermReportController extends Controller
     {
         $skillCategories = SkillCategory::all('id','name');
 
-        if(Gate::allows('is-admin')){
+        if(Gate::allows('is-staff')){
             return view('results.nursery.view-nursery-report',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,

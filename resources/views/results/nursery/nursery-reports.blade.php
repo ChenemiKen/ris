@@ -5,13 +5,13 @@
 @section('page-content')
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
-            @can('is-admin-or-teacher')
+            @can('is-staff')
                 <div class="text-right">
                     <a href="{{route('add-nursery-report')}}" class="crate_btn_area">+ Add Term Report</a>
                 </div>
             @endcan
             <!-- Header area start  -->
-            <form action={{route('reports')}} name="filter-form" method="get">
+            <form action={{route('nursery-reports')}} name="filter-form" method="get">
                 @csrf
                 <img src="{{asset('img/filter.svg')}}" width="25px" height="25px" alt="photos">
                 <div class="deshboard_main_top_edit_area_single_item col-md-4" style="display:inline-block">
@@ -51,12 +51,12 @@
                                 <td>{{$report->term->name}} Term Report</td>
                                 <td class="text-center">
                                     <a href="{{route('view-nursery-report',$report->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>
-                                    @can('is-admin')
+                                    @can('is-staff')
                                         <a href="{{route('edit-nursery-report', $report->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
                                         <span data-toggle="modal" data-target="#deleteReport{{$report->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
                                     @endcan
                                 </td>
-                                @can('is-admin')
+                                @can('is-staff')
                                     {{-- delete confirmation --}}
                                     <!-- Modal -->
                                     <div class="modal fade bd-example-modal-sm" id="deleteReport{{$report->id}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -94,7 +94,7 @@
             </div>
             <div class="table_pagination_area">
                 <div class="table_pagination_area_left">
-                    <form action="{{route('reports')}}" method="get">
+                    <form action="{{route('nursery-reports')}}" method="get">
                         <div class="table_pagination_area_left_sub">
                         <p>Rows per page:</p>
                             <select name="per_page" id="per_page" onchange="this.form.submit()">

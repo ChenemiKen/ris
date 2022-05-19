@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePupilParentRequest;
 use App\Http\Requests\UpdatePupilParentRequest;
 use App\Models\User;
+use App\Models\Pupil;
 use App\Models\PupilParent;
 // use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -25,11 +26,11 @@ class PupilParentController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('parents', [
-            'parents' => DB::table('users')->where('is_admin', false)->paginate(session('per_page'))
+            'parents' =>PupilParent::with('user')->paginate(session('per_page'))
         ]);
     }
 
@@ -57,33 +58,38 @@ class PupilParentController extends Controller
         $this->authorize('is-admin');
         $request->validate([
             'fullname' => ['required', 'string', 'max:255'],
-            'admission_no' => ['required', 'string', 'max:255', 'unique:users,username'],
+            'admission_no' => ['required', 'string', 'max:255', 'unique:users,username', 'exists:pupils,admission_no'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required','string', 'max:255'],
             'address' => ['required', 'string'],
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $pupil_parent = PupilParent::create([
-            'admission_no' => $request->addmission_no,
-            'phone' => $request->phone,
-            'address' => $request->address,
-        ]);
+        $ward = Pupil::where('admission_no', $request->admission_no)->first();
 
         $user = User::create([
-            'fullname' => $request->lastname.' '.$request->firstname,
+            'fullname' => $request->fullname,
             'username' => $request->admission_no,
             'email' => $request->email,
             'password' => Hash::make($request->admission_no),
+            'photo' => "user_dp.png",
+        ]);
+
+        $pupil_parent = PupilParent::create([
+            'admission_no'=>$request->admission_no,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+            'user_id'=>$user->id,
+            'pupil_id'=>$ward->id,
+        ]);
+
+        $user->update([
             'type_id' => $pupil_parent->id,
             'type_type' => get_class($pupil_parent),
         ]);
 
         event(new Registered($user));
 
-        // Auth::login($user);
-
-        // return redirect(RouteServiceProvider::HOME);
         return redirect()->route('parents')->with('success','Parent added successfully!');
     }
 

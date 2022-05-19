@@ -1,4 +1,4 @@
-@extends('results.base')
+@extends('results.primary.base')
 @section('title', 'View test')
 @section('page-heading', 'View test')
 
@@ -43,7 +43,7 @@
                         <th>REMARK</th>
                     </thead>
                     <tbody>
-                        @foreach($test->testResults as $result)
+                        @foreach($test->primaryTestResults as $result)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$result->subject->name}}</td>

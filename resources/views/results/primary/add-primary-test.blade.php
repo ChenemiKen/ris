@@ -1,4 +1,4 @@
-@extends('results.base')
+@extends('results.primary.base')
 @section('title', 'Add Test Result')
 @section('page-heading', 'Add Test Result')
 
@@ -13,7 +13,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{route('create-test')}}" method="POST">
+        <form action="{{route('create-primary-test')}}" method="POST">
             @csrf
             <div class="deshboard_main_top_edit_area">
                 <div class="row">

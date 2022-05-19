@@ -79,13 +79,15 @@
                             </a>
                         </div>
                         <ul class="sidebar-menu">
-                            @can('is-admin')
+                            @can('is-staff')
                                 <li class="dropdown">
                                     <a class="nav-link active" href="{{route('pupils')}}"><span>Pupils</span></a>
                                 </li>
+                                @can('is-admin')
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('teachers')}}"><span>Teachers</span></a>
                                 </li>
+                                @endcan
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('parents')}}"><span>Parents</span></a>
                                 </li>

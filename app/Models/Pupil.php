@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Models;
+use App\Models\Result\Primary\PrimaryTest;
+use App\Models\Result\Primary\PrimaryTestResult;
+use App\Models\Result\Primary\PrimaryTermReport;
+use App\Models\Result\Primary\PrimaryTermResult;
 use App\Models\Result\Nursery\NurseryTermReport;
-use App\Models\Result\Primary;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +33,9 @@ class Pupil extends Model
         'photo',
     ];
 
+
+    // Has
+    // ------------------------------------------
     /**
      * the pupils birthday.
      */
@@ -41,9 +47,9 @@ class Pupil extends Model
     /**
      * Get the tests for the pupil.
      */
-    public function tests()
+    public function primaryTests()
     {
-        return $this->hasMany(Test::class);
+        return $this->hasMany(PrimaryTest::class);
     }
 
     /**
@@ -62,6 +68,13 @@ class Pupil extends Model
         return $this->hasMany(PrimaryTermReport::class);
     }
 
+    /**
+     * Get the primaryTestResults for the pupil.
+     */
+    public function primaryTermResults()
+    {
+        return $this->hasMany(PrimaryTermResult::class);
+    }
 
     /**
      * Get the tests for the pupil.
@@ -69,13 +82,5 @@ class Pupil extends Model
     public function nurseryTermReports()
     {
         return $this->hasMany(NurseryTermReport::class);
-    }
-
-    /**
-     * Get the testResults for the pupil.
-     */
-    public function termResults()
-    {
-        return $this->hasMany(TermResult::class);
     }
 }

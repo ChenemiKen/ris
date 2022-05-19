@@ -21,7 +21,7 @@ class PupilController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         return view('pupil', [
@@ -137,11 +137,8 @@ class PupilController extends Controller
             'photo' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg'],
         ]);
         $photoName = $pupil->photo;
-        // Log::debug($photoName);
         if ($request->hasFile('photo') && $request->file('photo')->isValid()){
-            // Log::debug('has file!');
             if (Storage::disk('public')->exists('pupils/'.$photoName)) {
-                // Log::debug('file exists!');
                 Storage::disk('public')->delete('pupils/'.$photoName);
             }
             $photoName = $request->firstname.$request->lastname.'.'.$request->photo->extension();

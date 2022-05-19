@@ -32,7 +32,7 @@
                         <!-- 1.Single item area start  -->
                         @foreach ($teachers as $teacher)
                             <tr>
-                                <td class="amdin_pay_img"><img src="{{asset('uploads/teachers/'.$teacher->user->photo)}}" alt=""></td>
+                                <td class="admin_pay_img"><img src="{{asset('uploads/teachers/'.$teacher->user->photo)}}" alt=""></td>
                                 <td>{{$teacher->firstname}} {{$teacher->lastname}}</td>
                                 <td>{{$teacher->class}}</td>
                                 <td>{{$teacher->gender}}</td>

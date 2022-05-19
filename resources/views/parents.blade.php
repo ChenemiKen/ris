@@ -31,10 +31,10 @@
                         <!-- 1.Single item area start  -->
                         @foreach ($parents as $parent)
                             <tr>
-                                <td>{{$parent->fullname}}</td>
-                                <td>{{$parent->username}}</td>
+                                <td>{{$parent->user->fullname}}</td>
+                                <td>{{$parent->admission_no}}</td>
                                 <td>{{$parent->address}}</td>
-                                <td>{{$parent->email}}</td>
+                                <td>{{$parent->user->email}}</td>
                                 <td>{{$parent->phone}}</td>
                                 @can('is-admin')
                                     <td class="text-center">

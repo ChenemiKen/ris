@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -47,24 +47,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function type(){
         return $this->morphTo();
     }
 
-    public static function boot(){
-        parent::boot();
-        User::observe(new UserObserver());
+    // Has
+    // -----------------------------------------------
+    /**
+     * Get the teacher for the user.
+     */
+    public function teacher(){
+        return $this->hasOne(Teacher::class);
     }
 
-    public function teacher(){
-        return $this->hasOne(Teacher::class, 'user_id');
-    }
+    /**
+     * Get the messages for the user.
+     */
     public function pupil_parent(){
-        return $this->hasOne(PupilParent::class, 'user_id');
+        return $this->hasOne(PupilParent::class);
     }
+    
+    /**
+     * Get the messages for the user.
+     */
     public function admin(){
-        return $this->hasOne(Admin::class, 'user_id');
+        return $this->hasOne(Admin::class);
     }
 
     /**

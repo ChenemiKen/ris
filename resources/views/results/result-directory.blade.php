@@ -85,16 +85,16 @@
                             </li>
                             @can('is-admin')
                                 <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('tests')}}"><span>Primary results</span></a>
+                                    <a class="nav-link active" href="{{route('primary-reports')}}"><span>Primary results</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('nursery-reports')}}"><span>Nursery results</span></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Playgroup results</span></a>
+                                    <a class="nav-link" href="#"><span>Playgroup results</span></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('reports')}}"><span>Beacon results</span></a>
+                                    <a class="nav-link" href="#"><span>Beacon results</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>

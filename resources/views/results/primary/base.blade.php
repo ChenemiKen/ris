@@ -83,23 +83,24 @@
                             <li class="dropdown">
                                 <a class="nav-link" href="{{route('results')}}"><span><strong>Results</strong></span></a>
                             </li>
-                            @can('is-staff')
+                            @can('is-admin')
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('nursery-reports')}}"><span>Manage Term Reports</span></a>
+                                    <a class="nav-link" href="{{route('primary-reports')}}"><span>Manage Term Reports</span></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link active" href="{{route('primary-tests')}}"><span>Manage Test Results</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('skills')}}"><span>Manage Skills</span></a>
-                                </li>
-                                @can('is-admin')
-                                <li class="dropdown">
                                     <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
                                 </li>
-                                @endcan
                             @endcan
                             @can('is-parent')
+                                <li class="dropdown">
+                                    <a class="nav-link active" href="{{route('primary-tests')}}"><span>Test Results</span></a>
+                                </li>
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('primary-reports')}}"><span>Term Reports</span></a>
                                 </li>
