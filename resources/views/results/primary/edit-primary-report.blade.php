@@ -14,7 +14,7 @@
             </div>
         @endif
         {{-- form --}}
-        <form action="{{route('update-report', $report->id)}}" method="POST">
+        <form action="{{route('update-primary-report', $report->id)}}" method="POST">
             @csrf
             <div class="deshboard_main_top_edit_area">
                 {{-- pupil details --}}
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     {{-- subject results --}}
-                    @foreach($report->termResults as $termResult)
+                    @foreach($report->primaryTermResults as $termResult)
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <input class="form-control" type="number" id="{{$termResult->id}}" name="result[{{$loop->index}}][id]" value='{{old("result[{$loop->index}][id]", $termResult->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">

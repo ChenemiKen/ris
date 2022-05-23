@@ -4,6 +4,7 @@ namespace App\Models\Result\Primary;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Result\Subject;
 
 class PrimaryTermResult extends Model
 {

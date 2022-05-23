@@ -49,19 +49,7 @@ class NurseryTermReportController extends Controller
             return view('results.nursery.nursery-reports', [
                 'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
-            ]);
-            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            // if(!is_null($ward)){
-            //     return view('results.nursery.nursery-reports', [
-            //         'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms
-            //     ]);
-            // }else{
-            //     return view('results.reports', [
-            //         'reports' => NurseryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms
-            //     ]); 
-            // }   
+            ]);   
         }
     }
 
@@ -219,7 +207,16 @@ class NurseryTermReportController extends Controller
      */
     public function edit(NurseryTermReport $nurseryTermReport)
     {
-        //
+        $this->authorize('is-staff');
+        $pupils = Pupil::all('id','firstname','lastname');
+        $terms = Term::all('id','name','session');
+        $subjects = Subject::all('id','name');
+        return view('results.edit-nursery-report', [
+            'report'=>$report,
+            'pupils'=>$pupils, 
+            'terms'=>$terms, 
+            'subjects'=>$subjects
+        ]);
     }
 
     /**
@@ -231,7 +228,104 @@ class NurseryTermReportController extends Controller
      */
     public function update(UpdateNurseryTermReportRequest $request, NurseryTermReport $nurseryTermReport)
     {
-        //
+        $this->authorize('is-staff');
+        $request->validate([
+            'pupil' => ['required', 'integer', 'exists:pupils,id'],
+            'term' => ['required', 'integer', 'exists:terms,id'],
+            'skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
+            'skill.*.id' => ['required', 'integer', 'exists:skills,id'],
+            'skill.*.name' => ['required', 'string'],
+            'skill.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'skill.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'subject.*.id' => ['required', 'integer', 'exists:subjects,id'],
+            'subject.*.name' => ['required', 'string'],
+            'subject.*.score' => ['required', 'integer'],
+            'subject.*.remarks' => ['required', 'string'],
+            // I removed required for now to ease testing
+            'times_school_opened' => ['nullable','integer'],
+            'times_present' => [ 'nullable','integer'],
+            'times_absent' => ['nullable','integer'],
+            'height_start' => [ 'nullable','integer'],
+            'height_end' => [ 'nullable','integer'],
+            'weight_start' => [ 'nullable','integer'],
+            'weight_end' => [ 'nullable','integer'],
+            'personal_note'=> [ 'nullable','string'],
+            'teacher_remark'=> [ 'nullable','string'],
+            'head_remark'=> [ 'nullable','string'],
+        ]);
+        $pupil = Pupil::find($request->pupil);
+
+        // persist report
+        $report = $pupil->nurseryTermReports()->create([
+            'term_id' => $request->term,
+            // attendance
+            'times_school_opened'=>$request->times_school_opened,
+            'times_present'=>$request->times_present,
+            'times_absent'=>$request->times_absent,
+            // physical development
+            'height_start'=>$request->height_start,
+            'height_end'=>$request->height_end,
+            'weight_start'=>$request->weight_start,
+            'weight_end'=>$request->weight_end,
+            'personal_note'=>$request->personal_note,
+            'teacher_remark'=>$request->teacher_remark,
+            'head_remark'=>$request->head_remark,
+        ]);
+        foreach($request->skill as $skill){
+            switch($skill['grade']){
+                case 'A+':
+                    $remarks = 'Exceptional';
+                    break;
+                case 'A':
+                    $remarks = 'Excellent';
+                    break;
+                case 'B+':
+                    $remarks = 'Very_good';
+                    break;
+                case 'B':
+                    $remarks = 'Good';
+                    break;
+                case 'C+':
+                    $remarks = 'Satisfactory';
+                    break;
+                case 'C':
+                    $remarks = 'Room_for_Improvement';
+                    break;
+                case 'S.A':
+                    $remarks = 'Special_Attention';
+                    break;
+                case 'N.A':
+                    $remarks = 'Not_Applicable';
+                    break;
+            }
+            $nurserySkillResult = new NurserySkillResult();
+            $nurserySkillResult->nursery_term_report_id = $report->id;
+            $nurserySkillResult->pupil_id = $pupil->id;
+            $nurserySkillResult->term_id = $request->term;
+            $nurserySkillResult->skill_category_id = $skill['category_id'];
+            $nurserySkillResult->skill_id = $skill['id'];
+            $nurserySkillResult->grade = $skill['grade'];
+            $nurserySkillResult->effort_grade = $skill['effort_grade'];
+            $nurserySkillResult->remark = $remarks;
+
+            // persist testResult
+            $nurserySkillResult->save();
+        }
+        
+        foreach($request->subject as $subject){
+            $nurserySubjectResult = new NurserySubjectResult();
+            $nurserySubjectResult->nursery_term_report_id = $report->id;
+            $nurserySubjectResult->pupil_id = $pupil->id;
+            $nurserySubjectResult->term_id = $request->term;
+            $nurserySubjectResult->subject_id = $subject['id'];
+            $nurserySubjectResult->score = $subject['score'];
+            $nurserySubjectResult->remark = $subject['remarks'];
+
+            // persist testResult
+            $nurserySubjectResult->save();
+        }
+
+        return redirect()->route('nursery-reports')->with('success','Term Report added successfully!');
     }
 
     /**

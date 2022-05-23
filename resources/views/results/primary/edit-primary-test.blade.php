@@ -13,7 +13,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{route('update-test', $test->id)}}" method="POST">
+        <form action="{{route('update-primary-test', $test->id)}}" method="POST">
             @csrf
             <div class="deshboard_main_top_edit_area">
                 <div class="row">
@@ -51,7 +51,7 @@
                             </select>
                         </div>
                     </div>
-                    @foreach($test->testResults as $testResult)
+                    @foreach($test->primaryTestResults as $testResult)
                         <div class="col-md-4">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <input class="form-control" type="number" id="{{$testResult->id}}" name="result[{{$loop->index}}][id]" value='{{old("result[{$loop->index}][id]", $testResult->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">

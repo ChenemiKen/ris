@@ -48,18 +48,7 @@ class PrimaryTermReportController extends Controller
                 'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
-            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            // if(!is_null($ward)){
-            //     return view('results.primary.primary-reports', [
-            //         'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms
-            //     ]);
-            // }else{
-            //     return view('results.primary.primary-reports', [
-            //         'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms
-            //     ]); 
-            // }   
+  
         }
     }
 
@@ -74,7 +63,7 @@ class PrimaryTermReportController extends Controller
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
-        return view('results.add-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
+        return view('results.primary.add-primary-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
     }
 
     /**
@@ -137,7 +126,7 @@ class PrimaryTermReportController extends Controller
         $pupil = Pupil::find($request->pupil);
 
         // persist report
-        $report = $pupil->termReports()->create([
+        $report = $pupil->primaryTermReports()->create([
             'term_id' => $request->term,
             // attendance
             'times_school_opened'=>$request->times_school_opened,
@@ -180,7 +169,7 @@ class PrimaryTermReportController extends Controller
         // Log::debug($test);
         foreach($request->subject as $subject){
             $termResult = new PrimaryTermResult();
-            $termResult->term_report_id = $report->id;
+            $termResult->primary_term_report_id = $report->id;
             $termResult->pupil_id = $pupil->id;
             $termResult->term_id = $request->term;
             $termResult->subject_id = $subject['id'];
@@ -198,7 +187,7 @@ class PrimaryTermReportController extends Controller
             $termResult->save();
         }
 
-        return redirect()->route('reports')->with('success','Term Report added successfully!');
+        return redirect()->route('primary-reports')->with('success','Term Report added successfully!');
     }
 
     /**
@@ -210,11 +199,11 @@ class PrimaryTermReportController extends Controller
     public function show(PrimaryTermReport $report)
     {
         if(Gate::allows('is-staff')){
-            return view('results.view-report',[
+            return view('results.primary.view-primary-report',[
                 'report' => $report,
             ]);
         }else{
-            return view('results.parent-report-view',[
+            return view('results.primary.parent-pirmary-report-view',[
                 'report' => $report,
             ]);
         }
@@ -232,7 +221,7 @@ class PrimaryTermReportController extends Controller
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
-        return view('results.edit-report', [
+        return view('results.primary.edit-primary-report', [
             'report'=>$report,
             'pupils'=>$pupils, 
             'terms'=>$terms, 
@@ -256,7 +245,7 @@ class PrimaryTermReportController extends Controller
             'result.*.name' => ['required', 'string'],
             'result.*.test_1' => ['required', 'integer'],
             'result.*.test_2' => ['required', 'integer'],
-            'result.*.id' => ['required', 'integer', 'exists:term_results,id'],
+            'result.*.id' => ['required', 'integer', 'exists:primary_term_results,id'],
             'result.*.test_3' => ['required', 'integer'],
             'result.*.test_4' => ['required', 'integer'],
             'result.*.exam' => ['required', 'integer'],
@@ -345,7 +334,7 @@ class PrimaryTermReportController extends Controller
         // Log::debug($test);
         foreach($request->result as $result){
             $termResult = PrimaryTermResult::find($result['id']);
-            $termResult->term_report_id = $report->id;
+            $termResult->primary_term_report_id = $report->id;
             $termResult->pupil_id = $pupil->id;
             $termResult->term_id = $request->term;
             $termResult->test_1 = $result['test_1'];
@@ -362,7 +351,7 @@ class PrimaryTermReportController extends Controller
             $termResult->update();
         }
 
-        return redirect()->route('reports')->with('success','Term Report updated successfully!');
+        return redirect()->route('primary-reports')->with('success','Term Report updated successfully!');
     }
 
     /**
@@ -375,6 +364,6 @@ class PrimaryTermReportController extends Controller
     {
         $this->authorize('is-staff');
         $report->delete();
-        return redirect()->route('reports')->with('success','Term report deleted successfully!');
+        return redirect()->route('primary-reports')->with('success','Term report deleted successfully!');
     }
 }

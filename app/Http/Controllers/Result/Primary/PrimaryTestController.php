@@ -13,7 +13,6 @@ use App\Http\Requests\Result\Primary\StorePrimaryTestRequest;
 use App\Http\Requests\Result\Primary\UpdatePrimaryTestRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class PrimaryTestController extends Controller
 {
@@ -50,19 +49,6 @@ class PrimaryTestController extends Controller
                 'reports' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
-            // $ward = Pupil::where('admission_no', auth()->user()->username)->first();
-            // if(!is_null($ward)){
-            //     return view('results.primary.primary-tests', [
-            //         'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms,
-            //     ]);
-            // }else{
-            //     return view('results.primary.primary-tests', [
-            //         'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', ' ')->where($filter)->paginate(session('per_page')),
-            //         'terms' => $terms,
-            //     ]); 
-            // }
-            
         }
     }
 
@@ -154,7 +140,7 @@ class PrimaryTestController extends Controller
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
-        return view('results.edit-test', [
+        return view('results.primary.edit-primary-test', [
             'test'=>$test,
             'pupils'=>$pupils, 
             'terms'=>$terms, 
@@ -176,7 +162,7 @@ class PrimaryTestController extends Controller
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
             'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
-            'result.*.id' => ['required', 'integer', 'exists:test_results,id'],
+            'result.*.id' => ['required', 'integer', 'exists:primary_test_results,id'],
             'result.*.name' => ['required', 'string'],
             'result.*.score' => ['required', 'integer'],
             'result.*.grade' => ['required', 'string', Rule::in(['A','B','C','D','E','F'])],
@@ -192,7 +178,7 @@ class PrimaryTestController extends Controller
         ]);
         foreach($request->result as $result){
             $testResult = PrimaryTestResult::find($result['id']);
-            $testResult->test_id = $test->id;
+            $testResult->primary_test_id = $test->id;
             $testResult->pupil_id = $pupil->id;
             $testResult->term_id = $request->term;
             $testResult->score = $result['score'];
@@ -203,7 +189,7 @@ class PrimaryTestController extends Controller
             $testResult->update();
         }
 
-        return redirect()->route('tests')->with('success','Test Result updated successfully!');
+        return redirect()->route('primary-tests')->with('success','Test Result updated successfully!');
     }
 
     /**
@@ -216,6 +202,6 @@ class PrimaryTestController extends Controller
     {
         $this->authorize('is-staff');
         $test->delete();
-        return redirect()->route('tests')->with('success','Test Result deleted successfully!');
+        return redirect()->route('primary-tests')->with('success','Test Result deleted successfully!');
     }
 }

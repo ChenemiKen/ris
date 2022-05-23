@@ -22,12 +22,11 @@
                             <label for="class">Class</label>
                             <select name="class" class="form-control" id="class" required>
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden=""> </option>
-                                <option value="primary_1" {{ old('class', $subject->class) == 'primary_1' ? "selected" : "" }}>Primary 1</option>                         
-                                <option value="primary_2" {{ old('class', $subject->class) == 'primary_2' ? "selected" : "" }}>Primary 2</option>                         
-                                <option value="primary_3" {{ old('class', $subject->class) == 'primary_3' ? "selected" : "" }}>Primary 3</option>                         
-                                <option value="primary_4" {{ old('class', $subject->class) == 'primary_4' ? "selected" : "" }}>Primary 4</option>                         
-                                <option value="primary_5" {{ old('class', $subject->class) == 'primary_5' ? "selected" : "" }}>Primary 5</option>                         
-                                <option value="primary_6" {{ old('class', $subject->class) == 'primary_6' ? "selected" : "" }}>Primary 6</option>                         
+                                <option value="nursery" {{ old('class', $subject->class) == 'nursery' ? "selected" : "" }}>Nursery</option>                         
+                                <option value="lower_primary" {{ old('class', $subject->class) == 'lower_primary' ? "selected" : "" }}>Lower primary</option>                         
+                                <option value="upper_primary" {{ old('class', $subject->class) == 'upper_primary' ? "selected" : "" }}>Upper primary</option>                         
+                                <option value="beacon" {{ old('class', $subject->class) == 'beacon' ? "selected" : "" }}>Beacon</option>                         
+                                <option value="playgroup" {{ old('class', $subject->class) == 'playgroup' ? "selected" : "" }}>Playgroup</option>                         
                             </select>
                         </div>
                     </div>

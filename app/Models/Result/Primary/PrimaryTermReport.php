@@ -4,6 +4,9 @@ namespace App\Models\Result\Primary;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pupil;
+use App\Models\Result\Term;
+
 
 class PrimaryTermReport extends Model
 {

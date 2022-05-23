@@ -14,7 +14,7 @@
             </div>
         @endif
         {{-- form --}}
-        <form action="{{route('create-report')}}" method="POST">
+        <form action="{{route('create-primary-report')}}" method="POST">
             @csrf
             <div class="deshboard_main_top_edit_area">
                 {{-- pupil details --}}

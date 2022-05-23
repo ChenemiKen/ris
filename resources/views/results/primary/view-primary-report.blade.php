@@ -48,7 +48,7 @@
                         <th>Teacher's Comment</th>
                     </thead>
                     <tbody>
-                        @foreach($report->termResults as $result)
+                        @foreach($report->primaryTermResults as $result)
                         <tr>
                             <td>{{$result->subject->name}}</td>
                             <td>{{$result->test_1}}</td>

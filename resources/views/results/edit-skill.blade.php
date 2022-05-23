@@ -24,7 +24,7 @@
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden=""> </option>
                                 <option value="nursery" {{ old('class', $skill->class) == 'nursery' ? "selected" : "" }}>Nursery</option>                         
                                 <option value="lower_primary" {{ old('class', $skill->class) == 'lower_primary' ? "selected" : "" }}>Lower primary</option>                         
-                                <option value="uppper_primary" {{ old('class', $skill->class) == 'uppper_primary' ? "selected" : "" }}>Upper primary</option>                         
+                                <option value="upper_primary" {{ old('class', $skill->class) == 'upper_primary' ? "selected" : "" }}>Upper primary</option>                         
                                 <option value="beacon" {{ old('class', $skill->class) == 'beacon' ? "selected" : "" }}>Beacon</option>                         
                                 <option value="playgroup" {{ old('class', $skill->class) == 'playgroup' ? "selected" : "" }}>Playgroup</option>                         
                             </select>
