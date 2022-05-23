@@ -202,20 +202,22 @@ class NurseryTermReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Result\Nursery\NurseryTermReport  $nurseryTermReport
+     * @param  \App\Models\Result\Nursery\NurseryTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function edit(NurseryTermReport $nurseryTermReport)
+    public function edit(NurseryTermReport $report)
     {
         $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
-        return view('results.edit-nursery-report', [
+        $skillCategories = SkillCategory::all('id','name');
+        return view('results.nursery.edit-nursery-report', [
             'report'=>$report,
             'pupils'=>$pupils, 
             'terms'=>$terms, 
-            'subjects'=>$subjects
+            'subjects'=>$subjects,
+            'skill_categories'=>$skillCategories
         ]);
     }
 
@@ -223,25 +225,24 @@ class NurseryTermReportController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Result\Nursery\UpdateNurseryTermReportRequest  $request
-     * @param  \App\Models\Result\Nursery\NurseryTermReport  $nurseryTermReport
+     * @param  \App\Models\Result\Nursery\NurseryTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNurseryTermReportRequest $request, NurseryTermReport $nurseryTermReport)
+    public function update(UpdateNurseryTermReportRequest $request, NurseryTermReport $report)
     {
         $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill.*.id' => ['required', 'integer', 'exists:skills,id'],
-            'skill.*.name' => ['required', 'string'],
-            'skill.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'skill.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'subject.*.id' => ['required', 'integer', 'exists:subjects,id'],
-            'subject.*.name' => ['required', 'string'],
-            'subject.*.score' => ['required', 'integer'],
-            'subject.*.remarks' => ['required', 'string'],
-            // I removed required for now to ease testing
+            'skill_result.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
+            'skill_result.*.id' => ['required', 'integer', 'exists:nursery_skill_results,id'],
+            'skill_result.*.name' => ['required', 'string'],
+            'skill_result.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'skill_result.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'subject_result.*.id' => ['required', 'integer', 'exists:nursery_subject_results,id'],
+            'subject_result.*.name' => ['required', 'string'],
+            'subject_result.*.score' => ['required', 'integer'],
+            'subject_result.*.remarks' => ['required', 'string'],
             'times_school_opened' => ['nullable','integer'],
             'times_present' => [ 'nullable','integer'],
             'times_absent' => ['nullable','integer'],
@@ -256,7 +257,8 @@ class NurseryTermReportController extends Controller
         $pupil = Pupil::find($request->pupil);
 
         // persist report
-        $report = $pupil->nurseryTermReports()->create([
+        $report->update([
+            'pupil_id' => $request->pupil,
             'term_id' => $request->term,
             // attendance
             'times_school_opened'=>$request->times_school_opened,
@@ -271,8 +273,9 @@ class NurseryTermReportController extends Controller
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
         ]);
-        foreach($request->skill as $skill){
-            switch($skill['grade']){
+        foreach($request->skill_result as $skill_result){
+            $nurserySkillResult = NurserySkillResult::find($skill_result['id']);
+            switch($skill_result['grade']){
                 case 'A+':
                     $remarks = 'Exceptional';
                     break;
@@ -298,44 +301,46 @@ class NurseryTermReportController extends Controller
                     $remarks = 'Not_Applicable';
                     break;
             }
-            $nurserySkillResult = new NurserySkillResult();
+
             $nurserySkillResult->nursery_term_report_id = $report->id;
             $nurserySkillResult->pupil_id = $pupil->id;
             $nurserySkillResult->term_id = $request->term;
-            $nurserySkillResult->skill_category_id = $skill['category_id'];
-            $nurserySkillResult->skill_id = $skill['id'];
-            $nurserySkillResult->grade = $skill['grade'];
-            $nurserySkillResult->effort_grade = $skill['effort_grade'];
+            $nurserySkillResult->skill_category_id = $skill_result['category_id'];
+            $nurserySkillResult->skill_id = $skill_result['id'];
+            $nurserySkillResult->grade = $skill_result['grade'];
+            $nurserySkillResult->effort_grade = $skill_result['effort_grade'];
             $nurserySkillResult->remark = $remarks;
 
-            // persist testResult
-            $nurserySkillResult->save();
+            // update term Result
+            $nurserySkillResult->update();
         }
         
-        foreach($request->subject as $subject){
-            $nurserySubjectResult = new NurserySubjectResult();
+        foreach($request->subject_result as $subject_result){
+            $nurserySubjectResult = NurserySubjectResult::find($subject_result['id']);
             $nurserySubjectResult->nursery_term_report_id = $report->id;
             $nurserySubjectResult->pupil_id = $pupil->id;
             $nurserySubjectResult->term_id = $request->term;
-            $nurserySubjectResult->subject_id = $subject['id'];
-            $nurserySubjectResult->score = $subject['score'];
-            $nurserySubjectResult->remark = $subject['remarks'];
+            // $nurserySubjectResult->subject->id = $subject_result['id'];
+            $nurserySubjectResult->score = $subject_result['score'];
+            $nurserySubjectResult->remark = $subject_result['remarks'];
 
             // persist testResult
-            $nurserySubjectResult->save();
+            $nurserySubjectResult->update();
         }
 
-        return redirect()->route('nursery-reports')->with('success','Term Report added successfully!');
+        return redirect()->route('nursery-reports')->with('success','Term Report updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Result\Nursery\NurseryTermReport  $nurseryTermReport
+     * @param  \App\Models\Result\Nursery\NurseryTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NurseryTermReport $nurseryTermReport)
+    public function destroy(NurseryTermReport $report)
     {
-        //
+        $this->authorize('is-staff');
+        $report->delete();
+        return redirect()->route('nursery-reports')->with('success','Term report deleted successfully!');
     }
 }

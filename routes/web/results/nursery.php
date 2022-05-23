@@ -27,16 +27,16 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/view-nursery-report/{report}', [NurseryTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-nursery-report');
-        Route::get('/edit-nursery-report/{nursery-report}', [NurseryTermReportController::class, 'edit'])
+        Route::get('/edit-nursery-report/{report}', [NurseryTermReportController::class, 'edit'])
                 ->middleware('auth')
                 ->name('edit-nursery-report');
-        Route::post('/update-nursery-report/{nursery-report}', [NurseryTermReportController::class, 'update'])
+        Route::post('/update-nursery-report/{report}', [NurseryTermReportController::class, 'update'])
                 ->middleware('auth')
                 ->name('update-nursery-report');
-        Route::post('/delete-nursery-report/{nursery-report}', [NurseryTermReportController::class, 'destroy'])
+        Route::post('/delete-nursery-report/{report}', [NurseryTermReportController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('delete-nursery-report');
-        Route::get('/view-nursery-report/{nursery-report}', [NurseryTermReportController::class, 'show'])
+        Route::get('/view-nursery-report/{report}', [NurseryTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-nursery-report');
 });

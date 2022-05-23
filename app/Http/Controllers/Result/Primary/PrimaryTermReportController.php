@@ -331,7 +331,6 @@ class PrimaryTermReportController extends Controller
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
         ]);
-        // Log::debug($test);
         foreach($request->result as $result){
             $termResult = PrimaryTermResult::find($result['id']);
             $termResult->primary_term_report_id = $report->id;
