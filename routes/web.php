@@ -26,8 +26,9 @@ use Illuminate\Support\Facades\Gate;
  
 require __DIR__.'/auth.php';
 require __DIR__.'/web/results.php';
-require __DIR__.'/web/results/nursery.php';
 require __DIR__.'/web/results/primary.php';
+require __DIR__.'/web/results/nursery.php';
+require __DIR__.'/web/results/beacon.php';
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){

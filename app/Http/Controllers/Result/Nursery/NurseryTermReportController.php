@@ -66,7 +66,7 @@ class NurseryTermReportController extends Controller
         $subjects = Subject::all('id','name');
         $skills = Skill::all('id','name','skill_category_id');
         $skillCategories = SkillCategory::all('id','name');
-        return view('results.nursery.add-nursery-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
+        return view('results.beacon.add-beacon-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
     }
 
     /**

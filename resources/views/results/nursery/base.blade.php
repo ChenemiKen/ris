@@ -101,7 +101,7 @@
                             @endcan
                             @can('is-parent')
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('primary-reports')}}"><span>Term Reports</span></a>
+                                    <a class="nav-link" href="{{route('nursery-reports')}}"><span>Term Reports</span></a>
                                 </li>
                             @endcan
                             <li class="dropdown">
