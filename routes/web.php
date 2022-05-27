@@ -29,6 +29,7 @@ require __DIR__.'/web/results.php';
 require __DIR__.'/web/results/primary.php';
 require __DIR__.'/web/results/nursery.php';
 require __DIR__.'/web/results/beacon.php';
+require __DIR__.'/web/results/playgroup.php';
 
 // Routes
 Route::group(['middleware'=>'auth'], function(){

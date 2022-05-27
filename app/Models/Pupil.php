@@ -7,6 +7,7 @@ use App\Models\Result\Primary\PrimaryTermReport;
 use App\Models\Result\Primary\PrimaryTermResult;
 use App\Models\Result\Nursery\NurseryTermReport;
 use App\Models\Result\Beacon\BeaconTermReport;
+use App\Models\Result\Playgroup\PlaygroupTermReport;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -91,5 +92,13 @@ class Pupil extends Model
     public function beaconTermReports()
     {
         return $this->hasMany(BeaconTermReport::class);
+    }
+
+    /**
+     * Get the tests for the pupil.
+     */
+    public function playgroupTermReports()
+    {
+        return $this->hasMany(PlaygroupTermReport::class);
     }
 }

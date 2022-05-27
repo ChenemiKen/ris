@@ -83,27 +83,23 @@
                             <li class="dropdown">
                                 <a class="nav-link" href="{{route('results')}}"><span><strong>Results</strong></span></a>
                             </li>
-                            @can('is-admin')
+                            @can('is-staff')
                                 <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('primary-reports')}}"><span>Primary results</span></a>
+                                    <a class="nav-link" href="{{route('playgroup-reports')}}"><span>Manage Term Reports</span></a>
                                 </li>
+        
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('nursery-reports')}}"><span>Nursery results</span></a>
+                                    <a class="nav-link" href="{{route('skills')}}"><span>Manage Skills</span></a>
                                 </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('playgroup-reports')}}"><span>Playgroup results</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('beacon-reports')}}"><span>Beacon results</span></a>
-                                </li>
+                                @can('is-admin')
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
                                 </li>
+                                @endcan
+                            @endcan
+                            @can('is-parent')
                                 <li class="dropdown">
-                                    <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('skills')}}"><span>Manage Skills</span></a>
+                                    <a class="nav-link" href="{{route('playgroup-reports')}}"><span>Term Reports</span></a>
                                 </li>
                             @endcan
                             <li class="dropdown">

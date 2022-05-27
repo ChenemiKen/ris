@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Result\Beacon;
+namespace App\Http\Controllers\Result\Playgroup;
 use App\Http\Controllers\Controller;
 
-use App\Models\Result\Beacon\BeaconTermReport;
+use App\Models\Result\Playgroup\PlaygroupTermReport;
 use App\Models\Pupil;
 use App\Models\Result\Term;
 use App\Models\Result\Skill;
 use App\Models\Result\SkillCategory;
-use App\Http\Requests\Result\Beacon\StoreBeaconTermReportRequest;
-use App\Http\Requests\Result\Beacon\UpdateBeaconTermReportRequest;
-use App\Models\Result\Beacon\BeaconSkillResult;
+use App\Models\Result\Playgroup\PlaygroupSkillResult;
+use App\Http\Requests\Result\Playgroup\StorePlaygroupTermReportRequest;
+use App\Http\Requests\Result\Playgroup\UpdatePlaygroupTermReportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
 
-class BeaconTermReportController extends Controller
+class PlaygroupTermReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,19 +34,19 @@ class BeaconTermReportController extends Controller
         }
 
         if(Gate::allows('is-admin')){
-            return view('results.beacon.beacon-reports', [
-                'reports' => BeaconTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
+            return view('results.playgroup.playgroup-reports', [
+                'reports' => PlaygroupTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
         }elseif(Gate::allows('is-teacher')){
-            return view('results.beacon.beacon-reports', [
-                'reports' => BeaconTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
+            return view('results.playgroup.playgroup-reports', [
+                'reports' => PlaygroupTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
         }elseif(Gate::allows('is-parent')){
             $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
-            return view('results.beacon.beacon-reports', [
-                'reports' => BeaconTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+            return view('results.playgroup.playgroup-reports', [
+                'reports' => PlaygroupTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);   
         }
@@ -63,16 +64,16 @@ class BeaconTermReportController extends Controller
         $terms = Term::all('id','name','session');
         $skills = Skill::all('id','name','skill_category_id');
         $skillCategories = SkillCategory::all('id','name');
-        return view('results.beacon.add-beacon-report', ['pupils'=>$pupils, 'terms'=>$terms, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
+        return view('results.playgroup.add-playgroup-report', ['pupils'=>$pupils, 'terms'=>$terms, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Result\Beacon\StoreBeaconTermReportRequest  $request
+     * @param  \App\Http\Requests\Result\Playgroup\StorePlaygroupTermReportRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBeaconTermReportRequest $request)
+    public function store(StorePlaygroupTermReportRequest $request)
     {
         $this->authorize('is-staff');
         $request->validate([
@@ -115,7 +116,7 @@ class BeaconTermReportController extends Controller
         $pupil = Pupil::find($request->pupil);
 
         // persist report
-        $report = $pupil->beaconTermReports()->create([
+        $report = $pupil->playgroupTermReports()->create([
             'term_id' => $request->term,
             // attendance
             'times_school_opened'=>$request->times_school_opened,
@@ -150,38 +151,38 @@ class BeaconTermReportController extends Controller
             'punctuality'=>$request->punctuality,
         ]);
         foreach($request->skill as $skill){
-            $beaconSkillResult = new BeaconSkillResult();
-            $beaconSkillResult->beacon_term_report_id = $report->id;
-            $beaconSkillResult->pupil_id = $pupil->id;
-            $beaconSkillResult->term_id = $request->term;
-            $beaconSkillResult->skill_category_id = $skill['category_id'];
-            $beaconSkillResult->skill_id = $skill['id'];
-            $beaconSkillResult->score = $skill['score'];
+            $playgroupSkillResult = new PlaygroupSkillResult();
+            $playgroupSkillResult->playgroup_term_report_id = $report->id;
+            $playgroupSkillResult->pupil_id = $pupil->id;
+            $playgroupSkillResult->term_id = $request->term;
+            $playgroupSkillResult->skill_category_id = $skill['category_id'];
+            $playgroupSkillResult->skill_id = $skill['id'];
+            $playgroupSkillResult->score = $skill['score'];
 
             // persist beaconSkillResult
-            $beaconSkillResult->save();
+            $playgroupSkillResult->save();
         }
 
-        return redirect()->route('beacon-reports')->with('success','Term Report added successfully!');
+        return redirect()->route('playgroup-reports')->with('success','Term Report added successfully!');$this->authorize('is-staff');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Result\Beacon\BeaconTermReport  $report
+     * @param  \App\Models\Result\Playgroup\PlaygroupTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(BeaconTermReport $report)
+    public function show(PlaygroupTermReport $report)
     {
         $skillCategories = SkillCategory::all('id','name');
 
         if(Gate::allows('is-staff')){
-            return view('results.beacon.view-beacon-report',[
+            return view('results.playgroup.view-playgroup-report',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,
             ]);
         }else{
-            return view('results.beacon.beacon-report-parent-view',[
+            return view('results.playgroup.playgroup-report-parent-view',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,
             ]);
@@ -191,16 +192,16 @@ class BeaconTermReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Result\Beacon\BeaconTermReport  $report
+     * @param  \App\Models\Result\Playgroup\PlaygroupTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function edit(BeaconTermReport $report)
+    public function edit(PlaygroupTermReport $report)
     {
         $this->authorize('is-staff');
         $pupils = Pupil::all('id','firstname','lastname');
         $terms = Term::all('id','name','session');
         $skillCategories = SkillCategory::all('id','name');
-        return view('results.beacon.edit-beacon-report', [
+        return view('results.playgroup.edit-playgroup-report', [
             'report'=>$report,
             'pupils'=>$pupils, 
             'terms'=>$terms, 
@@ -211,18 +212,18 @@ class BeaconTermReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Result\Beacon\UpdateBeaconTermReportRequest  $request
-     * @param  \App\Models\Result\Beacon\BeaconTermReport  $report
+     * @param  \App\Http\Requests\Result\Playgroup\UpdatePlaygroupTermReportRequest  $request
+     * @param  \App\Models\Result\Playgroup\PlaygroupTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBeaconTermReportRequest $request, BeaconTermReport $report)
+    public function update(UpdatePlaygroupTermReportRequest $request, PlaygroupTermReport $report)
     {
         $this->authorize('is-staff');
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
             'skill_result.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill_result.*.id' => ['required', 'integer', 'exists:beacon_skill_results,id'],
+            'skill_result.*.id' => ['required', 'integer', 'exists:playgroup_skill_results,id'],
             'skill_result.*.score' => ['required', 'string', Rule::in([1,2,3,4,5,6,7,8,9,10])],
             // attention skills
             "ability_to_concentrate" => ['required', 'string'],
@@ -293,31 +294,31 @@ class BeaconTermReportController extends Controller
             'punctuality'=>$request->punctuality,
         ]);
         foreach($request->skill_result as $skill_result){
-            $beaconSkillResult = BeaconSkillResult::find($skill_result['id']);
-            $beaconSkillResult->beacon_term_report_id = $report->id;
-            $beaconSkillResult->pupil_id = $pupil->id;
-            $beaconSkillResult->term_id = $request->term;
-            $beaconSkillResult->skill_category_id = $skill_result['category_id'];
-            $beaconSkillResult->skill_id = $skill_result['id'];
-            $beaconSkillResult->score = $skill_result['score'];
+            $playgroupSkillResult = PlaygroupSkillResult::find($skill_result['id']);
+            $playgroupSkillResult->playgroup_term_report_id = $report->id;
+            $playgroupSkillResult->pupil_id = $pupil->id;
+            $playgroupSkillResult->term_id = $request->term;
+            $playgroupSkillResult->skill_category_id = $skill_result['category_id'];
+            $playgroupSkillResult->skill_id = $skill_result['id'];
+            $playgroupSkillResult->score = $skill_result['score'];
 
             // persist beaconSkillResult
-            $beaconSkillResult->update();
+            $playgroupSkillResult->update();
         }
 
-        return redirect()->route('beacon-reports')->with('success','Term Report updated successfully!');
+        return redirect()->route('playgroup-reports')->with('success','Term Report updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Result\Beacon\BeaconTermReport  $report
+     * @param  \App\Models\Result\Playgroup\PlaygroupTermReport  $report
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BeaconTermReport $report)
+    public function destroy(PlaygroupTermReport $report)
     {
         $this->authorize('is-staff');
         $report->delete();
-        return redirect()->route('beacon-reports')->with('success','Term report deleted successfully!');
+        return redirect()->route('playgroup-reports')->with('success','Term report deleted successfully!');
     }
 }
