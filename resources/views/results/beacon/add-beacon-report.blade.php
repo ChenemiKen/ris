@@ -14,7 +14,7 @@
             </div>
         @endif
         {{-- form --}}
-        <form action="{{route('create-nursery-report')}}" method="POST">
+        <form action="{{route('create-beacon-report')}}" method="POST">
             @csrf
             <div class="deshboard_main_top_edit_area">
                 {{-- pupil details --}}
@@ -47,76 +47,237 @@
                         <div class="col-md-12">
                             <hr class="mb-3 mt-5">
                             <h5 class="text-blue mb-5 col-md-12">{{$category->name}}</h5>
-                            @foreach($category->skills as $skill)
-                                <div class="row">
+                            <div class="row">
+                                @foreach($category->skills as $skill)
                                     <div class="col-md-4">
                                         <div class="deshboard_main_top_edit_area_single_item">
                                             <input class="form-control" type="number" id="{{$category->id}}" name="skill[{{$loop->index}}][category_id]" value='{{old("skill[{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
                                             <input class="form-control" type="number" id="{{$skill->id}}" name="skill[{{$loop->index}}][id]" value='{{old("skill[{$loop->index}][id]", $skill->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
-                                            <label for="{{$skill->name}}">&nbsp;</label>
-                                            <input class="form-control" type="text" id="{{$skill->name}}" name="skill[{{$loop->index}}][name]" value='{{old("skill[{$loop->index}][name]", $skill->name)}}' required readonly>
+                                            {{-- <input class="form-control" type="text" id="{{$skill->name}}" name="skill[{{$loop->index}}][name]" value='{{old("skill[{$loop->index}][name]", $skill->name)}}' required readonly> --}}
+                                            <div class="deshboard_main_top_edit_area_single_item">
+                                                <label for="{{$skill->name}}-score">{{$skill->name}}</label>
+                                                <select name="skill[{{$loop->index}}][score]" class="form-control" id="{{$skill->name}}-score">
+                                                    <option value="" {{old("skill[{$loop->index}][score]") == "" ? "selected" : "" }} hidden=""></option>
+                                                    <option value=1 {{old("skill[{$loop->index}][score]") == 1 ? "selected" : "" }}>1</option>
+                                                    <option value=2 {{old("skill[{$loop->index}][score]") == 2 ? "selected" : "" }}>2</option>
+                                                    <option value=3 {{old("skill[{$loop->index}][score]") == 3 ? "selected" : "" }}>3</option>
+                                                    <option value=4 {{old("skill[{$loop->index}][score]") == 4 ? "selected" : "" }}>4</option>
+                                                    <option value=5 {{old("skill[{$loop->index}][score]") == 5 ? "selected" : "" }}>5</option>
+                                                    <option value=6 {{old("skill[{$loop->index}][score]") == 6 ? "selected" : "" }}>6</option>
+                                                    <option value=7 {{old("skill[{$loop->index}][score]") == 7 ? "selected" : "" }}>7</option>
+                                                    <option value=8 {{old("skill[{$loop->index}][score]") == 8 ? "selected" : "" }}>8</option>
+                                                    <option value=9 {{old("skill[{$loop->index}][score]") == 9 ? "selected" : "" }}>9</option>
+                                                    <option value=10 {{old("skill[{$loop->index}][score]") == 10 ? "selected" : "" }}>10</option>
+                                                </select>                                
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="deshboard_main_top_edit_area_single_item">
-                                            <label for="{{$skill->name}}-grade">Grade</label>
-                                            <select name="skill[{{$loop->index}}][grade]" class="form-control" id="{{$skill->name}}-grade">
-                                                <option value="" {{old("skill[{$loop->index}][grade]") == "" ? "selected" : "" }} hidden=""></option>
-                                                <option value=A+ {{old("skill[{$loop->index}][grade]") == 'A+' ? "selected" : "" }}>A+</option>
-                                                <option value=A {{old("skill[{$loop->index}][grade]") == 'A' ? "selected" : "" }}>A</option>
-                                                <option value=B+ {{old("skill[{$loop->index}][grade]") == 'B+' ? "selected" : "" }}>B+</option>
-                                                <option value=B {{old("skill[{$loop->index}][grade]") == 'B' ? "selected" : "" }}>B</option>
-                                                <option value=C+ {{old("skill[{$loop->index}][grade]") == 'C+' ? "selected" : "" }}>C+</option>
-                                                <option value=C {{old("skill[{$loop->index}][grade]") == 'C' ? "selected" : "" }}>C</option>
-                                                <option value=N.A {{old("skill[{$loop->index}][grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
-                                                <option value=S.A {{old("skill[{$loop->index}][grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
-                                            </select>                                
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="deshboard_main_top_edit_area_single_item">
-                                            <label for="{{$skill->name}}-effort_grade" style="white-space:nowrap;"><small>Effort Grade</small></label>
-                                            <select name="skill[{{$loop->index}}][effort_grade]" class="form-control" id="{{$skill->name}}-effort_grade">
-                                                <option value=A+ {{old("skill[{$loop->index}][effort_grade]") == 'A+' ? "selected" : "" }}>A+</option>
-                                                <option value="" {{old("skill[{$loop->index}][effort_grade]") == "" ? "selected" : "" }} hidden=""></option>
-                                                <option value=A {{old("skill[{$loop->index}][effort_grade]") == 'A' ? "selected" : "" }}>A</option>
-                                                <option value=B+ {{old("skill[{$loop->index}][effort_grade]") == 'B+' ? "selected" : "" }}>B+</option>
-                                                <option value=B {{old("skill[{$loop->index}][effort_grade]") == 'B' ? "selected" : "" }}>B</option>
-                                                <option value=C+ {{old("skill[{$loop->index}][effort_grade]") == 'C+' ? "selected" : "" }}>C+</option>
-                                                <option value=C {{old("skill[{$loop->index}][effort_grade]") == 'C' ? "selected" : "" }}>C</option>
-                                                <option value=S.A {{old("skill[{$loop->index}][effort_grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
-                                                <option value=N.A {{old("skill[{$loop->index}][effort_grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
-                                            </select>                                
-                                        </div>
-                                    </div>
-                                </div> 
-                            @endforeach
+                                @endforeach
+                            </div> 
                         </div> 
                     @endforeach
                     
                     <hr class="col-md-12 mb-3 mt-5">
+                    <h5 class="col-md-12 text-blue mb-2">ATTENTION SKILLS</h5>
                     {{-- subject results --}}
-                    {{-- @foreach($subjects as $subject)
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <input class="form-control" type="number" id="{{$subject->id}}" name="subject[{{$loop->index}}][id]" value='{{old("subject[{$loop->index}][id]", $subject->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
-                                <label for="{{$subject->name}}">Subject</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}" name="subject[{{$loop->index}}][name]" value='{{old("subject[{$loop->index}][name]", $subject->name)}}' required readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="deshboard_main_top_edit_area_single_item">
-                                <label for="{{$subject->name}}-score">Score</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-score" name="subject[{{$loop->index}}][score]" value="{{old("subject[{$loop->index}][score]")}}" required>
+                                <label for="">Subject</label>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <label for="{{$subject->name}}-remarks">Remarks</label>  
-                                <input class="form-control" type="text" id="{{$subject->name}}-remarks" name="subject[{{$loop->index}}][remarks]" value="{{old("subject[{$loop->index}][remarks]")}}" required>
+                                <label for="">Remarks</label>
+                            </div>
+                        </div>
+                        {{-- ability to concentrate --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Comment here on ability to concentrate" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" name="ability_to_concentrate" value="{{old("ability_to_concentrate")}}" required>
                             </div>
                         </div>   
-                    @endforeach --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="C.R.K" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" id="crk" name="crk" value="{{old("crk")}}" required>
+                            </div>
+                        </div>   
+                        {{-- Colouring & art --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Colouring $ Art" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" name="colouring_art" value="{{old("colouring_art")}}" required>
+                            </div>
+                        </div>  
+                        {{-- Games --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Games" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text"  name="games" value="{{old("games")}}" required>
+                            </div>
+                        </div>   
+                        {{-- Language --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Language development $ Vocabulary" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" id="language_dev" name="language_dev" value="{{old("language_dev")}}" required>
+                            </div>
+                        </div>   
+                        {{-- number_work --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Number Work" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" id="number_work" name="number_work" value="{{old("number_work")}}" required>
+                            </div>
+                        </div>   
+                        {{-- other_activities --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Other Activities" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" name="other_activities" value="{{old("other_activities")}}" required>
+                            </div>
+                        </div>   
+                        {{-- pencil --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Pencil play/Pencil activities" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" id="pencil_work" name="pencil_work" value="{{old("pencil_work")}}" required>
+                            </div>
+                        </div>   
+                        {{-- phonics --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Phonics" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" id="phonics" name="phonics" value="{{old("phonics")}}" required>
+                            </div>
+                        </div>   
+                        {{-- phonics --}}
+                        <div class="col-md-4">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" value="Project Work(General Knowledge)" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="deshboard_main_top_edit_area_single_item">
+                                <input class="form-control" type="text" name="project_work" value="{{old("project_work")}}" required>
+                            </div>
+                        </div>   
+                    <hr class="col-md-12 mb-3 mt-5">
+                    <h5 class="col-md-12 text-blue mb-2">AFFECTIVE AREAS SKILLS</h5>
+                    {{-- Attitude to Work --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Attitude to Work" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="attitude_to_work" value="{{old("attitude_to_work")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Cleanliness --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Cleanliness" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="cleanliness" value="{{old("cleanliness")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Dress --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Dress" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="dress" value="{{old("dress")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Hair --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Hair" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="hair" value="{{old("hair")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Nails --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Nails" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="nails" value="{{old("nails")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Neatness --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Neatness" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="neatness" value="{{old("neatness")}}" required>
+                        </div>
+                    </div> 
+                    {{-- Punctuality --}}
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" value="Punctuality" required disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <input class="form-control" type="text" name="punctuality" value="{{old("punctuality")}}" required>
+                        </div>
+                    </div> 
                 </div>
                 <hr class="mb-3 mt-5">
                 <h5 class="text-blue mb-5">ATTENDANCE</h5>

@@ -195,6 +195,7 @@ class NurseryTermReportController extends Controller
         }else{
             return view('results.nursery.nursery-report-parent-view',[
                 'report' => $report,
+                'skill_categories'=>$skillCategories,
             ]);
         }
     }
@@ -306,7 +307,7 @@ class NurseryTermReportController extends Controller
             $nurserySkillResult->pupil_id = $pupil->id;
             $nurserySkillResult->term_id = $request->term;
             $nurserySkillResult->skill_category_id = $skill_result['category_id'];
-            $nurserySkillResult->skill_id = $skill_result['id'];
+            // $nurserySkillResult->skill_id = $skill_result['id'];
             $nurserySkillResult->grade = $skill_result['grade'];
             $nurserySkillResult->effort_grade = $skill_result['effort_grade'];
             $nurserySkillResult->remark = $remarks;

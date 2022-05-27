@@ -36,6 +36,7 @@ class BeaconTermReport extends Model
         // Attention skills
         'ability_to_concentrate',
         'crk',
+        'colouring_art',
         'games',
         'lang_dev_vocab',
         'number_work',

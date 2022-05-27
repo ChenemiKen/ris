@@ -68,3 +68,8 @@ ol, ul, menu {
 .pupil-result-table th, .pupil-result-table td{
 	padding: 1rem;
 }
+.shade{
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	background-color: rgb(20, 20, 20) !important;
+}

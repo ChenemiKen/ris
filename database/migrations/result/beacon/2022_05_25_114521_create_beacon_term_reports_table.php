@@ -41,6 +41,7 @@ return new class extends Migration
             // Attention skills
             $table->string('ability_to_concentrate')->nullable();
             $table->string('crk')->nullable();
+            $table->string('colouring_art')->nullable();
             $table->string('games')->nullable();
             $table->string('lang_dev_vocab')->nullable();
             $table->string('number_work')->nullable();
