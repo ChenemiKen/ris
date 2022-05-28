@@ -118,6 +118,27 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete-skill/{skill}', [SkillController::class, 'destroy'])
                         ->middleware('auth')
                         ->name('delete-skill');
+
+    
+        // Manage Terms
+        Route::get('/terms', [TermController::class, 'index'])
+                ->middleware(['auth'])
+                ->name('terms');
+        Route::get('/add-term', [TermController::class, 'create'])
+                ->middleware('auth')
+                ->name('add-term');
+        Route::post('/create-term', [TermController::class, 'store'])
+                ->middleware('auth')
+                ->name('create-term');
+        Route::get('/edit-term/{term}', [TermController::class, 'edit'])
+                ->middleware('auth')
+                ->name('edit-term');
+        Route::post('/update-term/{term}', [TermController::class, 'update'])
+                ->middleware('auth')
+                ->name('update-term');
+        Route::post('/delete-term/{term}', [TermController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('delete-term');
        
 
         // Manage skill category
@@ -125,6 +146,7 @@ Route::group(['middleware'=>'auth'], function(){
                         ->middleware('auth')
                         ->name('create-skill-category');
        
+                        
 
         // Admin area (Routes accessible to only Admin users)-----------------//
         Route::group([
@@ -132,27 +154,6 @@ Route::group(['middleware'=>'auth'], function(){
             'middleware'=>'is_admin',
             // 'as'=>'admin.'
         ], function(){
-            // Manage Terms
-            Route::get('/terms', [TermController::class, 'index'])
-                            ->middleware(['auth'])
-                            ->name('terms');
-            Route::get('/add-term', [TermController::class, 'create'])
-                            ->middleware('auth')
-                            ->name('add-term');
-            Route::post('/create-term', [TermController::class, 'store'])
-                            ->middleware('auth')
-                            ->name('create-term');
-            Route::get('/edit-term/{term}', [TermController::class, 'edit'])
-                            ->middleware('auth')
-                            ->name('edit-term');
-            Route::post('/update-term/{term}', [TermController::class, 'update'])
-                            ->middleware('auth')
-                            ->name('update-term');
-            Route::post('/delete-term/{term}', [TermController::class, 'destroy'])
-                            ->middleware('auth')
-                            ->name('delete-term');
-
-            
             //intermediate result router page for admins  
             Route::get('/result-directory', function(){
                 return view('results.result-directory');

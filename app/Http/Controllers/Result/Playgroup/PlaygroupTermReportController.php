@@ -33,12 +33,7 @@ class PlaygroupTermReportController extends Controller
             $filter['term_id']= $request->term;    
         }
 
-        if(Gate::allows('is-admin')){
-            return view('results.playgroup.playgroup-reports', [
-                'reports' => PlaygroupTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
-                'terms' => $terms
-            ]);
-        }elseif(Gate::allows('is-teacher')){
+        if(Gate::allows('is-staff')){
             return view('results.playgroup.playgroup-reports', [
                 'reports' => PlaygroupTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
@@ -60,7 +55,8 @@ class PlaygroupTermReportController extends Controller
     public function create()
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $filter = ['class'=>'playgroup'];
+        $pupils = Pupil::where($filter)->paginate();
         $terms = Term::all('id','name','session');
         $skills = Skill::all('id','name','skill_category_id');
         $skillCategories = SkillCategory::all('id','name');
@@ -198,7 +194,8 @@ class PlaygroupTermReportController extends Controller
     public function edit(PlaygroupTermReport $report)
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $filter = ['class'=>'playgroup'];
+        $pupils = Pupil::where($filter)->paginate();
         $terms = Term::all('id','name','session');
         $skillCategories = SkillCategory::all('id','name');
         return view('results.playgroup.edit-playgroup-report', [

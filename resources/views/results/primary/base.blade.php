@@ -83,19 +83,29 @@
                             <li class="dropdown">
                                 <a class="nav-link" href="{{route('results')}}"><span><strong>Results</strong></span></a>
                             </li>
-                            @can('is-admin')
+                            @can('is-staff')
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('primary-reports')}}"><span>Manage Term Reports</span></a>
                                 </li>
                                 <li class="dropdown">
                                     <a class="nav-link active" href="{{route('primary-tests')}}"><span>Manage Test Results</span></a>
                                 </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
-                                </li>
+                                @can('is-teacher')
+                                    <li class="dropdown">
+                                        <a class="nav-link" href="{{route('subjects')}}"><span>Subjects</span></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="nav-link" href="{{route('terms')}}"><span>Terms</span></a>
+                                    </li>
+                                @endcan
+                                @can('is-admin')
+                                    <li class="dropdown">
+                                        <a class="nav-link" href="{{route('subjects')}}"><span>Manage Subjects</span></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="nav-link" href="{{route('terms')}}"><span>Manage Terms</span></a>
+                                    </li>
+                                @endcan
                             @endcan
                             @can('is-parent')
                                 <li class="dropdown">

@@ -27,7 +27,9 @@
                             <th>Session</th>
                             <th>Start Date</th>
                             <th>End Date</th>
-                            <th><strong>Action</strong></th>
+                            @can('is-admin')
+                                <th><strong>Action</strong></th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -39,12 +41,12 @@
                                 <td>{{$term->session}}</td>
                                 <td>{{$term->start_date}}</td>
                                 <td>{{$term->end_date}}</td>
-                                <td class="text-center">
-                                    @can('is-admin')
+                                @can('is-admin')
+                                    <td class="text-center">
                                         <a href="{{route('edit-term', $term->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
                                         <span data-toggle="modal" data-target="#deleteTerm{{$term->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
+                                    </td>
                                     @endcan
-                                </td>
                                 @can('is-admin')
                                     {{-- delete confirmation --}}
                                     <!-- Modal -->

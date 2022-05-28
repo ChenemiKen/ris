@@ -5,7 +5,7 @@
 @section('page-content')
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
-            @can('is-admin')
+            @can('is-staff')
                 <div class="text-right">
                     <a href="{{route('add-primary-report')}}" class="crate_btn_area">+ Add Term Report</a>
                 </div>

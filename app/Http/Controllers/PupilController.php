@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class PupilController extends Controller
 {
@@ -24,8 +26,16 @@ class PupilController extends Controller
         $this->authorize('is-staff');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
+        $class_filter = [];
+        if(Gate::denies('is-admin')){ 
+            if(Gate::allows('is-teacher')){
+                $class_filter['class']= auth()->user()->teacher->class;
+            }elseif(Gate::allows('is-parent')){
+                $class_filter['class']= auth()->user()->pupil_parent->pupil->class;
+            }
+        }
         return view('pupil', [
-            'pupils' => DB::table('pupils')->paginate(session('per_page'))
+            'pupils' => Pupil::where($class_filter)->paginate(session('per_page'))
         ]);
     }
 

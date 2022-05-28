@@ -32,16 +32,11 @@ class PrimaryTermReportController extends Controller
             $filter['term_id']= $request->term;    
         }
 
-        if(Gate::allows('is-admin')){
+        if(Gate::allows('is-staff')){
             return view('results.primary.primary-reports', [
                 'reports' => PrimaryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]); 
-        }elseif(Gate::allows('is-teacher')){
-            return view('results.primary.primary-reports', [
-                'reports' => PrimaryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
-                'terms' => $terms
-            ]);
         }elseif(Gate::allows('is-parent')){
             $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
             return view('results.nursery.nursery-reports', [
@@ -60,7 +55,7 @@ class PrimaryTermReportController extends Controller
     public function create()
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $pupils = Pupil::whereIn('class', ['lower_primary', 'upper_primary'])->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         return view('results.primary.add-primary-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
@@ -218,7 +213,7 @@ class PrimaryTermReportController extends Controller
     public function edit(PrimaryTermReport $report)
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $pupils = Pupil::whereIn('class', ['lower_primary', 'upper_primary'])->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         return view('results.primary.edit-primary-report', [

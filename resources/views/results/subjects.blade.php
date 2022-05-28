@@ -34,7 +34,9 @@
                             <th>S/N</th>
                             <th>Subjects</th>
                             <th>Maximum Score</th>
+                            @can('is-admin')
                             <th><strong>Action</strong></th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -44,12 +46,12 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$subject->name}}</td>
                                 <td>{{$subject->max_score}}</td>
-                                <td class="text-center">
-                                    @can('is-admin')
+                                @can('is-admin')
+                                    <td class="text-center">
                                         <a href="{{route('edit-subject', $subject->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
                                         <span data-toggle="modal" data-target="#deleteSubject{{$subject->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>
-                                    @endcan
-                                </td>
+                                    </td>
+                                @endcan
                                 @can('is-admin')
                                     {{-- delete confirmation --}}
                                     <!-- Modal -->

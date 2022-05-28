@@ -33,12 +33,7 @@ class PrimaryTestController extends Controller
         if(isset($request->test) && (!($request->test == 'all'))){
             $filter['test_no']= $request->test;    
         }
-        if(Gate::allows('is-admin')){
-            return view('results.primary.primary-tests', [
-                'tests' => PrimaryTest::with('pupil','term')->where($filter)->paginate(session('per_page')),
-                'terms' => $terms,
-            ]);
-        }elseif(Gate::allows('is-teacher')){
+        if(Gate::allows('is-staff')){
             return view('results.primary.primary-tests', [
                 'tests' => PrimaryTest::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms,
@@ -60,7 +55,7 @@ class PrimaryTestController extends Controller
     public function create()
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $pupils = Pupil::whereIn('class', ['lower_primary', 'upper_primary'])->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         return view('results.primary.add-primary-test', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
@@ -137,7 +132,7 @@ class PrimaryTestController extends Controller
     public function edit(PrimaryTest $test)
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $pupils = Pupil::whereIn('class', ['lower_primary', 'upper_primary'])->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         return view('results.primary.edit-primary-test', [

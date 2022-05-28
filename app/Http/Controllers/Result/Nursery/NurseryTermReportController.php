@@ -34,12 +34,7 @@ class NurseryTermReportController extends Controller
             $filter['term_id']= $request->term;    
         }
 
-        if(Gate::allows('is-admin')){
-            return view('results.nursery.nursery-reports', [
-                'reports' => NurseryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
-                'terms' => $terms
-            ]);
-        }elseif(Gate::allows('is-teacher')){
+        if(Gate::allows('is-staff')){
             return view('results.nursery.nursery-reports', [
                 'reports' => NurseryTermReport::with('pupil','term')->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
@@ -61,12 +56,13 @@ class NurseryTermReportController extends Controller
     public function create()
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $filter = ['class'=>'nursery'];
+        $pupils = Pupil::where($filter)->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         $skills = Skill::all('id','name','skill_category_id');
         $skillCategories = SkillCategory::all('id','name');
-        return view('results.beacon.add-beacon-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
+        return view('results.nursery.add-nursery-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);
     }
 
     /**
@@ -209,7 +205,8 @@ class NurseryTermReportController extends Controller
     public function edit(NurseryTermReport $report)
     {
         $this->authorize('is-staff');
-        $pupils = Pupil::all('id','firstname','lastname');
+        $filter = ['class'=>'nursery'];
+        $pupils = Pupil::where($filter)->paginate();
         $terms = Term::all('id','name','session');
         $subjects = Subject::all('id','name');
         $skillCategories = SkillCategory::all('id','name');
