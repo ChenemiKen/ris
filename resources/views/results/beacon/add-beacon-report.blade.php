@@ -44,6 +44,7 @@
                 
                     {{-- skills results --}}
                     @foreach($skill_categories as $category)
+                    {{-- @php $cat_index = $loop->index;  @endphp --}}
                         <div class="col-md-12">
                             <hr class="mb-3 mt-5">
                             <h5 class="text-blue mb-5 col-md-12">{{$category->name}}</h5>
@@ -51,23 +52,23 @@
                                 @foreach($category->skills as $skill)
                                     <div class="col-md-4">
                                         <div class="deshboard_main_top_edit_area_single_item">
-                                            <input class="form-control" type="number" id="{{$category->id}}" name="skill[{{$loop->index}}][category_id]" value='{{old("skill[{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
-                                            <input class="form-control" type="number" id="{{$skill->id}}" name="skill[{{$loop->index}}][id]" value='{{old("skill[{$loop->index}][id]", $skill->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                            <input class="form-control" type="number" id="{{$category->id}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][category_id]" value='{{old("cat[{$category->id}][skill][{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                            <input class="form-control" type="number" id="{{$skill->id}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][id]" value='{{old("cat[{$category->id}][skill][{$loop->index}][id]", $skill->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
                                             {{-- <input class="form-control" type="text" id="{{$skill->name}}" name="skill[{{$loop->index}}][name]" value='{{old("skill[{$loop->index}][name]", $skill->name)}}' required readonly> --}}
                                             <div class="deshboard_main_top_edit_area_single_item">
                                                 <label for="{{$skill->name}}-score">{{$skill->name}}</label>
-                                                <select name="skill[{{$loop->index}}][score]" class="form-control" id="{{$skill->name}}-score">
-                                                    <option value="" {{old("skill[{$loop->index}][score]") == "" ? "selected" : "" }} hidden=""></option>
-                                                    <option value=1 {{old("skill[{$loop->index}][score]") == 1 ? "selected" : "" }}>1</option>
-                                                    <option value=2 {{old("skill[{$loop->index}][score]") == 2 ? "selected" : "" }}>2</option>
-                                                    <option value=3 {{old("skill[{$loop->index}][score]") == 3 ? "selected" : "" }}>3</option>
-                                                    <option value=4 {{old("skill[{$loop->index}][score]") == 4 ? "selected" : "" }}>4</option>
-                                                    <option value=5 {{old("skill[{$loop->index}][score]") == 5 ? "selected" : "" }}>5</option>
-                                                    <option value=6 {{old("skill[{$loop->index}][score]") == 6 ? "selected" : "" }}>6</option>
-                                                    <option value=7 {{old("skill[{$loop->index}][score]") == 7 ? "selected" : "" }}>7</option>
-                                                    <option value=8 {{old("skill[{$loop->index}][score]") == 8 ? "selected" : "" }}>8</option>
-                                                    <option value=9 {{old("skill[{$loop->index}][score]") == 9 ? "selected" : "" }}>9</option>
-                                                    <option value=10 {{old("skill[{$loop->index}][score]") == 10 ? "selected" : "" }}>10</option>
+                                                <select name="cat[{{$category->id}}][skill][{{$loop->index}}][score]" class="form-control" id="{{$skill->name}}-score">
+                                                    <option value="" {{old("cat[{$category->id}][skill][{$loop->index}][score]") == "" ? "selected" : "" }} hidden=""></option>
+                                                    <option value=1 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 1 ? "selected" : "" }}>1</option>
+                                                    <option value=2 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 2 ? "selected" : "" }}>2</option>
+                                                    <option value=3 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 3 ? "selected" : "" }}>3</option>
+                                                    <option value=4 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 4 ? "selected" : "" }}>4</option>
+                                                    <option value=6 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 6 ? "selected" : "" }}>6</option>
+                                                    <option value=5 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 5 ? "selected" : "" }}>5</option>
+                                                    <option value=7 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 7 ? "selected" : "" }}>7</option>
+                                                    <option value=8 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 8 ? "selected" : "" }}>8</option>
+                                                    <option value=9 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 9 ? "selected" : "" }}>9</option>
+                                                    <option value=10 {{old("cat[{$category->id}][skill][{$loop->index}][score]") == 10 ? "selected" : "" }}>10</option>
                                                 </select>                                
                                             </div>
                                         </div>

@@ -14,6 +14,9 @@ use App\Models\Result\Beacon\BeaconSkillResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
+
+use function Psy\debug;
 
 class BeaconTermReportController extends Controller
 {
@@ -74,9 +77,9 @@ class BeaconTermReportController extends Controller
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill.*.id' => ['required', 'integer', 'exists:skills,id'],
-            'skill.*.score' => ['required', 'string', Rule::in([1,2,3,4,5,6,7,8,9,10])],
+            'cat.*.skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
+            'cat.*.skill.*.id' => ['required', 'integer', 'exists:skills,id'],
+            'cat.*.skill.*.score' => ['required', 'string', Rule::in([1,2,3,4,5,6,7,8,9,10])],
             // attention skills
             "ability_to_concentrate" => ['required', 'string'],
             'crk' => ['required', 'string'],
@@ -145,18 +148,23 @@ class BeaconTermReportController extends Controller
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
         ]);
-        foreach($request->skill as $skill){
-            $beaconSkillResult = new BeaconSkillResult();
-            $beaconSkillResult->beacon_term_report_id = $report->id;
-            $beaconSkillResult->pupil_id = $pupil->id;
-            $beaconSkillResult->term_id = $request->term;
-            $beaconSkillResult->skill_category_id = $skill['category_id'];
-            $beaconSkillResult->skill_id = $skill['id'];
-            $beaconSkillResult->score = $skill['score'];
-
-            // persist beaconSkillResult
-            $beaconSkillResult->save();
+        foreach($request->cat as $cat){
+            foreach($cat as $cat_skill){
+                foreach($cat_skill as $skill){
+                    $beaconSkillResult = new BeaconSkillResult();
+                    $beaconSkillResult->beacon_term_report_id = $report->id;
+                    $beaconSkillResult->pupil_id = $pupil->id;
+                    $beaconSkillResult->term_id = $request->term;
+                    $beaconSkillResult->skill_category_id = $skill['category_id'];
+                    $beaconSkillResult->skill_id = $skill['id'];
+                    $beaconSkillResult->score = $skill['score'];
+        
+                    // persist beaconSkillResult
+                    $beaconSkillResult->save();
+                }
+            }
         }
+        
 
         return redirect()->route('beacon-reports')->with('success','Term Report added successfully!');
     }
