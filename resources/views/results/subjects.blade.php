@@ -16,12 +16,11 @@
                     <select name="class" class="form-control" onchange="this.form.submit()">
                         <option value="" selected hidden="">Select Class</option>
                         <option value="all" {{ request('class') == 'all' ? "selected" : "" }}>All Classes</option>
-                        <option value="primary_1" {{ request('class') == 'primary_1' ? "selected" : "" }}>Primary 1</option>
-                        <option value="primary_2" {{ request('class') == 'primary_2' ? "selected" : "" }}>Primary 2</option>
-                        <option value="primary_3" {{ request('class') == 'primary_3' ? "selected" : "" }}>Primary 3</option>
-                        <option value="primary_4" {{ request('class') == 'primary_4' ? "selected" : "" }}>Primary 4</option>
-                        <option value="primary_5" {{ request('class') == 'primary_5' ? "selected" : "" }}>Primary 5</option>
-                        <option value="primary_6" {{ request('class') == 'primary_6' ? "selected" : "" }}>Primary 6</option>
+                        <option value="upper_primary" {{ request('class') == 'upper_primary' ? "selected" : "" }}>Upper primary</option>
+                        <option value="lower_primary" {{ request('class') == 'lower_primary' ? "selected" : "" }}>Lower primary</option>
+                        <option value="nursery" {{ request('class') == 'nursery' ? "selected" : "" }}>Nursery</option>
+                        <option value="beacon" {{ request('class') == 'beacon' ? "selected" : "" }}>Beacon</option>
+                        <option value="playgroup" {{ request('class') == 'playgroup' ? "selected" : "" }}>Playgroup</option>
                     </select>                                
                 </div>
             </form>

@@ -126,6 +126,59 @@
                                 @yield('content')
                             </div>
                             @section('page-content')@show
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a href="{{route('primary-reports')}}">
+                                        <div class="dir">
+                                            <p href="">Primary Results</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="{{route('nursery-reports')}}">
+                                        <div class="dir">
+                                            <p href="">Nursery Results</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="{{route('beacon-reports')}}">
+                                        <div class="dir">
+                                            <p href="">Beacon Results</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="{{route('playgroup-reports')}}">
+                                        <div class="dir">
+                                            <p href="">Playgroup Results</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a href="{{route('terms')}}">
+                                        <div class="dir dir-sm">
+                                            <p href="">Terms</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{route('subjects')}}">
+                                        <div class="dir dir-sm">
+                                            <p href="">Subjects</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="{{route('skills')}}">
+                                        <div class="dir dir-sm">
+                                            <p href="">Skills</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>
