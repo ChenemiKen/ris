@@ -51,41 +51,41 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="deshboard_main_top_edit_area_single_item">
-                                            <input class="form-control" type="number" id="{{$category->id}}" name="skill[{{$loop->index}}][category_id]" value='{{old("skill[{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
-                                            <input class="form-control" type="number" id="{{$skill->id}}" name="skill[{{$loop->index}}][id]" value='{{old("skill[{$loop->index}][id]", $skill->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                            <input class="form-control" type="number" id="{{$category->id}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][category_id]" value='{{old("cat[{$category->id}][skill][{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                            <input class="form-control" type="number" id="{{$skill->id}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][id]" value='{{old("cat[{$category->id}][skill][{$loop->index}][id]", $skill->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
                                             <label for="{{$skill->name}}">&nbsp;</label>
-                                            <input class="form-control" type="text" id="{{$skill->name}}" name="skill[{{$loop->index}}][name]" value='{{old("skill[{$loop->index}][name]", $skill->name)}}' required readonly>
+                                            <input class="form-control" type="text" id="{{$skill->name}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][name]" value='{{old("cat[{$category->id}][skill][{$loop->index}][name]", $skill->name)}}' required readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="deshboard_main_top_edit_area_single_item">
                                             <label for="{{$skill->name}}-grade">Grade</label>
-                                            <select name="skill[{{$loop->index}}][grade]" class="form-control" id="{{$skill->name}}-grade">
-                                                <option value="" {{old("skill[{$loop->index}][grade]") == "" ? "selected" : "" }} hidden=""></option>
-                                                <option value=A+ {{old("skill[{$loop->index}][grade]") == 'A+' ? "selected" : "" }}>A+</option>
-                                                <option value=A {{old("skill[{$loop->index}][grade]") == 'A' ? "selected" : "" }}>A</option>
-                                                <option value=B+ {{old("skill[{$loop->index}][grade]") == 'B+' ? "selected" : "" }}>B+</option>
-                                                <option value=B {{old("skill[{$loop->index}][grade]") == 'B' ? "selected" : "" }}>B</option>
-                                                <option value=C+ {{old("skill[{$loop->index}][grade]") == 'C+' ? "selected" : "" }}>C+</option>
-                                                <option value=C {{old("skill[{$loop->index}][grade]") == 'C' ? "selected" : "" }}>C</option>
-                                                <option value=N.A {{old("skill[{$loop->index}][grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
-                                                <option value=S.A {{old("skill[{$loop->index}][grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
+                                            <select name="cat[{{$category->id}}][skill][{{$loop->index}}][grade]" class="form-control" id="{{$skill->name}}-grade">
+                                                <option value="" {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == "" ? "selected" : "" }} hidden=""></option>
+                                                <option value=A+ {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'A+' ? "selected" : "" }}>A+</option>
+                                                <option value=A {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'A' ? "selected" : "" }}>A</option>
+                                                <option value=B+ {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'B+' ? "selected" : "" }}>B+</option>
+                                                <option value=B {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'B' ? "selected" : "" }}>B</option>
+                                                <option value=C+ {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'C+' ? "selected" : "" }}>C+</option>
+                                                <option value=C {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'C' ? "selected" : "" }}>C</option>
+                                                <option value=N.A {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
+                                                <option value=S.A {{old("cat[{$category->id}][skill][{$loop->index}][grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
                                             </select>                                
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="deshboard_main_top_edit_area_single_item">
                                             <label for="{{$skill->name}}-effort_grade" style="white-space:nowrap;"><small>Effort Grade</small></label>
-                                            <select name="skill[{{$loop->index}}][effort_grade]" class="form-control" id="{{$skill->name}}-effort_grade">
-                                                <option value=A+ {{old("skill[{$loop->index}][effort_grade]") == 'A+' ? "selected" : "" }}>A+</option>
-                                                <option value="" {{old("skill[{$loop->index}][effort_grade]") == "" ? "selected" : "" }} hidden=""></option>
-                                                <option value=A {{old("skill[{$loop->index}][effort_grade]") == 'A' ? "selected" : "" }}>A</option>
-                                                <option value=B+ {{old("skill[{$loop->index}][effort_grade]") == 'B+' ? "selected" : "" }}>B+</option>
-                                                <option value=B {{old("skill[{$loop->index}][effort_grade]") == 'B' ? "selected" : "" }}>B</option>
-                                                <option value=C+ {{old("skill[{$loop->index}][effort_grade]") == 'C+' ? "selected" : "" }}>C+</option>
-                                                <option value=C {{old("skill[{$loop->index}][effort_grade]") == 'C' ? "selected" : "" }}>C</option>
-                                                <option value=S.A {{old("skill[{$loop->index}][effort_grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
-                                                <option value=N.A {{old("skill[{$loop->index}][effort_grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
+                                            <select name="cat[{{$category->id}}][skill][{{$loop->index}}][effort_grade]" class="form-control" id="{{$skill->name}}-effort_grade">
+                                                <option value=A+ {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'A+' ? "selected" : "" }}>A+</option>
+                                                <option value="" {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == "" ? "selected" : "" }} hidden=""></option>
+                                                <option value=A {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'A' ? "selected" : "" }}>A</option>
+                                                <option value=B+ {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'B+' ? "selected" : "" }}>B+</option>
+                                                <option value=B {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'B' ? "selected" : "" }}>B</option>
+                                                <option value=C+ {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'C+' ? "selected" : "" }}>C+</option>
+                                                <option value=C {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'C' ? "selected" : "" }}>C</option>
+                                                <option value=S.A {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'S.A' ? "selected" : "" }}>S.A</option>
+                                                <option value=N.A {{old("cat[{$category->id}][skill][{$loop->index}][effort_grade]") == 'N.A' ? "selected" : "" }}>N.A</option>
                                             </select>                                
                                         </div>
                                     </div>

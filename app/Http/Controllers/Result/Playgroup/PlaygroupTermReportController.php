@@ -75,9 +75,9 @@ class PlaygroupTermReportController extends Controller
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill.*.id' => ['required', 'integer', 'exists:skills,id'],
-            'skill.*.score' => ['required', 'string', Rule::in([1,2,3,4,5,6,7,8,9,10])],
+            'cat.*.skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
+            'cat.*.skill.*.id' => ['required', 'integer', 'exists:skills,id'],
+            'cat.*.skill.*.score' => ['required', 'string', Rule::in([1,2,3,4,5,6,7,8,9,10])],
             // attention skills
             "ability_to_concentrate" => ['required', 'string'],
             'crk' => ['required', 'string'],
@@ -146,19 +146,23 @@ class PlaygroupTermReportController extends Controller
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
         ]);
-        foreach($request->skill as $skill){
-            $playgroupSkillResult = new PlaygroupSkillResult();
-            $playgroupSkillResult->playgroup_term_report_id = $report->id;
-            $playgroupSkillResult->pupil_id = $pupil->id;
-            $playgroupSkillResult->term_id = $request->term;
-            $playgroupSkillResult->skill_category_id = $skill['category_id'];
-            $playgroupSkillResult->skill_id = $skill['id'];
-            $playgroupSkillResult->score = $skill['score'];
+        foreach($request->cat as $cat){
+            foreach($cat as $cat_skill){
+                foreach($cat_skill as $skill){
+                    $playgroupSkillResult = new PlaygroupSkillResult();
+                    $playgroupSkillResult->playgroup_term_report_id = $report->id;
+                    $playgroupSkillResult->pupil_id = $pupil->id;
+                    $playgroupSkillResult->term_id = $request->term;
+                    $playgroupSkillResult->skill_category_id = $skill['category_id'];
+                    $playgroupSkillResult->skill_id = $skill['id'];
+                    $playgroupSkillResult->score = $skill['score'];
 
-            // persist beaconSkillResult
-            $playgroupSkillResult->save();
+                    // persist beaconSkillResult
+                    $playgroupSkillResult->save();
+                }
+            }
         }
-
+        
         return redirect()->route('playgroup-reports')->with('success','Term Report added successfully!');$this->authorize('is-staff');
     }
 

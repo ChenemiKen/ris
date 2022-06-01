@@ -77,11 +77,11 @@ class NurseryTermReportController extends Controller
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill.*.id' => ['required', 'integer', 'exists:skills,id'],
-            'skill.*.name' => ['required', 'string'],
-            'skill.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'skill.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'cat.*.skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
+            'cat.*.skill.*.id' => ['required', 'integer', 'exists:skills,id'],
+            'cat.*.skill.*.name' => ['required', 'string'],
+            'cat.*.skill.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'cat.*.skill.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
             'subject.*.id' => ['required', 'integer', 'exists:subjects,id'],
             'subject.*.name' => ['required', 'string'],
             'subject.*.score' => ['required', 'integer'],
@@ -116,45 +116,49 @@ class NurseryTermReportController extends Controller
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
         ]);
-        foreach($request->skill as $skill){
-            switch($skill['grade']){
-                case 'A+':
-                    $remarks = 'Exceptional';
-                    break;
-                case 'A':
-                    $remarks = 'Excellent';
-                    break;
-                case 'B+':
-                    $remarks = 'Very_good';
-                    break;
-                case 'B':
-                    $remarks = 'Good';
-                    break;
-                case 'C+':
-                    $remarks = 'Satisfactory';
-                    break;
-                case 'C':
-                    $remarks = 'Room_for_Improvement';
-                    break;
-                case 'S.A':
-                    $remarks = 'Special_Attention';
-                    break;
-                case 'N.A':
-                    $remarks = 'Not_Applicable';
-                    break;
-            }
-            $nurserySkillResult = new NurserySkillResult();
-            $nurserySkillResult->nursery_term_report_id = $report->id;
-            $nurserySkillResult->pupil_id = $pupil->id;
-            $nurserySkillResult->term_id = $request->term;
-            $nurserySkillResult->skill_category_id = $skill['category_id'];
-            $nurserySkillResult->skill_id = $skill['id'];
-            $nurserySkillResult->grade = $skill['grade'];
-            $nurserySkillResult->effort_grade = $skill['effort_grade'];
-            $nurserySkillResult->remark = $remarks;
+        foreach($request->cat as $cat){
+            foreach($cat as $cat_skill){
+                foreach($cat_skill as $skill){
+                    switch($skill['grade']){
+                        case 'A+':
+                            $remarks = 'Exceptional';
+                            break;
+                        case 'A':
+                            $remarks = 'Excellent';
+                            break;
+                        case 'B+':
+                            $remarks = 'Very_good';
+                            break;
+                        case 'B':
+                            $remarks = 'Good';
+                            break;
+                        case 'C+':
+                            $remarks = 'Satisfactory';
+                            break;
+                        case 'C':
+                            $remarks = 'Room_for_Improvement';
+                            break;
+                        case 'S.A':
+                            $remarks = 'Special_Attention';
+                            break;
+                        case 'N.A':
+                            $remarks = 'Not_Applicable';
+                            break;
+                    }
+                    $nurserySkillResult = new NurserySkillResult();
+                    $nurserySkillResult->nursery_term_report_id = $report->id;
+                    $nurserySkillResult->pupil_id = $pupil->id;
+                    $nurserySkillResult->term_id = $request->term;
+                    $nurserySkillResult->skill_category_id = $skill['category_id'];
+                    $nurserySkillResult->skill_id = $skill['id'];
+                    $nurserySkillResult->grade = $skill['grade'];
+                    $nurserySkillResult->effort_grade = $skill['effort_grade'];
+                    $nurserySkillResult->remark = $remarks;
 
-            // persist testResult
-            $nurserySkillResult->save();
+                    // persist testResult
+                    $nurserySkillResult->save();
+                }
+            }
         }
         
         foreach($request->subject as $subject){

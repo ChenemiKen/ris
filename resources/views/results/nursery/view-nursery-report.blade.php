@@ -62,14 +62,18 @@
                             <th>REMARK</th>
                         </thead>
                         <tbody>
+                            @php $count = 0; @endphp
                             @foreach($report->nurserySkillResults as $skill_result)
-                                @if($skill_result->skill_category->id == $category->id)
-                                    <td></td>
-                                    <td>{{$skill_result->skill->name}}</td>
-                                    <td>{{$skill_result->grade}}</td>
-                                    <td>{{$skill_result->effort_grade}}</td>
-                                    <td>{{$skill_result->remark}}</td>
-                                @endif
+                                <tr>
+                                    @if($skill_result->skill_category->id == $category->id)
+                                    @php $count +=1; @endphp
+                                        <td>{{$count}}</td>
+                                        <td>{{$skill_result->skill->name}}</td>
+                                        <td>{{$skill_result->grade}}</td>
+                                        <td>{{$skill_result->effort_grade}}</td>
+                                        <td>{{$skill_result->remark}}</td>
+                                    @endif
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
