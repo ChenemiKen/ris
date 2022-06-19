@@ -21,7 +21,7 @@
                                 <option value="" selected hidden="">Select Term</option>
                                 <option value="all" {{ request('term') == 'all' ? "selected" : "" }}>All terms</option>
                                 @foreach($terms as $term)
-                                    <option value={{$term->id}} {{request('term') == $term->id ? "selected" : "" }}>{{$term->name}}{{$term->session}}</option>
+                                    <option value={{$term->id}} {{request('term') == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
                                 @endforeach
                             </select>
                         </div>

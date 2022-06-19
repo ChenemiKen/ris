@@ -34,7 +34,7 @@
                             <select name="term" class="form-control" id="term">
                                 <option value="" {{ old('term') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($terms as $term)
-                                    <option value={{$term->id}} {{ old('term') == $term->id ? "selected" : "" }}>{{$term->name}}{{$term->session}}</option>
+                                    <option value={{$term->id}} {{ old('term') == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
                                 @endforeach                           
                             </select>
                         </div>
