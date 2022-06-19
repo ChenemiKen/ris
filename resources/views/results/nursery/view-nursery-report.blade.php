@@ -109,8 +109,8 @@
                     <tbody>
                         <tr>
                             <td>Height</td>
-                            <td>{{$report->height_start}} m</td>
-                            <td>{{$report->height_end}} m</td>
+                            <td>{{$report->height_start}} cm</td>
+                            <td>{{$report->height_end}} cm</td>
                         </tr>
                         <tr>
                             <td>Weight</td>

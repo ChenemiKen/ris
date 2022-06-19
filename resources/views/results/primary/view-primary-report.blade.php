@@ -120,13 +120,13 @@
                     <tbody>
                         <tr>
                             <td>Height</td>
-                            <td>{{$report->height_start}}</td>
-                            <td>{{$report->height_end}}</td>
+                            <td>{{$report->height_start}} cm</td>
+                            <td>{{$report->height_end}} cm</td>
                         </tr>
                         <tr>
                             <td>Weight</td>
-                            <td>{{$report->weight_start}}</td>
-                            <td>{{$report->weight_end}}</td>
+                            <td>{{$report->weight_start}} kg</td>
+                            <td>{{$report->weight_end}} kg</td>
                         </tr>
                         <tr>
                             <td>No. of times absent due to illness</td>

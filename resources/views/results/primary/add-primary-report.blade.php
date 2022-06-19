@@ -221,25 +221,25 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="height_start">Height(Begining of term)</label>
+                            <label for="height_start">Height(Begining of term)(cm)</label>
                             <input class="form-control" type="number" id="height_start" name="height_start" value="{{old("height_start")}}">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="height_end">Height(End of term)</label>
+                            <label for="height_end">Height(End of term)(cm)</label>
                             <input class="form-control" type="number" id="height_end" name="height_end" value="{{old("height_end")}}">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="weight_start">Weight(Begining of term)</label>
+                            <label for="weight_start">Weight(Begining of term)(kg)</label>
                             <input class="form-control" type="number" id="weight_start" name="weight_start" value="{{old("weight_start")}}">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="weight_end">Weight(end of term)</label>
+                            <label for="weight_end">Weight(end of term)(kg)</label>
                             <input class="form-control" type="number" id="weight_end" name="weight_end" value="{{old("weight_end")}}">
                         </div>
                     </div>
