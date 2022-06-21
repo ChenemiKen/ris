@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class MessageController extends Controller
 {
@@ -22,7 +23,7 @@ class MessageController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
-        if(auth()->user()->is_admin){
+        if(Gate::allows('is-admin')){
             return view('messages', [
                 'messages' => Message::with('recipient')->paginate(session('per_page'))
             ]);
@@ -41,8 +42,8 @@ class MessageController extends Controller
      */
     public function create()
     {
-        $this->authorize('is-admin');
-        $parents = User::where('is_admin', false)->pluck('fullname','id');
+        $this->authorize('is-staff');
+        $parents = User::where('type_type', "App\\Models\\PupilParent")->pluck('fullname','id');
         return view('add-message',['parents'=>$parents]);
     }
 
