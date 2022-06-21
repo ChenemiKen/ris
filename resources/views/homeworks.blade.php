@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{\Carbon\Carbon::parse($homework->date)->format('d M Y')}}</td>
                             <td>{{Str::limit($homework->homework, 60)}}</td>
-                            <td>{{$homework->class}}</td>
+                            <td>@title($homework->class)</td>
                             <td>{{\Carbon\Carbon::parse($homework->submission_date)->format('d M Y')}}</td>
                             <td class="text-center">
                                 <a href="{{route('view-homework', $homework->id)}}"><i class="fa-solid fa-eye fa-lg mr-4"></i></a>

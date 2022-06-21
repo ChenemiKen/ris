@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
 use NumberFormatter;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('th', function ($expression) {
             return "<?php echo (new NumberFormatter('en_US', NumberFormatter::ORDINAL))->format({$expression}); ?>";
+        });
+        Blade::directive('title', function($expression){
+            return "<?php echo(Str::title(Str::replace('_',' ',{$expression}))); ?>";
         });
     }
 }

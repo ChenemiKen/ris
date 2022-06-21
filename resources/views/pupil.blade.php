@@ -39,7 +39,7 @@
                                     <td class="amdin_pay_img"><img src="{{asset('uploads/pupils/'.$pupil->photo)}}" alt=""></td>
                                     <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
                                     <td>{{$pupil->admission_no}}</td>
-                                    <td>{{$pupil->class}}</td>
+                                    <td>@title($pupil->class)</td>
                                     <td>{{$pupil->age}}</td>
                                     <td>{{$pupil->gender}}</td>
                                     <td>{{$pupil->parent_phone}}</td>
