@@ -30,7 +30,7 @@
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden="">Select Pupil</option>
                                 @foreach($pupils as $pupil)
                                     {{-- <option value="{{$pupil->id}}">{{$pupil->firstname}}{{$pupil->lastname}}</option> --}}
-                                    <option value="{{$pupil->id}}" {{ old('pupil') == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}}{{$pupil->lastname}}</option>
+                                    <option value="{{$pupil->id}}" {{ old('pupil') == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}} {{$pupil->lastname}}</option>
                                 @endforeach                           
                             </select>
                         </div>
