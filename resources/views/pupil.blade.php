@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('title', 'Pupils')
-@section('page-heading', 'All Pupils')
+@section('page-heading', 'Class List')
 
 @section('page-content') 
     <div class="deshboard_booking_main_content_area">
