@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Class Average Age: </strong></td>
-                                    <td><strong>Date: </strong></td>
+                                    <td><strong>Date: </strong>{{$test->date}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Teacher's Name: </strong></td>
@@ -59,7 +59,7 @@
                         <tr>
                             <td><strong>TOTAL(max )</strong></td>
                             <td><strong></strong></td>
-                            <td class="text-center pt-5" rowspan="2"><strong>March 7 2022</strong></td>
+                            <td class="text-center pt-5" rowspan="2"><strong>{{\Carbon\Carbon::parse($test->date)->format('F jS Y')}}</strong></td>
                             <td class="text-center" rowspan="2">
                                 <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>

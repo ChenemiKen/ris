@@ -145,6 +145,7 @@ class PlaygroupTermReportController extends Controller
             'nails'=>$request->nails,
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
+            'date'=> Carbon/Carbon::today()
         ]);
         foreach($request->cat as $cat){
             foreach($cat as $cat_skill){

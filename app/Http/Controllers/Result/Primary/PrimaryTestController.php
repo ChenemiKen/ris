@@ -86,6 +86,7 @@ class PrimaryTestController extends Controller
         $test = $pupil->primaryTests()->create([
             'test_no' => $request->test_no,
             'term_id' => $request->term,
+            'date'=> Carbon/Carbon::today()
         ]);
         foreach($request->subject as $subject){
             $testResult = new PrimaryTestResult();

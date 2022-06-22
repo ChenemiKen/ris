@@ -114,6 +114,7 @@ class NurseryTermReportController extends Controller
             'personal_note'=>$request->personal_note,
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
+            'date'=> Carbon/Carbon::today()
         ]);
         foreach($request->cat as $cat){
             foreach($cat as $cat_skill){

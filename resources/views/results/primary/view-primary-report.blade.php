@@ -23,7 +23,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Class Average Age: </strong></td>
-                                    <td><strong>Date: </strong></td>
+                                    <td><strong>Date: </strong>{{$report->date}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Teacher's Name: </strong></td>
@@ -196,7 +196,7 @@
                 <table class="pupil-result-table mt-5">
                     <tbody>
                         <tr>
-                            <td class="text-center pt-5"><strong>March 7, 2022</strong></td>
+                            <td class="text-center pt-5"><strong>{{\Carbon\Carbon::parse($report->date)->format('F jS Y')}}</strong></td>
                             <td class="text-center">
                                 <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>

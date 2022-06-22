@@ -159,6 +159,7 @@ class PrimaryTermReportController extends Controller
             'organisation_contribution'=>$request->organisation_contribution,
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
+            'date'=> Carbon/Carbon::today()
         ]);
         // Log::debug($test);
         foreach($request->subject as $subject){
