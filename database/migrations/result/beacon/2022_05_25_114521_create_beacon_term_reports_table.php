@@ -34,29 +34,29 @@ return new class extends Migration
             $table->integer('weight_start')->nullable();
             $table->integer('weight_end')->nullable();
             // remarks
-            $table->longText('personal_note')->nullable();
-            $table->string('teacher_remark')->nullable();
-            $table->string('head_remark')->nullable();
+            $table->text('personal_note', 65000)->nullable();
+            $table->text('teacher_remark', 65000)->nullable();
+            $table->text('head_remark', 65000)->nullable();
             $table->date('date')->nullable();
             // Attention skills
-            $table->string('ability_to_concentrate')->nullable();
-            $table->string('crk')->nullable();
-            $table->string('colouring_art')->nullable();
-            $table->string('games')->nullable();
-            $table->string('lang_dev_vocab')->nullable();
-            $table->string('number_work')->nullable();
-            $table->string('other_activities')->nullable();
-            $table->string('pencil_play_activities')->nullable();
-            $table->string('phonics')->nullable();
-            $table->string('project_work')->nullable();
+            $table->text('ability_to_concentrate', 5000)->nullable();
+            $table->text('crk', 5000)->nullable();
+            $table->text('colouring_art', 5000)->nullable();
+            $table->text('games', 5000)->nullable();
+            $table->text('lang_dev_vocab', 5000)->nullable();
+            $table->text('number_work', 5000)->nullable();
+            $table->text('other_activities', 5000)->nullable();
+            $table->text('pencil_play_activities', 5000)->nullable();
+            $table->text('phonics', 5000)->nullable();
+            $table->text('project_work', 5000)->nullable();
             // Affective area skills
-            $table->string('attitude_to_work')->nullable();
-            $table->string('cleanliness')->nullable();
-            $table->string('dress')->nullable();
-            $table->string('hair')->nullable();
-            $table->string('nails')->nullable();
-            $table->string('neatness')->nullable();
-            $table->string('punctuality')->nullable();
+            $table->text('attitude_to_work', 5000)->nullable();
+            $table->text('cleanliness', 5000)->nullable();
+            $table->text('dress', 5000)->nullable();
+            $table->text('hair', 5000)->nullable();
+            $table->text('nails', 5000)->nullable();
+            $table->text('neatness', 5000)->nullable();
+            $table->text('punctuality', 5000)->nullable();
         });
     }
 

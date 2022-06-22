@@ -22,7 +22,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="pupil">Pupil</label>
-                            <select name="pupil" class="form-control" id="pupil">
+                            <select name="pupil" class="form-control" id="pupil" required>
                                 <option value="" {{ old('pupil') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($pupils as $pupil)
                                     <option value={{$pupil->id}} {{ old('pupil') == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}} {{$pupil->lastname}}</option>
@@ -33,7 +33,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="term">Term</label>
-                            <select name="term" class="form-control" id="term">
+                            <select name="term" class="form-control" id="term" required>
                                 <option value="" {{ old('term') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($terms as $term)
                                     <option value={{$term->id}} {{ old('term') == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
@@ -45,45 +45,45 @@
                     @foreach($subjects as $subject)
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <input class="form-control" type="number" id="{{$subject->id}}" name="subject[{{$loop->index}}][id]" value='{{old("subject[{$loop->index}][id]", $subject->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                <input class="form-control" type="number" id="{{$subject->id}}" name="subject[{{$loop->index}}][id]" value='{{old("subject[{$loop->index}][id]", $subject->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
                                 <label for="{{$subject->name}}">Subject</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}" name="subject[{{$loop->index}}][name]" value='{{old("subject[{$loop->index}][name]", $subject->name)}}' required readonly>
+                                <input class="form-control" type="text" id="{{$subject->name}}" name="subject[{{$loop->index}}][name]" value='{{old("subject[{$loop->index}][name]", $subject->name)}}' readonly>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_1">1st test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old("subject[{$loop->index}][test_1]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old("subject[{$loop->index}][test_1]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_2">2nd test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old("subject[{$loop->index}][test_2]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old("subject[{$loop->index}][test_2]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_3">3rd test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old("subject[{$loop->index}][test_3]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old("subject[{$loop->index}][test_3]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_4">4th test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old("subject[{$loop->index}][test_4]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old("subject[{$loop->index}][test_4]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-exam">Exam</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old("subject[{$loop->index}][exam]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old("subject[{$loop->index}][exam]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-mark">Mark %</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old("subject[{$loop->index}][mark]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old("subject[{$loop->index}][mark]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">

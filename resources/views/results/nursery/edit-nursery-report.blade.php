@@ -22,7 +22,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="pupil">Pupil</label>
-                            <select name="pupil" class="form-control" id="pupil">
+                            <select name="pupil" class="form-control" id="pupil" required>
                                 <option value="" {{ old('pupil') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($pupils as $pupil)
                                     <option value={{$pupil->id}} {{ old('pupil', $report->pupil_id) == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}} {{$pupil->lastname}}</option>
@@ -33,7 +33,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="term">Term</label>
-                            <select name="term" class="form-control" id="term">
+                            <select name="term" class="form-control" id="term" required>
                                 <option value="" {{ old('term') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($terms as $term)
                                     <option value={{$term->id}} {{ old('term', $report->term_id) == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
@@ -52,10 +52,10 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="deshboard_main_top_edit_area_single_item">
-                                                <input class="form-control" type="number" id="{{$category->id}}" name="skill_result[{{$loop->index}}][category_id]" value='{{old("skill_result[{$loop->index}][category_id]", $category->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
-                                                <input class="form-control" type="number" id="{{$skill_result->id}}" name="skill_result[{{$loop->index}}][id]" value='{{old("skill_result[{$loop->index}][id]", $skill_result->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                                <input class="form-control" type="number" id="{{$category->id}}" name="skill_result[{{$loop->index}}][category_id]" value='{{old("skill_result[{$loop->index}][category_id]", $category->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
+                                                <input class="form-control" type="number" id="{{$skill_result->id}}" name="skill_result[{{$loop->index}}][id]" value='{{old("skill_result[{$loop->index}][id]", $skill_result->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
                                                 <label for="{{$skill_result->skill->name}}">&nbsp;</label>
-                                                <input class="form-control" type="text" id="{{$skill_result->skill->name}}" name="skill_result[{{$loop->index}}][name]" value='{{old("skill_result[{$loop->index}][name]", $skill_result->skill->name)}}' required readonly>
+                                                <input class="form-control" type="text" id="{{$skill_result->skill->name}}" name="skill_result[{{$loop->index}}][name]" value='{{old("skill_result[{$loop->index}][name]", $skill_result->skill->name)}}' readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -101,21 +101,21 @@
                     @foreach($report->nurserySubjectResults as $subject_result)
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <input class="form-control" type="number" id="{{$subject_result->id}}" name="subject_result[{{$loop->index}}][id]" value='{{old("subject_result[{$loop->index}][id]", $subject_result->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                <input class="form-control" type="number" id="{{$subject_result->id}}" name="subject_result[{{$loop->index}}][id]" value='{{old("subject_result[{$loop->index}][id]", $subject_result->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
                                 <label for="{{$subject_result->subject->name}}">Subject</label>
-                                <input class="form-control" type="text" id="{{$subject_result->subject->name}}" name="subject_result[{{$loop->index}}][name]" value='{{old("subject_result[{$loop->index}][name]", $subject_result->subject->name)}}' required readonly>
+                                <input class="form-control" type="text" id="{{$subject_result->subject->name}}" name="subject_result[{{$loop->index}}][name]" value='{{old("subject_result[{$loop->index}][name]", $subject_result->subject->name)}}' readonly>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject_result->subject->name}}-score">Score</label>
-                                <input class="form-control" type="number" id="{{$subject_result->subject->name}}-score" name="subject_result[{{$loop->index}}][score]" value="{{old("subject_result[{$loop->index}][score]", $subject_result->score)}}" required>
+                                <input class="form-control" type="number" id="{{$subject_result->subject->name}}-score" name="subject_result[{{$loop->index}}][score]" value="{{old("subject_result[{$loop->index}][score]", $subject_result->score)}}">
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject_result->subject->name}}-remarks">Remarks</label>  
-                                <input class="form-control" type="text" id="{{$subject_result->subject->name}}-remarks" name="subject_result[{{$loop->index}}][remarks]" value="{{old("subject_result[{$loop->index}][remarks]", $subject_result->remark)}}" required>
+                                <input class="form-control" type="text" id="{{$subject_result->subject->name}}-remarks" name="subject_result[{{$loop->index}}][remarks]" value="{{old("subject_result[{$loop->index}][remarks]", $subject_result->remark)}}">
                             </div>
                         </div>   
                     @endforeach

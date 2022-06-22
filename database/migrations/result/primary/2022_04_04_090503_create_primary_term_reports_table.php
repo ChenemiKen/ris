@@ -38,7 +38,7 @@ return new class extends Migration
             $table->integer('conduct_good')->nullable();
             $table->integer('conduct_bad')->nullable();
             $table->integer('conduct_exemplary')->nullable();
-            $table->string('conduct_comment')->nullable();
+            $table->Text('conduct_comment', 1000)->nullable();
             // physical development, health and cleanliness
             $table->integer('height_start')->nullable();
             $table->integer('height_end')->nullable();
@@ -58,10 +58,10 @@ return new class extends Migration
             // clubs
             $table->string('organisation')->nullable();
             $table->string('organisation_office')->nullable();
-            $table->string('organisation_contribution')->nullable();
+            $table->Text('organisation_contribution', 200)->nullable();
             // 
-            $table->string('teacher_remark')->nullable();
-            $table->string('head_remark')->nullable();
+            $table->Text('teacher_remark', 65000)->nullable();
+            $table->Text('head_remark', 65000)->nullable();
             $table->date('date')->nullable();
         });
     }

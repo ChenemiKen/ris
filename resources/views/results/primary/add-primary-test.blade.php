@@ -20,7 +20,7 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="pupil">Pupil</label>
-                            <select name="pupil" class="form-control" id="pupil">
+                            <select name="pupil" class="form-control" id="pupil" required>
                                 <option value="" {{ old('pupil') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($pupils as $pupil)
                                     <option value={{$pupil->id}} {{ old('pupil') == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}} {{$pupil->lastname}}</option>
@@ -31,7 +31,7 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="term">Term</label>
-                            <select name="term" class="form-control" id="term">
+                            <select name="term" class="form-control" id="term" required>
                                 <option value="" {{ old('term') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($terms as $term)
                                     <option value={{$term->id}} {{ old('term') == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
@@ -42,7 +42,7 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="test_no">Test</label>
-                            <select name="test_no" class="form-control" id="test_no">
+                            <select name="test_no" class="form-control" id="test_no" required>
                                 <option value="" {{ old('test_no') == "" ? "selected" : "" }} hidden=""</option>
                                 <option value=1 {{ old('test_no') == 1 ? "selected" : "" }}>1st test</option>
                                 <option value=2 {{ old('test_no') == 2 ? "selected" : "" }}>2nd test</option>
@@ -62,7 +62,7 @@
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-score">Score</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-score" name="subject[{{$loop->index}}][score]" value="{{old("subject[{$loop->index}][score]")}}" required>
+                                <input class="form-control" type="number" id="{{$subject->name}}-score" name="subject[{{$loop->index}}][score]" value="{{old("subject[{$loop->index}][score]")}}">
                             </div>
                         </div>
                         <div class="col-md-2">

@@ -32,8 +32,8 @@ return new class extends Migration
                     ->constrained('subjects')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->integer('score');
-            $table->longText('remark');
+            $table->integer('score')->nullable();
+            $table->Text('remark', 65000)->nullable();
         });
     }
 

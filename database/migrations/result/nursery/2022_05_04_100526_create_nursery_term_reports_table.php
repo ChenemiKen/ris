@@ -34,9 +34,9 @@ return new class extends Migration
             $table->integer('weight_start')->nullable();
             $table->integer('weight_end')->nullable();
             // remarks
-            $table->longText('personal_note')->nullable();
-            $table->string('teacher_remark')->nullable();
-            $table->string('head_remark')->nullable();
+            $table->text('personal_note', 65000)->nullable();
+            $table->text('teacher_remark', 65000)->nullable();
+            $table->text('head_remark', 65000)->nullable();
             $table->date('date')->nullable();
         });
     }

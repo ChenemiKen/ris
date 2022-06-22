@@ -77,16 +77,15 @@ class NurseryTermReportController extends Controller
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'cat.*.skill.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'cat.*.skill.*.id' => ['required', 'integer', 'exists:skills,id'],
-            'cat.*.skill.*.name' => ['required', 'string'],
-            'cat.*.skill.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'cat.*.skill.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'subject.*.id' => ['required', 'integer', 'exists:subjects,id'],
-            'subject.*.name' => ['required', 'string'],
-            'subject.*.score' => ['required', 'integer'],
-            'subject.*.remarks' => ['required', 'string'],
-            // I removed required for now to ease testing
+            'cat.*.skill.*.category_id' => ['nullable', 'integer', 'exists:skill_categories,id'],
+            'cat.*.skill.*.id' => ['nullable', 'integer', 'exists:skills,id'],
+            'cat.*.skill.*.name' => ['nullable', 'string'],
+            'cat.*.skill.*.grade' => ['nullable', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'cat.*.skill.*.effort_grade' => ['nullable', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'subject.*.id' => ['nullable', 'integer', 'exists:subjects,id'],
+            'subject.*.name' => ['nullable', 'string'],
+            'subject.*.score' => ['nullable', 'integer'],
+            'subject.*.remarks' => ['nullable', 'string'],
             'times_school_opened' => ['nullable','integer'],
             'times_present' => [ 'nullable','integer'],
             'times_absent' => ['nullable','integer'],
@@ -143,6 +142,9 @@ class NurseryTermReportController extends Controller
                             break;
                         case 'N.A':
                             $remarks = 'Not_Applicable';
+                            break;
+                        default:
+                            $remarks = '';
                             break;
                     }
                     $nurserySkillResult = new NurserySkillResult();
@@ -236,15 +238,15 @@ class NurseryTermReportController extends Controller
         $request->validate([
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
-            'skill_result.*.category_id' => ['required', 'integer', 'exists:skill_categories,id'],
-            'skill_result.*.id' => ['required', 'integer', 'exists:nursery_skill_results,id'],
-            'skill_result.*.name' => ['required', 'string'],
-            'skill_result.*.grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'skill_result.*.effort_grade' => ['required', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
-            'subject_result.*.id' => ['required', 'integer', 'exists:nursery_subject_results,id'],
-            'subject_result.*.name' => ['required', 'string'],
-            'subject_result.*.score' => ['required', 'integer'],
-            'subject_result.*.remarks' => ['required', 'string'],
+            'skill_result.*.category_id' => ['nullable', 'integer', 'exists:skill_categories,id'],
+            'skill_result.*.id' => ['nullable', 'integer', 'exists:nursery_skill_results,id'],
+            'skill_result.*.name' => ['nullable', 'string'],
+            'skill_result.*.grade' => ['nullable', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'skill_result.*.effort_grade' => ['nullable', 'string', Rule::in(['A+','A','B+','B','C+','C','S.A','N.A'])],
+            'subject_result.*.id' => ['nullable', 'integer', 'exists:nursery_subject_results,id'],
+            'subject_result.*.name' => ['nullable', 'string'],
+            'subject_result.*.score' => ['nullable', 'integer'],
+            'subject_result.*.remarks' => ['nullable', 'string'],
             'times_school_opened' => ['nullable','integer'],
             'times_present' => [ 'nullable','integer'],
             'times_absent' => ['nullable','integer'],
@@ -301,6 +303,9 @@ class NurseryTermReportController extends Controller
                     break;
                 case 'N.A':
                     $remarks = 'Not_Applicable';
+                    break;
+                default:
+                    $remarks = '';
                     break;
             }
 

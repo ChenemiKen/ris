@@ -22,7 +22,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="pupil">Pupil</label>
-                            <select name="pupil" class="form-control" id="pupil">
+                            <select name="pupil" class="form-control" id="pupil" required>
                                 <option value="" {{ old('pupil') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($pupils as $pupil)
                                     <option value={{$pupil->id}} {{ old('pupil', $report->pupil_id) == $pupil->id ? "selected" : "" }}>{{$pupil->firstname}} {{$pupil->lastname}}</option>
@@ -33,7 +33,7 @@
                     <div class="col-md-6 mb-5">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="term">Term</label>
-                            <select name="term" class="form-control" id="term">
+                            <select name="term" class="form-control" id="term" required>
                                 <option value="" {{ old('term') == "" ? "selected" : "" }} hidden=""></option>
                                 @foreach($terms as $term)
                                     <option value={{$term->id}} {{ old('term', $report->term_id) == $term->id ? "selected" : "" }}>{{$term->name}} {{$term->session}}</option>
@@ -45,45 +45,45 @@
                     @foreach($report->primaryTermResults as $termResult)
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <input class="form-control" type="number" id="{{$termResult->id}}" name="result[{{$loop->index}}][id]" value='{{old("result[{$loop->index}][id]", $termResult->id)}}' required hidden readonly aria-hidden="true" aria-readonly="true">
+                                <input class="form-control" type="number" id="{{$termResult->id}}" name="result[{{$loop->index}}][id]" value='{{old("result[{$loop->index}][id]", $termResult->id)}}'  hidden readonly aria-hidden="true" aria-readonly="true">
                                 <label for="{{$termResult->subject->name}}">Subject</label>
-                                <input class="form-control" type="text" id="{{$termResult->subject->name}}" name="result[{{$loop->index}}][name]" value='{{old("result[{$loop->index}][name]", $termResult->subject->name)}}' required readonly>
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}" name="result[{{$loop->index}}][name]" value='{{old("result[{$loop->index}][name]", $termResult->subject->name)}}'  readonly>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_1">1st test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_1" name="result[{{$loop->index}}][test_1]" value="{{old("result[{$loop->index}][test_1]", $termResult->test_1)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_1" name="result[{{$loop->index}}][test_1]" value="{{old("result[{$loop->index}][test_1]", $termResult->test_1)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_2">2nd test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_2" name="result[{{$loop->index}}][test_2]" value="{{old("result[{$loop->index}][test_2]", $termResult->test_2)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_2" name="result[{{$loop->index}}][test_2]" value="{{old("result[{$loop->index}][test_2]", $termResult->test_2)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_3">3rd test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_3" name="result[{{$loop->index}}][test_3]" value="{{old("result[{$loop->index}][test_3]", $termResult->test_3)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_3" name="result[{{$loop->index}}][test_3]" value="{{old("result[{$loop->index}][test_3]", $termResult->test_3)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_4">4th test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_4" name="result[{{$loop->index}}][test_4]" value="{{old("result[{$loop->index}][test_4]", $termResult->test_4)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_4" name="result[{{$loop->index}}][test_4]" value="{{old("result[{$loop->index}][test_4]", $termResult->test_4)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-exam">Exam</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-exam" name="result[{{$loop->index}}][exam]" value="{{old("result[{$loop->index}][exam]", $termResult->exam)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-exam" name="result[{{$loop->index}}][exam]" value="{{old("result[{$loop->index}][exam]", $termResult->exam)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-mark">Mark %</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-mark" name="result[{{$loop->index}}][mark]" value="{{old("result[{$loop->index}][mark]", $termResult->percentage)}}" required>
+                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-mark" name="result[{{$loop->index}}][mark]" value="{{old("result[{$loop->index}][mark]", $termResult->percentage)}}">
                             </div>
                         </div>
                         <div class="col-md-1">

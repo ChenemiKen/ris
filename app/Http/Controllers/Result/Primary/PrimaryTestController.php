@@ -74,11 +74,11 @@ class PrimaryTestController extends Controller
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
             'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
-            'subject.*.id' => ['required', 'integer', 'exists:subjects,id'],
-            'subject.*.name' => ['required', 'string'],
-            'subject.*.score' => ['required', 'integer'],
-            'subject.*.grade' => ['required', 'string', Rule::in(['A','B','C','D','E','F'])],
-            'subject.*.remark' => ['required', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
+            'subject.*.id' => ['nullable', 'integer', 'exists:subjects,id'],
+            'subject.*.name' => ['nullable', 'string'],
+            'subject.*.score' => ['nullable', 'integer'],
+            'subject.*.grade' => ['nullable', 'string', Rule::in(['A','B','C','D','E','F'])],
+            'subject.*.remark' => ['nullable', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);
         $pupil = Pupil::find($request->pupil);
 
@@ -157,11 +157,11 @@ class PrimaryTestController extends Controller
             'pupil' => ['required', 'integer', 'exists:pupils,id'],
             'term' => ['required', 'integer', 'exists:terms,id'],
             'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
-            'result.*.id' => ['required', 'integer', 'exists:primary_test_results,id'],
-            'result.*.name' => ['required', 'string'],
-            'result.*.score' => ['required', 'integer'],
-            'result.*.grade' => ['required', 'string', Rule::in(['A','B','C','D','E','F'])],
-            'result.*.remark' => ['required', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
+            'result.*.id' => ['nullable', 'integer', 'exists:primary_test_results,id'],
+            'result.*.name' => ['nullable', 'string'],
+            'result.*.score' => ['nullable', 'integer'],
+            'result.*.grade' => ['nullable', 'string', Rule::in(['A','B','C','D','E','F'])],
+            'result.*.remark' => ['nullable', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);
         $pupil = Pupil::find($request->pupil);
         

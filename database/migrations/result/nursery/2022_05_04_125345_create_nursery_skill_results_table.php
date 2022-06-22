@@ -36,9 +36,9 @@ return new class extends Migration
                     ->constrained('skills')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->set('grade', ['A+','A','B+','B','C+','C','S.A','N.A']);
-            $table->set('effort_grade', ['A+','A','B+','B','C+','C','S.A','N.A']);
-            $table->set('remark', ['Exceptional','Excellent', 'Very_good', 'Good', 'Satisfactory', 'Room_for_Improvement', 'Special_Attention','Not_Applicable']);
+            $table->set('grade', ['A+','A','B+','B','C+','C','S.A','N.A'])->nullable();
+            $table->set('effort_grade', ['A+','A','B+','B','C+','C','S.A','N.A'])->nullable();
+            $table->set('remark', ['Exceptional','Excellent', 'Very_good', 'Good', 'Satisfactory', 'Room_for_Improvement', 'Special_Attention','Not_Applicable'])->nullable();
         });
     }
 

@@ -32,15 +32,15 @@ return new class extends Migration
                     ->constrained('subjects')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->integer('test_1');
-            $table->integer('test_2');
-            $table->integer('test_3');
-            $table->integer('test_4');
-            $table->integer('exam');
-            $table->integer('percentage');
-            $table->set('grade', ['A','B','C','D','E','F']);
-            $table->set('effort_grade', ['A','B','C','D','E','F']);
-            $table->set('remark', ['excellent', 'very_good', 'good', 'fair', 'poor', 'fail']);
+            $table->integer('test_1')->nullable();
+            $table->integer('test_2')->nullable();
+            $table->integer('test_3')->nullable();
+            $table->integer('test_4')->nullable();
+            $table->integer('exam')->nullable();
+            $table->integer('percentage')->nullable();
+            $table->set('grade', ['A','B','C','D','E','F'])->nullable();
+            $table->set('effort_grade', ['A','B','C','D','E','F'])->nullable();
+            $table->set('remark', ['excellent', 'very_good', 'good', 'fair', 'poor', 'fail'])->nullable();
         });
     }
 

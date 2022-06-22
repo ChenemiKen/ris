@@ -25,7 +25,7 @@ return new class extends Migration
                     ->constrained('terms')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->set('class', ['primary_1','primary_2','primary_3','primary_4','primary_5','primary_6'])->nullable();
+            $table->set('class', ['beacon','lower_primary','upper_primary','nursery','playgroup'])->nullable();
             $table->foreignId('teacher_id')->nullable()
                     ->constrained('teachers')
                     ->onUpdate('cascade')

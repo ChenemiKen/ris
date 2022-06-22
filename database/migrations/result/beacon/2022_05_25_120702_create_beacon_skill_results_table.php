@@ -36,7 +36,7 @@ return new class extends Migration
                     ->constrained('skills')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->set('score', [1,2,3,4,5,6,7,8,9,10]);
+            $table->set('score', [1,2,3,4,5,6,7,8,9,10])->nullable();
         });
     }
 
