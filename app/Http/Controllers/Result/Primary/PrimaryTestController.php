@@ -76,7 +76,7 @@ class PrimaryTestController extends Controller
             'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
             'subject.*.id' => ['nullable', 'integer', 'exists:subjects,id'],
             'subject.*.name' => ['nullable', 'string'],
-            'subject.*.score' => ['nullable', 'integer'],
+            'subject.*.score' => ['nullable', 'string'],
             'subject.*.grade' => ['nullable', 'string', Rule::in(['A','B','C','D','E','F'])],
             'subject.*.remark' => ['nullable', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);
@@ -159,7 +159,7 @@ class PrimaryTestController extends Controller
             'test_no' => ['required', 'integer', Rule::in([1,2,3,4])],
             'result.*.id' => ['nullable', 'integer', 'exists:primary_test_results,id'],
             'result.*.name' => ['nullable', 'string'],
-            'result.*.score' => ['nullable', 'integer'],
+            'result.*.score' => ['nullable', 'string'],
             'result.*.grade' => ['nullable', 'string', Rule::in(['A','B','C','D','E','F'])],
             'result.*.remark' => ['nullable', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);

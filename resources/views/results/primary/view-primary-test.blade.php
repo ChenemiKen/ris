@@ -18,7 +18,7 @@
                                     <td><strong>Admission Number: </strong>{{$test->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>{{$test->pupil->class}}</td>
+                                    <td><strong>Class: </strong>@title($test->pupil->class)</td>
                                     <td><strong>Term: </strong>{{$test->term->name}}</td>
                                 </tr>
                                 <tr>
@@ -49,7 +49,7 @@
                             <td>{{$result->subject->name}}</td>
                             <td>{{$result->score}}</td>
                             <td>{{$result->grade}}</td>
-                            <td>{{$result->remark}}</td>
+                            <td>@title($result->remark)</td>
                         </tr>
                         @endforeach
                     </tbody>

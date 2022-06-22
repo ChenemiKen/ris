@@ -32,7 +32,7 @@ return new class extends Migration
                     ->constrained('subjects')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->integer('score')->nullable();
+            $table->string('score')->nullable();
             $table->set('grade', ['A','B','C','D','E','F'])->nullable();
             $table->set('remark', ['excellent', 'very_good', 'good', 'fair', 'poor', 'fail'])->nullable();
         });

@@ -18,7 +18,7 @@
                                     <td><strong>Admission Number: </strong>{{$report->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>{{$report->pupil->class}}</td>
+                                    <td><strong>Class: </strong>@title($report->pupil->class)</td>
                                     <td><strong>Term: </strong>{{$report->term->name}}</td>
                                 </tr>
                                 <tr>
@@ -59,7 +59,7 @@
                             <td>{{$result->percentage}}</td>
                             <td>{{$result->grade}}</td>
                             <td>{{$result->effort_grade}}</td>
-                            <td>{{$result->remark}}</td>
+                            <td>@title($result->remark)</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -139,7 +139,7 @@
                         </tr>
                         <tr>
                             <td>Remarks</td>
-                            <td colspan="2">{{$report->cleanliness_remark}}</td>
+                            <td colspan="2">@title($report->cleanliness_remark)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -157,12 +157,12 @@
                     <tbody>
                         <tr>
                             <td>Level attained</td>
-                            <td>{{$report->ball_games}}</td>
-                            <td>{{$report->tracks}}</td>
-                            <td>{{$report->jumps}}</td>
-                            <td>{{$report->throws}}</td>
-                            <td>{{$report->swimming}}</td>
-                            <td>{{$report->others}}</td>
+                            <td>@title($report->ball_games)</td>
+                            <td>@title($report->tracks)</td>
+                            <td>@title($report->jumps)</td>
+                            <td>@title($report->throws)</td>
+                            <td>@title($report->swimming)</td>
+                            <td>@title($report->others)</td>
                         </tr>
                     </tbody>
                 </table>
