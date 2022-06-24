@@ -107,7 +107,7 @@
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-score">Score</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-score" name="subject[{{$loop->index}}][score]" value="{{old("subject[{$loop->index}][score]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-score" name="subject[{{$loop->index}}][score]" value="{{old("subject[{$loop->index}][score]")}}">
                             </div>
                         </div>
                         <div class="col-md-8">
