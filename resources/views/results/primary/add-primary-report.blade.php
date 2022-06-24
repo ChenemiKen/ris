@@ -53,44 +53,44 @@
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_1">1st test</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old("subject[{$loop->index}][test_1]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old('subject[{$loop->index}][test_1]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_2">2nd test</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old("subject[{$loop->index}][test_2]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old('subject[{$loop->index}][test_2]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_3">3rd test</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old("subject[{$loop->index}][test_3]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old('subject[{$loop->index}][test_3]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_4">4th test</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old("subject[{$loop->index}][test_4]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old('subject[{$loop->index}][test_4]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-exam">Exam</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old("subject[{$loop->index}][exam]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old('subject[{$loop->index}][exam]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-mark">Mark %</label>
-                                <input class="form-control" type="text" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old("subject[{$loop->index}][mark]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old('subject[{$loop->index}][mark]')}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-grade">Grade</label>
                                 <select name="subject[{{$loop->index}}][grade]" class="form-control" id="{{$subject->name}}-grade">
-                                    <option value="" {{old("subject[{$loop->index}][grade]") == "" ? "selected" : "" }} hidden=""></option>
+                                    <option value="" {{old("subject[{$loop->index}][grade]") == "" ? "selected" : "" }} hidden></option>
                                     <option value=A {{old("subject[{$loop->index}][grade]") == 'A' ? "selected" : "" }}>A</option>
                                     <option value=B {{old("subject[{$loop->index}][grade]") == 'B' ? "selected" : "" }}>B</option>
                                     <option value=C {{old("subject[{$loop->index}][grade]") == 'C' ? "selected" : "" }}>C</option>
@@ -104,7 +104,7 @@
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-effort_grade" style="white-space:nowrap;"><small>Effort Grade</small></label>
                                 <select name="subject[{{$loop->index}}][effort_grade]" class="form-control" id="{{$subject->name}}-effort_grade">
-                                    <option value="" {{old("subject[{$loop->index}][effort_grade]") == "" ? "selected" : "" }} hidden=""></option>
+                                    <option value="" {{old("subject[{$loop->index}][effort_grade]") == "" ? "selected" : "" }} hidden></option>
                                     <option value=A {{old("subject[{$loop->index}][effort_grade]") == 'A' ? "selected" : "" }}>A</option>
                                     <option value=B {{old("subject[{$loop->index}][effort_grade]") == 'B' ? "selected" : "" }}>B</option>
                                     <option value=C {{old("subject[{$loop->index}][effort_grade]") == 'C' ? "selected" : "" }}>C</option>

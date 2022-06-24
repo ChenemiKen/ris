@@ -182,8 +182,8 @@ class PrimaryTermReportController extends Controller
             $termResult->subject_id = $subject['id'];
             $termResult->test_1 = $subject['test_1'];
             $termResult->test_2 = $subject['test_2'];
-            $termResult->test_3 = $subject['test_2'];
-            $termResult->test_4 = $subject['test_3'];
+            $termResult->test_3 = $subject['test_3'];
+            $termResult->test_4 = $subject['test_4'];
             $termResult->exam = $subject['exam'];
             $termResult->percentage = $subject['mark'];
             $termResult->grade = $subject['grade'];
@@ -344,8 +344,8 @@ class PrimaryTermReportController extends Controller
             $termResult->term_id = $request->term;
             $termResult->test_1 = $result['test_1'];
             $termResult->test_2 = $result['test_2'];
-            $termResult->test_3 = $result['test_2'];
-            $termResult->test_4 = $result['test_3'];
+            $termResult->test_3 = $result['test_3'];
+            $termResult->test_4 = $result['test_4'];
             $termResult->exam = $result['exam'];
             $termResult->percentage = $result['mark'];
             $termResult->grade = $result['grade'];
