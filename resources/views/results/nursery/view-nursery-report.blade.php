@@ -26,7 +26,7 @@
                                     <td><strong>Date: </strong>{{$report->date}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Teacher's Name: </strong></td>
+                                    <td><strong>Teacher's Name: </strong>{{$report->teacher->firstname ?? ''}} {{$report->teacher->lastname ?? ''}}</td>
                                     <td><strong>Age: </strong>{{$report->pupil->age}}</td>
                                 </tr>
                             </tbody>

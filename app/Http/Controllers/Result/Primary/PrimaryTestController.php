@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 use App\Models\Result\Subject;
 use App\Models\Result\Primary\PrimaryTest;
@@ -13,6 +14,8 @@ use App\Http\Requests\Result\Primary\StorePrimaryTestRequest;
 use App\Http\Requests\Result\Primary\UpdatePrimaryTestRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PrimaryTestController extends Controller
 {
@@ -81,12 +84,22 @@ class PrimaryTestController extends Controller
             'subject.*.remark' => ['nullable', 'string', Rule::in(['excellent','very_good','good','fair','poor','fail'])],
         ]);
         $pupil = Pupil::find($request->pupil);
-
+        $teacher = Teacher::where('class', $pupil->class)
+                            ->orderByDesc('created_at')
+                            ->limit(1)
+                            ->get();
+        if(count($teacher) > 0){
+            $class_teacher_id = $teacher[0]->id;
+        }else{
+            $class_teacher_id = null;
+        }
+        Log::debug($class_teacher_id);
         // persist test
         $test = $pupil->primaryTests()->create([
-            'test_no' => $request->test_no,
-            'term_id' => $request->term,
-            'date'=> Carbon/Carbon::today()
+            'test_no'=> $request->test_no,
+            'term_id'=> $request->term,
+            'date'=> Carbon::today(),
+            'teacher_id'=> $class_teacher_id
         ]);
         foreach($request->subject as $subject){
             $testResult = new PrimaryTestResult();

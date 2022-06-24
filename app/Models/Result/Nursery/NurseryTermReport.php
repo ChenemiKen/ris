@@ -5,6 +5,7 @@ namespace App\Models\Result\Nursery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 
 class NurseryTermReport extends Model
@@ -19,6 +20,7 @@ class NurseryTermReport extends Model
     protected $fillable = [
         'pupil_id',
         'term_id',
+        'teacher_id',
         // attendance
         'times_school_opened',
         'times_present',
@@ -41,6 +43,14 @@ class NurseryTermReport extends Model
     public function pupil()
     {
         return $this->belongsTo(Pupil::class);
+    }
+
+    /**
+     * Get the teacher.
+    */
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
     }
 
     /**

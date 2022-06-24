@@ -36,7 +36,7 @@
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden="">Select Class</option>
                                 <option value="beacon" {{ old('class') == "beacon" ? "selected" : "" }}>Beacon</option>
                                 <option value="lower_primary" {{ old('class') == "lower_primary" ? "selected" : "" }}>Lower Primary</option>
-                                <option value="upper primary" {{ old('class') == "upper_primary" ? "selected" : "" }}>Upper Primary</option>
+                                <option value="upper_primary" {{ old('class') == "upper_primary" ? "selected" : "" }}>Upper Primary</option>
                                 <option value="nursery" {{ old('class') == "nursery" ? "selected" : "" }}>Nursery</option>
                                 <option value="playgroup" {{ old('class') == "playgroup" ? "selected" : "" }}>Playgroup</option>
                             </select>

@@ -24,6 +24,12 @@ return new class extends Migration
                     ->constrained('terms')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+            $table->foreignId('teacher_id')
+                    ->nullable()
+                    ->constrained('teachers')
+                    ->onUpdate('cascade')
+                    ->onDelete('set_null')
+                    ->nullOnDelete();
             // attendance
             $table->integer('times_school_opened')->nullable();
             $table->integer('times_present')->nullable();

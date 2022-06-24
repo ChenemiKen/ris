@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Result\Primary\PrimaryTermReport;
 use App\Models\Result\Primary\PrimaryTermResult;
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 use App\Models\Result\Subject;
 use App\Http\Requests\Result\Primary\StorePrimaryTermReportRequest;
@@ -14,6 +15,7 @@ use App\Http\Requests\Result\Primary\UpdatePrimaryTermReportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class PrimaryTermReportController extends Controller
 {
@@ -118,6 +120,15 @@ class PrimaryTermReportController extends Controller
             'head_remark'=> [ 'nullable','string'],
         ]);
         $pupil = Pupil::find($request->pupil);
+        $teacher = Teacher::where('class', $pupil->class)
+                            ->orderByDesc('created_at')
+                            ->limit(1)
+                            ->get();
+        if(count($teacher) > 0){
+            $class_teacher_id = $teacher[0]->id;
+        }else{
+            $class_teacher_id = null;
+        }
 
         // persist report
         $report = $pupil->primaryTermReports()->create([
@@ -159,7 +170,8 @@ class PrimaryTermReportController extends Controller
             'organisation_contribution'=>$request->organisation_contribution,
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
-            'date'=> Carbon/Carbon::today()
+            'date'=> Carbon::today(),
+            'teacher_id'=> $class_teacher_id
         ]);
         // Log::debug($test);
         foreach($request->subject as $subject){

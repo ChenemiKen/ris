@@ -26,10 +26,12 @@ return new class extends Migration
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->set('class', ['beacon','lower_primary','upper_primary','nursery','playgroup'])->nullable();
-            $table->foreignId('teacher_id')->nullable()
+            $table->foreignId('teacher_id')
+                    ->nullable()
                     ->constrained('teachers')
                     ->onUpdate('cascade')
-                    ->onDelete('cascade');
+                    ->onDelete('set_null')
+                    ->nullOnDelete();
             $table->date('date')->nullable();
 
         });

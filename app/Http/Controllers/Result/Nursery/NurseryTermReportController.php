@@ -7,6 +7,7 @@ use App\Models\Result\Nursery\NurseryTermReport;
 use App\Models\Result\Nursery\NurserySubjectResult;
 use App\Models\Result\Nursery\NurserySkillResult;
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 use App\Models\Result\Subject;
 use App\Models\Result\Skill;
@@ -16,6 +17,7 @@ use App\Http\Requests\Result\Nursery\UpdateNurseryTermReportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class NurseryTermReportController extends Controller
 {
@@ -98,6 +100,15 @@ class NurseryTermReportController extends Controller
             'head_remark'=> [ 'nullable','string'],
         ]);
         $pupil = Pupil::find($request->pupil);
+        $teacher = Teacher::where('class', $pupil->class)
+                            ->orderByDesc('created_at')
+                            ->limit(1)
+                            ->get();
+        if(count($teacher) > 0){
+            $class_teacher_id = $teacher[0]->id;
+        }else{
+            $class_teacher_id = null;
+        }
 
         // persist report
         $report = $pupil->nurseryTermReports()->create([
@@ -114,7 +125,8 @@ class NurseryTermReportController extends Controller
             'personal_note'=>$request->personal_note,
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
-            'date'=> Carbon/Carbon::today()
+            'date'=> Carbon::today(),
+            'teacher_id'=> $class_teacher_id
         ]);
         foreach($request->cat as $cat){
             foreach($cat as $cat_skill){

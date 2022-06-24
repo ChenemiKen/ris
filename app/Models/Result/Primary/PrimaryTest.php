@@ -2,6 +2,7 @@
 
 namespace App\Models\Result\Primary;
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,14 @@ class PrimaryTest extends Model
     public function pupil()
     {
         return $this->belongsTo(Pupil::class);
+    }
+
+    /**
+     * Get the teacher.
+    */
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
     }
 
     /**

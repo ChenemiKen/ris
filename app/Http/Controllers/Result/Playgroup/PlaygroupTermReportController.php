@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Result\Playgroup\PlaygroupTermReport;
 use App\Models\Pupil;
+use App\Models\Teacher;
 use App\Models\Result\Term;
 use App\Models\Result\Skill;
 use App\Models\Result\SkillCategory;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class PlaygroupTermReportController extends Controller
 {
@@ -110,6 +112,15 @@ class PlaygroupTermReportController extends Controller
             'head_remark'=> [ 'nullable','string'],
         ]);
         $pupil = Pupil::find($request->pupil);
+        $teacher = Teacher::where('class', $pupil->class)
+                            ->orderByDesc('created_at')
+                            ->limit(1)
+                            ->get();
+        if(count($teacher) > 0){
+            $class_teacher_id = $teacher[0]->id;
+        }else{
+            $class_teacher_id = null;
+        }
 
         // persist report
         $report = $pupil->playgroupTermReports()->create([
@@ -145,7 +156,8 @@ class PlaygroupTermReportController extends Controller
             'nails'=>$request->nails,
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
-            'date'=> Carbon/Carbon::today()
+            'date'=> Carbon::today(),
+            'teacher_id'=> $class_teacher_id
         ]);
         foreach($request->cat as $cat){
             foreach($cat as $cat_skill){
