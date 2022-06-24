@@ -34,9 +34,9 @@ return new class extends Migration
             $table->integer('times_school_opened')->nullable();
             $table->integer('times_present')->nullable();
             $table->integer('times_punctual')->nullable();
-            $table->integer('sports_1')->nullable();
-            $table->integer('sports_2')->nullable();
-            $table->integer('sports_3')->nullable();
+            $table->string('sports_1')->nullable();
+            $table->string('sports_2')->nullable();
+            $table->string('sports_3')->nullable();
             $table->string('other_event_1')->nullable();
             $table->string('other_event_2')->nullable();
             $table->string('other_event_3')->nullable();

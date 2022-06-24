@@ -93,7 +93,6 @@ class PrimaryTestController extends Controller
         }else{
             $class_teacher_id = null;
         }
-        Log::debug($class_teacher_id);
         // persist test
         $test = $pupil->primaryTests()->create([
             'test_no'=> $request->test_no,

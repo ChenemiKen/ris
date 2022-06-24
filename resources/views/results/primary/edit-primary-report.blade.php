@@ -53,37 +53,37 @@
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_1">1st test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_1" name="result[{{$loop->index}}][test_1]" value="{{old("result[{$loop->index}][test_1]", $termResult->test_1)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-test_1" name="result[{{$loop->index}}][test_1]" value="{{old("result[{$loop->index}][test_1]", $termResult->test_1)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_2">2nd test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_2" name="result[{{$loop->index}}][test_2]" value="{{old("result[{$loop->index}][test_2]", $termResult->test_2)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-test_2" name="result[{{$loop->index}}][test_2]" value="{{old("result[{$loop->index}][test_2]", $termResult->test_2)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_3">3rd test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_3" name="result[{{$loop->index}}][test_3]" value="{{old("result[{$loop->index}][test_3]", $termResult->test_3)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-test_3" name="result[{{$loop->index}}][test_3]" value="{{old("result[{$loop->index}][test_3]", $termResult->test_3)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-test_4">4th test</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-test_4" name="result[{{$loop->index}}][test_4]" value="{{old("result[{$loop->index}][test_4]", $termResult->test_4)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-test_4" name="result[{{$loop->index}}][test_4]" value="{{old("result[{$loop->index}][test_4]", $termResult->test_4)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-exam">Exam</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-exam" name="result[{{$loop->index}}][exam]" value="{{old("result[{$loop->index}][exam]", $termResult->exam)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-exam" name="result[{{$loop->index}}][exam]" value="{{old("result[{$loop->index}][exam]", $termResult->exam)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$termResult->subject->name}}-mark">Mark %</label>
-                                <input class="form-control" type="number" id="{{$termResult->subject->name}}-mark" name="result[{{$loop->index}}][mark]" value="{{old("result[{$loop->index}][mark]", $termResult->percentage)}}">
+                                <input class="form-control" type="text" id="{{$termResult->subject->name}}-mark" name="result[{{$loop->index}}][mark]" value="{{old("result[{$loop->index}][mark]", $termResult->percentage)}}">
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -154,19 +154,19 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_1">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_1" name="sport_activities_1" value="{{old("sport_activities_1", $report->sports_1)}}">
+                            <input class="form-control" type="text" id="sport_activities_1" name="sport_activities_1" value="{{old("sport_activities_1", $report->sports_1)}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_2">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_2" name="sport_activities_2" value="{{old("sport_activities_2", $report->sports_2)}}">
+                            <input class="form-control" type="text" id="sport_activities_2" name="sport_activities_2" value="{{old("sport_activities_2", $report->sports_2)}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_3">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_3" name="sport_activities_3" value="{{old("sport_activities_3", $report->sports_3)}}">
+                            <input class="form-control" type="text" id="sport_activities_3" name="sport_activities_3" value="{{old("sport_activities_3", $report->sports_3)}}">
                         </div>
                     </div>
                     <div class="col-md-4">

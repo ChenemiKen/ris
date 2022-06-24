@@ -53,37 +53,37 @@
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_1">1st test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old("subject[{$loop->index}][test_1]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_1" name="subject[{{$loop->index}}][test_1]" value="{{old("subject[{$loop->index}][test_1]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_2">2nd test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old("subject[{$loop->index}][test_2]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_2" name="subject[{{$loop->index}}][test_2]" value="{{old("subject[{$loop->index}][test_2]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_3">3rd test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old("subject[{$loop->index}][test_3]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_3" name="subject[{{$loop->index}}][test_3]" value="{{old("subject[{$loop->index}][test_3]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-test_4">4th test</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old("subject[{$loop->index}][test_4]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-test_4" name="subject[{{$loop->index}}][test_4]" value="{{old("subject[{$loop->index}][test_4]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-exam">Exam</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old("subject[{$loop->index}][exam]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-exam" name="subject[{{$loop->index}}][exam]" value="{{old("subject[{$loop->index}][exam]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <label for="{{$subject->name}}-mark">Mark %</label>
-                                <input class="form-control" type="number" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old("subject[{$loop->index}][mark]")}}">
+                                <input class="form-control" type="text" id="{{$subject->name}}-mark" name="subject[{{$loop->index}}][mark]" value="{{old("subject[{$loop->index}][mark]")}}">
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -154,19 +154,19 @@
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_1">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_1" name="sport_activities_1" value="{{old("sport_activities_1")}}">
+                            <input class="form-control" type="text" id="sport_activities_1" name="sport_activities_1" value="{{old("sport_activities_1")}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_2">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_2" name="sport_activities_2" value="{{old("sport_activities_2")}}">
+                            <input class="form-control" type="text" id="sport_activities_2" name="sport_activities_2" value="{{old("sport_activities_2")}}">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="sport_activities_3">Sports Activities</label>
-                            <input class="form-control" type="number" id="sport_activities_3" name="sport_activities_3" value="{{old("sport_activities_3")}}">
+                            <input class="form-control" type="text" id="sport_activities_3" name="sport_activities_3" value="{{old("sport_activities_3")}}">
                         </div>
                     </div>
                     <div class="col-md-4">
