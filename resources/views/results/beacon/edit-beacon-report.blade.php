@@ -58,7 +58,7 @@
                                                 <div class="deshboard_main_top_edit_area_single_item">
                                                     <label for="{{$skill_result->skill->name}}-score">{{$skill_result->skill->name}}</label>
                                                     <select name="skill_result[{{$loop->index}}][score]" class="form-control" id="{{$skill_result->skill->name}}-score">
-                                                        <option value="" {{old("skill_result[{$loop->index}][score]", $skill_result->score) == "" ? "selected" : "" }} hidden=""></option>
+                                                        <option value="" {{old("skill_result[{$loop->index}][score]", $skill_result->score) == "" ? "selected" : "" }}>-</option>
                                                         <option value=1 {{old("skill_result[{$loop->index}][score]", $skill_result->score) == 1 ? "selected" : "" }}>1</option>
                                                         <option value=2 {{old("skill_result[{$loop->index}][score]", $skill_result->score) == 2 ? "selected" : "" }}>2</option>
                                                         <option value=3 {{old("skill_result[{$loop->index}][score]", $skill_result->score) == 3 ? "selected" : "" }}>3</option>
