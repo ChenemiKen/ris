@@ -1,20 +1,13 @@
-@extends('results.parent-view-base')
+@extends('results.primary.parent-view-base')
 @section('title', 'View report')
 @section('page-heading', 'Term report')
 
 @section('page-content') 
-    <div class="deshboard_booking_main_content_area">
+    <div class="deshboard_booking_main_content_area pt-0">
         <div class="deshboard_booking_main_content_area_container">
-            <div class="row">
-                <div class="sidebar-brand col-4">
-                    <a href="index.html">
-                        <span class="logo-name"><img class="mb-0" src="{{asset('img/logo.png')}}"  width="70px"/></span>
-                    </a>
-                </div>
-                <h4 class="text-blue my-auto col-7"><strong>{{$report->term->session}} {{$report->term->name}} TERM REPORT</strong></h4>
-            </div>
             <!-- Header area End  -->
-            <div class="deshboard_main_edit_task_area table mt-5 pb-5">
+            <div class="deshboard_main_edit_task_area table pt-4 pb-5">
+                <h5 class="text-blue mb-5">{{$report->term->session}} {{$report->term->name}} TERM REPORT</h5>
                 <div class="row mb-5">
                     <img src="{{asset('uploads/pupils/'.$report->pupil->photo)}}" alt="" class="col-md-4">
                     <div class="col-md-8">
@@ -25,15 +18,15 @@
                                     <td><strong>Admission Number: </strong>{{$report->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>{{$report->pupil->class}}</td>
+                                    <td><strong>Class: </strong>@title($report->pupil->class)</td>
                                     <td><strong>Term: </strong>{{$report->term->name}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Class Average Age: </strong></td>
-                                    <td><strong>Date: </strong></td>
+                                    <td><strong>Date: </strong>{{$report->date}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Teacher's Name: </strong></td>
+                                    <td><strong>Teacher's Name: </strong>{{$report->teacher->firstname ?? ''}} {{$report->teacher->lastname ?? ''}}</td>
                                     <td><strong>Age: </strong>{{$report->pupil->age}}</td>
                                 </tr>
                             </tbody>
@@ -55,7 +48,7 @@
                         <th>Teacher's Comment</th>
                     </thead>
                     <tbody>
-                        @foreach($report->termResults as $result)
+                        @foreach($report->primaryTermResults as $result)
                         <tr>
                             <td>{{$result->subject->name}}</td>
                             <td>{{$result->test_1}}</td>
@@ -66,7 +59,7 @@
                             <td>{{$result->percentage}}</td>
                             <td>{{$result->grade}}</td>
                             <td>{{$result->effort_grade}}</td>
-                            <td>{{$result->remark}}</td>
+                            <td>@title($result->remark)</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -127,13 +120,13 @@
                     <tbody>
                         <tr>
                             <td>Height</td>
-                            <td>{{$report->height_start}}</td>
-                            <td>{{$report->height_end}}</td>
+                            <td>{{$report->height_start}} cm</td>
+                            <td>{{$report->height_end}} cm</td>
                         </tr>
                         <tr>
                             <td>Weight</td>
-                            <td>{{$report->weight_start}}</td>
-                            <td>{{$report->weight_end}}</td>
+                            <td>{{$report->weight_start}} kg</td>
+                            <td>{{$report->weight_end}} kg</td>
                         </tr>
                         <tr>
                             <td>No. of times absent due to illness</td>
@@ -146,7 +139,7 @@
                         </tr>
                         <tr>
                             <td>Remarks</td>
-                            <td colspan="2">{{$report->cleanliness_remark}}</td>
+                            <td colspan="2">@title($report->cleanliness_remark)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -164,12 +157,12 @@
                     <tbody>
                         <tr>
                             <td>Level attained</td>
-                            <td>{{$report->ball_games}}</td>
-                            <td>{{$report->tracks}}</td>
-                            <td>{{$report->jumps}}</td>
-                            <td>{{$report->throws}}</td>
-                            <td>{{$report->swimming}}</td>
-                            <td>{{$report->others}}</td>
+                            <td>@title($report->ball_games)</td>
+                            <td>@title($report->tracks)</td>
+                            <td>@title($report->jumps)</td>
+                            <td>@title($report->throws)</td>
+                            <td>@title($report->swimming)</td>
+                            <td>@title($report->others)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,7 +196,7 @@
                 <table class="pupil-result-table mt-5">
                     <tbody>
                         <tr>
-                            <td class="text-center pt-5"><strong>March 7, 2022</strong></td>
+                            <td class="text-center pt-5"><strong>{{\Carbon\Carbon::parse($report->date)->format('F jS, Y')}}</strong></td>
                             <td class="text-center">
                                 <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>

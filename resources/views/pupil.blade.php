@@ -5,7 +5,9 @@
 @section('page-content') 
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
+            @can('is-admin')
             <a href="{{route('add-pupil')}}" class="crate_btn_area">+ Add a Pupil</a>
+            @endcan
             <!-- Header area start  -->
             <div class="deshboard_filter_area">
                 <h4></h4>
@@ -28,7 +30,9 @@
                             <th>Parent Phone</th>
                             <th>Parent Email</th>
                             <th>Entry date</th>
+                            @can('is-admin')
                             <th>Action</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>

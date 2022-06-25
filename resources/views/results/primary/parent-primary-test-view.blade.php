@@ -1,4 +1,4 @@
-@extends('results.parent-view-base')
+@extends('results.primary.parent-view-base')
 @section('title', 'View test')
 @section('page-heading', 'View test')
 
@@ -25,15 +25,15 @@
                                     <td><strong>Admission Number: </strong>{{$test->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>{{$test->pupil->class}}</td>
+                                    <td><strong>Class: </strong>@title($test->pupil->class)</td>
                                     <td><strong>Term: </strong>{{$test->term->name}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Class Average Age: </strong></td>
-                                    <td><strong>Date: </strong></td>
+                                    <td><strong>Date: </strong>{{$test->date}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Teacher's Name: </strong></td>
+                                    <td><strong>Teacher's Name: </strong>{{$test->teacher->firstname ?? ''}} {{$test->teacher->lastname ?? ''}}</td>
                                     <td><strong>Age: </strong>{{$test->pupil->age}}</td>
                                 </tr>
                             </tbody>
@@ -50,13 +50,13 @@
                         <th>REMARK</th>
                     </thead>
                     <tbody>
-                        @foreach($test->testResults as $result)
+                        @foreach($test->primaryTestResults as $result)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$result->subject->name}}</td>
                             <td>{{$result->score}}</td>
                             <td>{{$result->grade}}</td>
-                            <td>{{$result->remark}}</td>
+                            <td>@title($result->remark)</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -66,7 +66,7 @@
                         <tr>
                             <td><strong>TOTAL(max )</strong></td>
                             <td><strong></strong></td>
-                            <td class="text-center pt-5" rowspan="2"><strong>March 7 2022</strong></td>
+                            <td class="text-center pt-5" rowspan="2"><strong>{{\Carbon\Carbon::parse($test->date)->format('F jS, Y')}}</strong></td>
                             <td class="text-center" rowspan="2">
                                 <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">
                                 <h6>Anne Beesong</h6>

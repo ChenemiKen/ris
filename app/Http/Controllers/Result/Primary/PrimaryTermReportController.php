@@ -41,7 +41,7 @@ class PrimaryTermReportController extends Controller
             ]); 
         }elseif(Gate::allows('is-parent')){
             $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
-            return view('results.nursery.nursery-reports', [
+            return view('results.primary.primary-reports', [
                 'reports' => PrimaryTermReport::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
@@ -210,7 +210,7 @@ class PrimaryTermReportController extends Controller
                 'report' => $report,
             ]);
         }else{
-            return view('results.primary.parent-pirmary-report-view',[
+            return view('results.primary.parent-primary-report-view',[
                 'report' => $report,
             ]);
         }

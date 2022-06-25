@@ -43,8 +43,8 @@ class PrimaryTestController extends Controller
             ]);
         }elseif(Gate::allows('is-parent')){
             $ward = Pupil::find(auth()->user()->pupil_parent->pupil->id);
-            return view('results.nursery.nursery-reports', [
-                'reports' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
+            return view('results.primary.primary-tests', [
+                'tests' => PrimaryTest::with('pupil','term')->where('pupil_id', $ward->id)->where($filter)->paginate(session('per_page')),
                 'terms' => $terms
             ]);
         }
