@@ -72,7 +72,6 @@ class PupilParentController extends Controller
             'username' => $request->admission_no,
             'email' => $request->email,
             'password' => Hash::make($request->admission_no),
-            'photo' => "user_dp.png",
         ]);
 
         $pupil_parent = PupilParent::create([

@@ -195,7 +195,7 @@ class PlaygroupTermReportController extends Controller
                 'skill_categories'=>$skillCategories,
             ]);
         }else{
-            return view('results.playgroup.playgroup-report-parent-view',[
+            return view('results.playgroup.parent-playgroup-report-view',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,
             ]);

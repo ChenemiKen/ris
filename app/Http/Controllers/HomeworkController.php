@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 
 class HomeworkController extends Controller
 {
@@ -22,9 +23,19 @@ class HomeworkController extends Controller
     {
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
-        return view('homeworks', [
-            'homeworks' => DB::table('homework')->paginate(session('per_page'))
-        ]);
+        if(Gate::allows('is-admin')){
+            return view('homeworks', [
+                'homeworks' => DB::table('homework')->paginate(session('per_page'))
+            ]);
+        }elseif(Gate::allows('is-teacher')){
+            return view('homeworks', [
+                'homeworks' => Homework::where('class', auth()->user()->class)->paginate(session('per_page'))
+            ]);
+        }elseif(Gate::allows('is-parent')){
+            return view('homeworks', [
+                'homeworks' => Homework::where('class', auth()->user()->pupil_parent->pupil->class)->paginate(session('per_page'))
+            ]); 
+        }
     }
 
     /**

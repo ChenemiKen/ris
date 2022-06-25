@@ -208,7 +208,7 @@ class NurseryTermReportController extends Controller
                 'skill_categories'=>$skillCategories,
             ]);
         }else{
-            return view('results.nursery.nursery-report-parent-view',[
+            return view('results.nursery.parent-nursery-report-view',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,
             ]);

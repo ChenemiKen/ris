@@ -198,7 +198,7 @@ class BeaconTermReportController extends Controller
                 'skill_categories'=>$skillCategories,
             ]);
         }else{
-            return view('results.beacon.beacon-report-parent-view',[
+            return view('results.beacon.parent-beacon-report-view',[
                 'report' => $report,
                 'skill_categories'=>$skillCategories,
             ]);

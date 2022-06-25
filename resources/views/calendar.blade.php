@@ -11,7 +11,9 @@
 @section('page-content') 
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
+            @can('is-admin')
             <a href="{{route('add-event')}}" class="crate_btn_area">+ Add event</a>
+            @endcan
             <div class="deshboard_main_edit_task_area table">
                 
                 <div class="container">

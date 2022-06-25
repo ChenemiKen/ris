@@ -48,7 +48,15 @@
                                 <span class="d-none d-lg-inline-block mu_profile_items_right">
                                     <span class="mu_profile_items_right2"> Welcome, {{Auth::user()->fullname}}</i></span>
                                 </span>
+                                @can('is-admin')
                                 <span class="mu_profile_items_left"><img alt="image" src="{{asset('img/profile.png')}}" class="user-img-radious-style" /></span>
+                                @endcan
+                                @can('is-teacher')
+                                <span class="mu_profile_items_left"><img alt="image" src="{{asset('uploads/teachers/'.Auth::user()->photo)}}" class="user-img-radious-style"/></span>
+                                @endcan
+                                @can('is-parent')
+                                <span class="mu_profile_items_left"><img alt="image" src="{{asset('img/profile.png')}}" class="user-img-radious-style" /></span>
+                                @endcan
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right pullDown mu_profile_items_a_design">
