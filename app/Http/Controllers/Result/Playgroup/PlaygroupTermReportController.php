@@ -167,7 +167,6 @@ class PlaygroupTermReportController extends Controller
                     $playgroupSkillResult->pupil_id = $pupil->id;
                     $playgroupSkillResult->term_id = $request->term;
                     $playgroupSkillResult->skill_category_id = $skill['category_id'];
-                    $playgroupSkillResult->skill_id = $skill['id'];
                     $playgroupSkillResult->score = $skill['score'];
 
                     // persist beaconSkillResult

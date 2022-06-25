@@ -316,7 +316,6 @@ class BeaconTermReportController extends Controller
             $beaconSkillResult->pupil_id = $pupil->id;
             $beaconSkillResult->term_id = $request->term;
             $beaconSkillResult->skill_category_id = $skill_result['category_id'];
-            $beaconSkillResult->skill_id = $skill_result['id'];
             $beaconSkillResult->score = $skill_result['score'];
 
             // persist beaconSkillResult
