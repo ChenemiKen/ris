@@ -41,8 +41,8 @@
                         <th>2nd Test</th>
                         <th>3rd Test</th>
                         <th>4th Test</th>
-                        <th>Exam</th>
-                        <th>Mark %</th>
+                        <th>Exam <br>(max 60)</th>
+                        <th>Mark % <br>(max 100)</th>
                         <th>Grade</th>
                         <th>Effort Grade</th>
                         <th>Teacher's Comment</th>
