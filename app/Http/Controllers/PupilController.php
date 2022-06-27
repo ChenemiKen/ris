@@ -190,4 +190,37 @@ class PupilController extends Controller
         $pupil->delete();
         return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil deleted successfully!');
     }
+
+    /**
+     * Show the form for moving pupils.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function relocate()
+    {
+        $this->authorize('is-admin');
+        $pupils = Pupil::all('id','firstname','lastname');
+        return view('move-pupil',['pupils'=>$pupils]);
+    }
+
+
+    /**
+     * Change the pupil's class.
+     *
+     * @param  \App\Http\Requests\UpdatePupilRequest  $request
+     * @param  \App\Models\Pupil  $pupil
+     * @return \Illuminate\Http\Response
+    */
+    public function move(UpdatePupilRequest $request){
+        $this->authorize('is-admin');
+        $request->validate([
+            'pupil' => ['required', 'integer', 'exists:pupils,id'],
+            'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+        ]);
+        $pupil = Pupil::find($request->pupil);
+        $pupil -> update([
+            'class'=>$request->class
+        ]);
+        return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil moved successfully!');
+    }
 }

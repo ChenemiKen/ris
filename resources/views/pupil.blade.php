@@ -6,7 +6,8 @@
     <div class="deshboard_booking_main_content_area">
         <div class="deshboard_booking_main_content_area_container">
             @can('is-admin')
-            <a href="{{route('add-pupil')}}" class="crate_btn_area">+ Add a Pupil</a>
+            <a href="{{route('add-pupil')}}" class="crate_btn_area mr-2">+ Add a Pupil</a>
+            <a href="{{route('move-pupil')}}" class="crate_btn_area">Move Pupil</a>
             @endcan
             <!-- Header area start  -->
             <div class="deshboard_filter_area">

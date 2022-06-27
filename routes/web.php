@@ -135,6 +135,12 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete-pupil/{pupil}', [PupilController::class, 'destroy'])
                         ->middleware('auth')
                         ->name('delete-pupil');
+        Route::get('/move-pupil', [PupilController::class, 'relocate'])
+                        ->middleware('auth')
+                        ->name('move-pupil');
+        Route::post('/move-pupil', [PupilController::class, 'move'])
+                        ->middleware('auth')
+                        ->name('move-pupil');
 
          // Admin area (Routes accessible to only Admin users)-----------------//
         Route::group([
