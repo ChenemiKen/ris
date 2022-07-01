@@ -159,19 +159,22 @@ class PlaygroupTermReportController extends Controller
             'date'=> Carbon::today(),
             'teacher_id'=> $class_teacher_id
         ]);
-        foreach($request->cat as $cat){
-            foreach($cat as $cat_skill){
-                foreach($cat_skill as $skill){
-                    $playgroupSkillResult = new PlaygroupSkillResult();
-                    $playgroupSkillResult->playgroup_term_report_id = $report->id;
-                    $playgroupSkillResult->pupil_id = $pupil->id;
-                    $playgroupSkillResult->term_id = $request->term;
-                    $playgroupSkillResult->skill_category_id = $skill['category_id'];
-                    $playgroupSkillResult->skill_id = $skill['id'];
-                    $playgroupSkillResult->score = $skill['score'];
 
-                    // persist beaconSkillResult
-                    $playgroupSkillResult->save();
+        if($request->cat){
+            foreach($request->cat as $cat){
+                foreach($cat as $cat_skill){
+                    foreach($cat_skill as $skill){
+                        $playgroupSkillResult = new PlaygroupSkillResult();
+                        $playgroupSkillResult->playgroup_term_report_id = $report->id;
+                        $playgroupSkillResult->pupil_id = $pupil->id;
+                        $playgroupSkillResult->term_id = $request->term;
+                        $playgroupSkillResult->skill_category_id = $skill['category_id'];
+                        $playgroupSkillResult->skill_id = $skill['id'];
+                        $playgroupSkillResult->score = $skill['score'];
+    
+                        // persist beaconSkillResult
+                        $playgroupSkillResult->save();
+                    }
                 }
             }
         }
@@ -307,16 +310,19 @@ class PlaygroupTermReportController extends Controller
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
         ]);
-        foreach($request->skill_result as $skill_result){
-            $playgroupSkillResult = PlaygroupSkillResult::find($skill_result['id']);
-            $playgroupSkillResult->playgroup_term_report_id = $report->id;
-            $playgroupSkillResult->pupil_id = $pupil->id;
-            $playgroupSkillResult->term_id = $request->term;
-            $playgroupSkillResult->skill_category_id = $skill_result['category_id'];
-            $playgroupSkillResult->score = $skill_result['score'];
 
-            // persist beaconSkillResult
-            $playgroupSkillResult->update();
+        if($request->skill_result){
+            foreach($request->skill_result as $skill_result){
+                $playgroupSkillResult = PlaygroupSkillResult::find($skill_result['id']);
+                $playgroupSkillResult->playgroup_term_report_id = $report->id;
+                $playgroupSkillResult->pupil_id = $pupil->id;
+                $playgroupSkillResult->term_id = $request->term;
+                $playgroupSkillResult->skill_category_id = $skill_result['category_id'];
+                $playgroupSkillResult->score = $skill_result['score'];
+    
+                // persist beaconSkillResult
+                $playgroupSkillResult->update();
+            }
         }
 
         return redirect()->route('playgroup-reports')->with('success','Term Report updated successfully!');

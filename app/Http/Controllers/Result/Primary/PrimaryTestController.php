@@ -100,18 +100,21 @@ class PrimaryTestController extends Controller
             'date'=> Carbon::today(),
             'teacher_id'=> $class_teacher_id
         ]);
-        foreach($request->subject as $subject){
-            $testResult = new PrimaryTestResult();
-            $testResult->primary_test_id = $test->id;
-            $testResult->pupil_id = $pupil->id;
-            $testResult->term_id = $request->term;
-            $testResult->subject_id = $subject['id'];
-            $testResult->score = $subject['score'];
-            $testResult->grade = $subject['grade'];
-            $testResult->remark = $subject['remark'];
 
-            // persist testResult
-            $testResult->save();
+        if($request->subject){
+            foreach($request->subject as $subject){
+                $testResult = new PrimaryTestResult();
+                $testResult->primary_test_id = $test->id;
+                $testResult->pupil_id = $pupil->id;
+                $testResult->term_id = $request->term;
+                $testResult->subject_id = $subject['id'];
+                $testResult->score = $subject['score'];
+                $testResult->grade = $subject['grade'];
+                $testResult->remark = $subject['remark'];
+    
+                // persist testResult
+                $testResult->save();
+            }
         }
 
         return redirect()->route('primary-tests')->with('success','Test Result added successfully!');
@@ -184,17 +187,20 @@ class PrimaryTestController extends Controller
             'term_id' => $request->term,
             'test_no' => $request->test_no,
         ]);
-        foreach($request->result as $result){
-            $testResult = PrimaryTestResult::find($result['id']);
-            $testResult->primary_test_id = $test->id;
-            $testResult->pupil_id = $pupil->id;
-            $testResult->term_id = $request->term;
-            $testResult->score = $result['score'];
-            $testResult->grade = $result['grade'];
-            $testResult->remark = $result['remark'];
 
-            // persist testResult update
-            $testResult->update();
+        if($request->result){
+            foreach($request->result as $result){
+                $testResult = PrimaryTestResult::find($result['id']);
+                $testResult->primary_test_id = $test->id;
+                $testResult->pupil_id = $pupil->id;
+                $testResult->term_id = $request->term;
+                $testResult->score = $result['score'];
+                $testResult->grade = $result['grade'];
+                $testResult->remark = $result['remark'];
+    
+                // persist testResult update
+                $testResult->update();
+            }
         }
 
         return redirect()->route('primary-tests')->with('success','Test Result updated successfully!');

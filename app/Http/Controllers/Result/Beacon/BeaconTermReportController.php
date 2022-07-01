@@ -161,23 +161,25 @@ class BeaconTermReportController extends Controller
             'date'=> Carbon::today(),
             'teacher_id'=> $class_teacher_id
         ]);
-        foreach($request->cat as $cat){
-            foreach($cat as $cat_skill){
-                foreach($cat_skill as $skill){
-                    $beaconSkillResult = new BeaconSkillResult();
-                    $beaconSkillResult->beacon_term_report_id = $report->id;
-                    $beaconSkillResult->pupil_id = $pupil->id;
-                    $beaconSkillResult->term_id = $request->term;
-                    $beaconSkillResult->skill_category_id = $skill['category_id'];
-                    $beaconSkillResult->skill_id = $skill['id'];
-                    $beaconSkillResult->score = $skill['score'];
-        
-                    // persist beaconSkillResult
-                    $beaconSkillResult->save();
+
+        if($request->cat){
+            foreach($request->cat as $cat){
+                foreach($cat as $cat_skill){
+                    foreach($cat_skill as $skill){
+                        $beaconSkillResult = new BeaconSkillResult();
+                        $beaconSkillResult->beacon_term_report_id = $report->id;
+                        $beaconSkillResult->pupil_id = $pupil->id;
+                        $beaconSkillResult->term_id = $request->term;
+                        $beaconSkillResult->skill_category_id = $skill['category_id'];
+                        $beaconSkillResult->skill_id = $skill['id'];
+                        $beaconSkillResult->score = $skill['score'];
+            
+                        // persist beaconSkillResult
+                        $beaconSkillResult->save();
+                    }
                 }
             }
         }
-        
 
         return redirect()->route('beacon-reports')->with('success','Term Report added successfully!');
     }
@@ -310,16 +312,19 @@ class BeaconTermReportController extends Controller
             'neatness'=>$request->neatness,
             'punctuality'=>$request->punctuality,
         ]);
-        foreach($request->skill_result as $skill_result){
-            $beaconSkillResult = BeaconSkillResult::find($skill_result['id']);
-            $beaconSkillResult->beacon_term_report_id = $report->id;
-            $beaconSkillResult->pupil_id = $pupil->id;
-            $beaconSkillResult->term_id = $request->term;
-            $beaconSkillResult->skill_category_id = $skill_result['category_id'];
-            $beaconSkillResult->score = $skill_result['score'];
-
-            // persist beaconSkillResult
-            $beaconSkillResult->update();
+        
+        if($request->skill_result){
+            foreach($request->skill_result as $skill_result){
+                $beaconSkillResult = BeaconSkillResult::find($skill_result['id']);
+                $beaconSkillResult->beacon_term_report_id = $report->id;
+                $beaconSkillResult->pupil_id = $pupil->id;
+                $beaconSkillResult->term_id = $request->term;
+                $beaconSkillResult->skill_category_id = $skill_result['category_id'];
+                $beaconSkillResult->score = $skill_result['score'];
+    
+                // persist beaconSkillResult
+                $beaconSkillResult->update();
+            }
         }
 
         return redirect()->route('beacon-reports')->with('success','Term Report updated successfully!');

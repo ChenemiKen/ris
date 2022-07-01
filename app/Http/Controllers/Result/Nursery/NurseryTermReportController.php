@@ -25,7 +25,7 @@ class NurseryTermReportController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function index(Request $request)
     {
         // pagination no of rows per page
@@ -72,7 +72,7 @@ class NurseryTermReportController extends Controller
      *
      * @param  \App\Http\Requests\Result\Nursery\StoreNurseryTermReportRequest  $request
      * @return \Illuminate\Http\Response
-     */
+    */
     public function store(StoreNurseryTermReportRequest $request)
     {
         $this->authorize('is-staff');
@@ -128,65 +128,69 @@ class NurseryTermReportController extends Controller
             'date'=> Carbon::today(),
             'teacher_id'=> $class_teacher_id
         ]);
-        foreach($request->cat as $cat){
-            foreach($cat as $cat_skill){
-                foreach($cat_skill as $skill){
-                    switch($skill['grade']){
-                        case 'A+':
-                            $remarks = 'Exceptional';
-                            break;
-                        case 'A':
-                            $remarks = 'Excellent';
-                            break;
-                        case 'B+':
-                            $remarks = 'Very_good';
-                            break;
-                        case 'B':
-                            $remarks = 'Good';
-                            break;
-                        case 'C+':
-                            $remarks = 'Satisfactory';
-                            break;
-                        case 'C':
-                            $remarks = 'Room_for_Improvement';
-                            break;
-                        case 'S.A':
-                            $remarks = 'Special_Attention';
-                            break;
-                        case 'N.A':
-                            $remarks = 'Not_Applicable';
-                            break;
-                        default:
-                            $remarks = '';
-                            break;
+        if($request->cat){
+            foreach($request->cat as $cat){
+                foreach($cat as $cat_skill){
+                    foreach($cat_skill as $skill){
+                        switch($skill['grade']){
+                            case 'A+':
+                                $remarks = 'Exceptional';
+                                break;
+                            case 'A':
+                                $remarks = 'Excellent';
+                                break;
+                            case 'B+':
+                                $remarks = 'Very_good';
+                                break;
+                            case 'B':
+                                $remarks = 'Good';
+                                break;
+                            case 'C+':
+                                $remarks = 'Satisfactory';
+                                break;
+                            case 'C':
+                                $remarks = 'Room_for_Improvement';
+                                break;
+                            case 'S.A':
+                                $remarks = 'Special_Attention';
+                                break;
+                            case 'N.A':
+                                $remarks = 'Not_Applicable';
+                                break;
+                            default:
+                                $remarks = '';
+                                break;
+                        }
+                        $nurserySkillResult = new NurserySkillResult();
+                        $nurserySkillResult->nursery_term_report_id = $report->id;
+                        $nurserySkillResult->pupil_id = $pupil->id;
+                        $nurserySkillResult->term_id = $request->term;
+                        $nurserySkillResult->skill_category_id = $skill['category_id'];
+                        $nurserySkillResult->skill_id = $skill['id'];
+                        $nurserySkillResult->grade = $skill['grade'];
+                        $nurserySkillResult->effort_grade = $skill['effort_grade'];
+                        $nurserySkillResult->remark = $remarks;
+    
+                        // persist testResult
+                        $nurserySkillResult->save();
                     }
-                    $nurserySkillResult = new NurserySkillResult();
-                    $nurserySkillResult->nursery_term_report_id = $report->id;
-                    $nurserySkillResult->pupil_id = $pupil->id;
-                    $nurserySkillResult->term_id = $request->term;
-                    $nurserySkillResult->skill_category_id = $skill['category_id'];
-                    $nurserySkillResult->skill_id = $skill['id'];
-                    $nurserySkillResult->grade = $skill['grade'];
-                    $nurserySkillResult->effort_grade = $skill['effort_grade'];
-                    $nurserySkillResult->remark = $remarks;
-
-                    // persist testResult
-                    $nurserySkillResult->save();
                 }
             }
         }
         
-        foreach($request->subject as $subject){
-            $nurserySubjectResult = new NurserySubjectResult();
-            $nurserySubjectResult->nursery_term_report_id = $report->id;
-            $nurserySubjectResult->pupil_id = $pupil->id;
-            $nurserySubjectResult->term_id = $request->term;
-            $nurserySubjectResult->subject_id = $subject['id'];
-            $nurserySubjectResult->score = $subject['score'];
-            $nurserySubjectResult->remark = $subject['remarks'];
-
-            // persist testResult
-            $nurserySubjectResult->save();
+        if($request->subject){
+            foreach($request->subject as $subject){
+                $nurserySubjectResult = new NurserySubjectResult();
+                $nurserySubjectResult->nursery_term_report_id = $report->id;
+                $nurserySubjectResult->pupil_id = $pupil->id;
+                $nurserySubjectResult->term_id = $request->term;
+                $nurserySubjectResult->subject_id = $subject['id'];
+                $nurserySubjectResult->score = $subject['score'];
+                $nurserySubjectResult->remark = $subject['remarks'];
+    
+                // persist testResult
+                $nurserySubjectResult->save();
+            }
         }
 
         return redirect()->route('nursery-reports')->with('success','Term Report added successfully!');
@@ -197,7 +201,7 @@ class NurseryTermReportController extends Controller
      *
      * @param  \App\Models\Result\Nursery\NurseryTermReport  $report
      * @return \Illuminate\Http\Response
-     */
+    */
     public function show(NurseryTermReport $report)
     {
         $skillCategories = SkillCategory::all('id','name');
@@ -290,64 +294,68 @@ class NurseryTermReportController extends Controller
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
         ]);
-        foreach($request->skill_result as $skill_result){
-            $nurserySkillResult = NurserySkillResult::find($skill_result['id']);
-            switch($skill_result['grade']){
-                case 'A+':
-                    $remarks = 'Exceptional';
-                    break;
-                case 'A':
-                    $remarks = 'Excellent';
-                    break;
-                case 'B+':
-                    $remarks = 'Very_good';
-                    break;
-                case 'B':
-                    $remarks = 'Good';
-                    break;
-                case 'C+':
-                    $remarks = 'Satisfactory';
-                    break;
-                case 'C':
-                    $remarks = 'Room_for_Improvement';
-                    break;
-                case 'S.A':
-                    $remarks = 'Special_Attention';
-                    break;
-                case 'N.A':
-                    $remarks = 'Not_Applicable';
-                    break;
-                default:
-                    $remarks = '';
-                    break;
+        if($request->skill_result){
+            foreach($request->skill_result as $skill_result){
+                $nurserySkillResult = NurserySkillResult::find($skill_result['id']);
+                switch($skill_result['grade']){
+                    case 'A+':
+                        $remarks = 'Exceptional';
+                        break;
+                    case 'A':
+                        $remarks = 'Excellent';
+                        break;
+                    case 'B+':
+                        $remarks = 'Very_good';
+                        break;
+                    case 'B':
+                        $remarks = 'Good';
+                        break;
+                    case 'C+':
+                        $remarks = 'Satisfactory';
+                        break;
+                    case 'C':
+                        $remarks = 'Room_for_Improvement';
+                        break;
+                    case 'S.A':
+                        $remarks = 'Special_Attention';
+                        break;
+                    case 'N.A':
+                        $remarks = 'Not_Applicable';
+                        break;
+                    default:
+                        $remarks = '';
+                        break;
+                }
+    
+                $nurserySkillResult->nursery_term_report_id = $report->id;
+                $nurserySkillResult->pupil_id = $pupil->id;
+                $nurserySkillResult->term_id = $request->term;
+                $nurserySkillResult->skill_category_id = $skill_result['category_id'];
+                // $nurserySkillResult->skill_id = $skill_result['id'];
+                $nurserySkillResult->grade = $skill_result['grade'];
+                $nurserySkillResult->effort_grade = $skill_result['effort_grade'];
+                $nurserySkillResult->remark = $remarks;
+    
+                // update term Result
+                $nurserySkillResult->update();
             }
-
-            $nurserySkillResult->nursery_term_report_id = $report->id;
-            $nurserySkillResult->pupil_id = $pupil->id;
-            $nurserySkillResult->term_id = $request->term;
-            $nurserySkillResult->skill_category_id = $skill_result['category_id'];
-            // $nurserySkillResult->skill_id = $skill_result['id'];
-            $nurserySkillResult->grade = $skill_result['grade'];
-            $nurserySkillResult->effort_grade = $skill_result['effort_grade'];
-            $nurserySkillResult->remark = $remarks;
-
-            // update term Result
-            $nurserySkillResult->update();
         }
         
-        foreach($request->subject_result as $subject_result){
-            $nurserySubjectResult = NurserySubjectResult::find($subject_result['id']);
-            $nurserySubjectResult->nursery_term_report_id = $report->id;
-            $nurserySubjectResult->pupil_id = $pupil->id;
-            $nurserySubjectResult->term_id = $request->term;
-            // $nurserySubjectResult->subject->id = $subject_result['id'];
-            $nurserySubjectResult->score = $subject_result['score'];
-            $nurserySubjectResult->remark = $subject_result['remarks'];
-
-            // persist testResult
-            $nurserySubjectResult->update();
+        if($request->subject_result){
+            foreach($request->subject_result as $subject_result){
+                $nurserySubjectResult = NurserySubjectResult::find($subject_result['id']);
+                $nurserySubjectResult->nursery_term_report_id = $report->id;
+                $nurserySubjectResult->pupil_id = $pupil->id;
+                $nurserySubjectResult->term_id = $request->term;
+                // $nurserySubjectResult->subject->id = $subject_result['id'];
+                $nurserySubjectResult->score = $subject_result['score'];
+                $nurserySubjectResult->remark = $subject_result['remarks'];
+    
+                // persist testResult
+                $nurserySubjectResult->update();
+            }
         }
-
+        
         return redirect()->route('nursery-reports')->with('success','Term Report updated successfully!');
     }
 

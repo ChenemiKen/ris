@@ -173,25 +173,27 @@ class PrimaryTermReportController extends Controller
             'date'=> Carbon::today(),
             'teacher_id'=> $class_teacher_id
         ]);
-        // Log::debug($test);
-        foreach($request->subject as $subject){
-            $termResult = new PrimaryTermResult();
-            $termResult->primary_term_report_id = $report->id;
-            $termResult->pupil_id = $pupil->id;
-            $termResult->term_id = $request->term;
-            $termResult->subject_id = $subject['id'];
-            $termResult->test_1 = $subject['test_1'];
-            $termResult->test_2 = $subject['test_2'];
-            $termResult->test_3 = $subject['test_3'];
-            $termResult->test_4 = $subject['test_4'];
-            $termResult->exam = $subject['exam'];
-            $termResult->percentage = $subject['mark'];
-            $termResult->grade = $subject['grade'];
-            $termResult->effort_grade = $subject['effort_grade'];
-            $termResult->remark = $subject['comment'];
 
-            // persist testResult
-            $termResult->save();
+        if($request->subject){
+            foreach($request->subject as $subject){
+                $termResult = new PrimaryTermResult();
+                $termResult->primary_term_report_id = $report->id;
+                $termResult->pupil_id = $pupil->id;
+                $termResult->term_id = $request->term;
+                $termResult->subject_id = $subject['id'];
+                $termResult->test_1 = $subject['test_1'];
+                $termResult->test_2 = $subject['test_2'];
+                $termResult->test_3 = $subject['test_3'];
+                $termResult->test_4 = $subject['test_4'];
+                $termResult->exam = $subject['exam'];
+                $termResult->percentage = $subject['mark'];
+                $termResult->grade = $subject['grade'];
+                $termResult->effort_grade = $subject['effort_grade'];
+                $termResult->remark = $subject['comment'];
+    
+                // persist testResult
+                $termResult->save();
+            }
         }
 
         return redirect()->route('primary-reports')->with('success','Term Report added successfully!');
@@ -337,25 +339,27 @@ class PrimaryTermReportController extends Controller
             'teacher_remark'=>$request->teacher_remark,
             'head_remark'=>$request->head_remark,
         ]);
-        foreach($request->result as $result){
-            $termResult = PrimaryTermResult::find($result['id']);
-            $termResult->primary_term_report_id = $report->id;
-            $termResult->pupil_id = $pupil->id;
-            $termResult->term_id = $request->term;
-            $termResult->test_1 = $result['test_1'];
-            $termResult->test_2 = $result['test_2'];
-            $termResult->test_3 = $result['test_3'];
-            $termResult->test_4 = $result['test_4'];
-            $termResult->exam = $result['exam'];
-            $termResult->percentage = $result['mark'];
-            $termResult->grade = $result['grade'];
-            $termResult->effort_grade = $result['effort_grade'];
-            $termResult->remark = $result['comment'];
 
-            // persist testResult update
-            $termResult->update();
+        if($request->result){
+            foreach($request->result as $result){
+                $termResult = PrimaryTermResult::find($result['id']);
+                $termResult->primary_term_report_id = $report->id;
+                $termResult->pupil_id = $pupil->id;
+                $termResult->term_id = $request->term;
+                $termResult->test_1 = $result['test_1'];
+                $termResult->test_2 = $result['test_2'];
+                $termResult->test_3 = $result['test_3'];
+                $termResult->test_4 = $result['test_4'];
+                $termResult->exam = $result['exam'];
+                $termResult->percentage = $result['mark'];
+                $termResult->grade = $result['grade'];
+                $termResult->effort_grade = $result['effort_grade'];
+                $termResult->remark = $result['comment'];
+    
+                // persist testResult update
+                $termResult->update();
+            }
         }
-
         return redirect()->route('primary-reports')->with('success','Term Report updated successfully!');
     }
 
