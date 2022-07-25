@@ -18,7 +18,7 @@
                                     <td><strong>Admission Number: </strong>{{$report->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>@title($report->pupil->class)</td>
+                                    <td><strong>Class: </strong>@title($report->pupil->subclass)-@title($report->pupil->class_group)</td>
                                     <td><strong>Term: </strong>{{$report->term->name}}</td>
                                 </tr>
                                 <tr>
@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Teacher's Name: </strong>{{$report->teacher->firstname ?? ''}} {{$report->teacher->lastname ?? ''}}</td>
-                                    <td><strong>Age: </strong>{{$report->pupil->age}}</td>
+                                    <td><strong>Age: </strong>{{$report->pupil->age()}}</td>
                                 </tr>
                             </tbody>
                         </table>
