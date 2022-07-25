@@ -14,7 +14,7 @@
                     @foreach ($birthdays as $birthday)
                     <div class="col-md-3 text-center mb-5">
                         <img class="birthday-img" src="{{asset('uploads/birthdays/'.$birthday->photo)}}" alt="img">
-                        <p class="mt-2 mb-2"><Strong>Happy @th($birthday->pupil->age+1) birthday to {{$birthday->pupil->firstname}}</Strong></p>
+                        <p class="mt-2 mb-2"><Strong>Happy @th($birthday->pupil->age()) birthday to {{$birthday->pupil->firstname}}</Strong></p>
                     </div>
                     @endforeach
                 </div>

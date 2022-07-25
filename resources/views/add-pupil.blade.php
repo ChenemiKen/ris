@@ -29,32 +29,42 @@
                             <input class="form-control" type="text" id="lastname" name="lastname" value="{{ old('lastname') }}" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="class"> Class</label>
                             <select name="class" class="form-control" id="class" required>
                                 <option value="" {{ old('class') == "" ? "selected" : "" }} hidden="">Select Class</option>
-                                <option value="beacon" {{ old('class') == "beacon" ? "selected" : "" }}>Beacon</option>
-                                <option value="lower_primary" {{ old('class') == "lower_primary" ? "selected" : "" }}>Lower Primary</option>
                                 <option value="upper_primary" {{ old('class') == "upper_primary" ? "selected" : "" }}>Upper Primary</option>
+                                <option value="lower_primary" {{ old('class') == "lower_primary" ? "selected" : "" }}>Lower Primary</option>
                                 <option value="nursery" {{ old('class') == "nursery" ? "selected" : "" }}>Nursery</option>
+                                <option value="beacon" {{ old('class') == "beacon" ? "selected" : "" }}>Beacon</option>
                                 <option value="playgroup" {{ old('class') == "playgroup" ? "selected" : "" }}>Playgroup</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <label for="class"> Subclass</label>
+                            <select name="subclass" class="form-control" id="subclass" required>
+                                <option value="" {{ old('subclass') == "" ? "selected" : "" }} hidden="">Select Subclass</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="deshboard_main_top_edit_area_single_item">
+                            <label for="class"> Class Group</label>
+                            <select name="class_group" class="form-control" id="class_group" required>
+                                <option value="" {{ old('class_group') == "" ? "selected" : "" }} hidden="">Select Class Group</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="DOB">DOB</label>
                             <input class="form-control" type="date" id="DOB" name="DOB" value="{{ old('DOB') }}" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="deshboard_main_top_edit_area_single_item">
-                            <label for="age">Age</label>
-                            <input class="form-control" type="number" id="age" name="age" value="{{ old('age') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="gender">Gender</label>
                     
@@ -89,7 +99,7 @@
                             <input class="form-control" type="date" id="entry_date" name="entry_date" value="{{ old('entry_date') }}" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4 offset-md-4">
                         <div class="deshboard_main_top_edit_area_single_item">
                             <label for="photo">Add Passport Photo</label>
                             <input class="form-control" type="file" id="photo" name="photo" value="{{ old('photo') }}" required>
@@ -97,15 +107,19 @@
                     </div>
                     
                     <div class="col-md-12">
-                        <div class="deshboard_single_item_editor_btn_area">
+                        <div class="deshboard_single_item_editor_btn_area text-center">
                             <input type="submit" value="Add Pupil" name="submit">
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <div class="deshboard_main_top_edit_area">
         </form>
     </div>
+@endsection
+@section('page-extrascripts')
+<script>
+    var old_subclass = {!! json_encode(old('subclass'), JSON_HEX_TAG) !!}
+    var old_class_group = {!! json_encode(old('class_group'), JSON_HEX_TAG) !!}
+</script>
 @endsection

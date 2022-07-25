@@ -156,6 +156,9 @@
         <!-- Page Specific JS File -->
         <!-- Template JS File -->
         <script src="{{asset('js/scripts.js')}}"></script>
+        <script src="{{asset('js/class_dropdown.js')}}"></script>
+        @section('extraDropdownScripts')@show
+
         {{-- <script src="{{asset('js/scripts2.js')}}"></script> --}}
         {{-- <script src="{{asset('js/calendar.js')}}"></script> --}}
         <!-- Start Main JS -->

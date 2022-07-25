@@ -45,7 +45,7 @@
                                     <td>{{$pupil->firstname}} {{$pupil->lastname}}</td>
                                     <td>{{$pupil->admission_no}}</td>
                                     <td>@title($pupil->class)</td>
-                                    <td>{{$pupil->age}}</td>
+                                    <td>{{$pupil->age()}}</td>
                                     <td>{{$pupil->gender}}</td>
                                     <td>{{$pupil->parent_phone}}</td>
                                     <td>{{$pupil->parent_email}}</td>

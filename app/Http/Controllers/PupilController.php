@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PupilController extends Controller
 {
@@ -65,8 +66,15 @@ class PupilController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'subclass' => ['nullable', 'string', 
+                            Rule::in(['upper_primary_6','upper_primary_5','upper_primary_4','lower_primary_3','lower_primary_2','lower_primary_1','nursery_2','nursery_1']),
+                            Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                        ],
+            'class_group' => ['nullable', 'string', 
+                                Rule::in(['daniel','david','joseph','samuel']),
+                                Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                            ],
             'DOB' => ['required', 'date'],
-            'age' => ['required', 'numeric'],
             'gender' => ['required', 'string'],
             'parent_phone' => ['required','numeric'],
             'parent_email' => ['required','string','email'],
@@ -83,8 +91,9 @@ class PupilController extends Controller
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'class' => $request->class,
+            'subclass'=>$request->subclass,
+            'class_group'=>$request->class_group,
             'dob' => $request->DOB,
-            'age' => $request->age,
             'gender' => $request->gender,
             'parent_phone' => $request->parent_phone,
             'parent_email' => $request->parent_email,
@@ -137,8 +146,15 @@ class PupilController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'subclass' => ['nullable', 'string', 
+                            Rule::in(['upper_primary_6','upper_primary_5','upper_primary_4','lower_primary_3','lower_primary_2','lower_primary_1','nursery_2','nursery_1']),
+                            Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                        ],
+            'class_group' => ['nullable', 'string', 
+                                Rule::in(['daniel','david','joseph','samuel']),
+                                Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                            ],
             'DOB' => ['required', 'date'],
-            'age' => ['required', 'numeric'],
             'gender' => ['required', 'string'],
             'parent_phone' => ['required','numeric'],
             'parent_email' => ['required','string','email'],
@@ -157,17 +173,18 @@ class PupilController extends Controller
         };
         // persist
         $pupil->update([
-             'firstname' => $request->firstname,
-             'lastname' => $request->lastname,
-             'class' => $request->class,
-             'dob' => $request->DOB,
-             'age' => $request->age,
-             'gender' => $request->gender,
-             'parent_phone' => $request->parent_phone,
-             'parent_email' => $request->parent_email,
-             'admission_no' => $request->admission_no,
-             'entry_date' => $request->entry_date,
-             'photo' => $photoName,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'class' => $request->class,
+            'subclass'=>$request->subclass,
+            'class_group'=>$request->class_group,
+            'dob' => $request->DOB,
+            'gender' => $request->gender,
+            'parent_phone' => $request->parent_phone,
+            'parent_email' => $request->parent_email,
+            'admission_no' => $request->admission_no,
+            'entry_date' => $request->entry_date,
+            'photo' => $photoName,
         ]);
  
         return redirect(RouteServiceProvider::ADMIN_HOME)->with('success','Pupil updated successfully!');

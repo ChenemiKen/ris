@@ -135,6 +135,12 @@ class PupilParentController extends Controller
             'phone' => ['required','string', 'max:255'],
             'address' => ['required', 'string'],
         ]);
+
+        $puilParent_user = $parent->user();
+        $puilParent_user->update([
+            'fullname' => $request->lastname.' '.$request->firstname,
+            'email' => $request->email,
+        ]);
         
         // persist
         $parent->update([

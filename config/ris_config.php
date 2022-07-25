@@ -1,3 +1,3 @@
 <?php return array (
-  'parent_access' => false,
+  'parent_access' => true,
 );

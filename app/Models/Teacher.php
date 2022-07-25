@@ -18,6 +18,8 @@ class Teacher extends Model
         'firstname',
         'lastname',
         'class',
+        'subclass',
+        'class_group',
         'gender',
         'phone',
         'user_id',

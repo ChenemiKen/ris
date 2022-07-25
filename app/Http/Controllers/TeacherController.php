@@ -56,6 +56,14 @@ class TeacherController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'subclass' => ['nullable', 'string', 
+                            Rule::in(['upper_primary_6','upper_primary_5','upper_primary_4','lower_primary_3','lower_primary_2','lower_primary_1','nursery_2','nursery_1']),
+                            Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                        ],
+            'class_group' => ['nullable', 'string', 
+                                Rule::in(['daniel','david','joseph','samuel']),
+                                Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                            ],
             'gender' => ['required', RULE::in(['M','F'])],
             'phone' => ['required','numeric'],
             'email' => ['required','string','email'],
@@ -79,6 +87,8 @@ class TeacherController extends Controller
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'class' => $request->class,
+            'subclass'=>$request->subclass,
+            'class_group'=>$request->class_group,
             'gender' => $request->gender,
             'phone' => $request->phone,
             'user_id'=> $user->id,
@@ -134,6 +144,14 @@ class TeacherController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
+            'subclass' => ['nullable', 'string', 
+                            Rule::in(['upper_primary_6','upper_primary_5','upper_primary_4','lower_primary_3','lower_primary_2','lower_primary_1','nursery_2','nursery_1']),
+                            Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                        ],
+            'class_group' => ['nullable', 'string', 
+                                Rule::in(['daniel','david','joseph','samuel']),
+                                Rule::requiredIf(in_array($request->class, ['lower_primary','upper_primary','nursery']))
+                            ],
             'gender' => ['required', 'string'],
             'phone' => ['required','numeric'],
             'email' => ['required','string','email'],
@@ -148,15 +166,24 @@ class TeacherController extends Controller
             // save the photo
             $request->photo->storeAs('teachers', $photoName, 'public');
         };
+
+        $teacher_user = $teacher->user();
+        $teacher_user->update([
+            'fullname' => $request->lastname.' '.$request->firstname,
+            'email' => $request->email,
+            'photo' => $photoName,
+        ]);
         // persist
         $teacher->update([
-             'firstname' => $request->firstname,
-             'lastname' => $request->lastname,
-             'class' => $request->class,
-             'gender' => $request->gender,
-             'phone' => $request->phone,
-             'email' => $request->email,
-             'photo' => $photoName,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'class' => $request->class,
+            'subclass'=>$request->subclass,
+            'class_group'=>$request->class_group,
+            'gender' => $request->gender,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'photo' => $photoName,
         ]);
  
         return redirect()->route('teachers')->with('success','Teacher updated successfully!');

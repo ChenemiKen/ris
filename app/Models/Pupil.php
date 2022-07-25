@@ -11,6 +11,7 @@ use App\Models\Result\Playgroup\PlaygroupTermReport;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Pupil extends Model
 {
@@ -25,6 +26,8 @@ class Pupil extends Model
         'firstname',
         'lastname',
         'class',
+        'subclass',
+        'class_group',
         'dob',
         'age',
         'gender',
@@ -34,7 +37,14 @@ class Pupil extends Model
         'entry_date',
         'photo',
     ];
-
+    
+    /**
+     * Accessor for Age.
+     */
+    public function age()
+    {
+        return Carbon::parse($this->attributes['dob'])->age;
+    }
 
     // Has
     // ------------------------------------------
