@@ -65,3 +65,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+Route::group([
+    'middleware'=>'is_admin',
+    // 'as'=>'admin.'
+], function(){
+    Route::post('/parent-access', [AuthenticatedSessionController::class, 'parentAccess'])
+                    ->middleware('auth')
+                    // ->middleware('is-admin')
+                    ->name('parent_access');
+});

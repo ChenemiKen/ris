@@ -45,7 +45,7 @@ class HomeworkController extends Controller
      */
     public function create()
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         return view('add-homework');
     }
 
@@ -57,7 +57,7 @@ class HomeworkController extends Controller
      */
     public function store(StoreHomeworkRequest $request)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'date' => ['required', 'date'],
             'class' => ['required', 'string', 'max:255'],
@@ -96,7 +96,7 @@ class HomeworkController extends Controller
      */
     public function edit(Homework $homework)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $homework = Homework::find($homework)->first();
         return view('edit-homework',[
             'homework' => $homework
@@ -112,7 +112,7 @@ class HomeworkController extends Controller
      */
     public function update(UpdateHomeworkRequest $request, Homework $homework)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $request->validate([
             'date' => ['required', 'date'],
             'class' => ['required', 'string', 'max:255'],
@@ -138,7 +138,7 @@ class HomeworkController extends Controller
      */
     public function destroy(Homework $homework)
     {
-        $this->authorize('is-admin');
+        $this->authorize('is-staff');
         $homework->delete();
         return redirect('/homeworks')->with('success','Homework deleted successfully!');
     }

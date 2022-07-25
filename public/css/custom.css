@@ -94,3 +94,41 @@ ol, ul, menu {
 	color: #5c5b5b;
 	font-weight: bold;
 }
+.btn-disable{
+	background-color: #2B2875;
+	color: white;
+	margin-left: .5rem;
+	margin-right: .5rem;
+	margin-top: 1.5rem;
+	margin-bottom: 2rem;
+}
+.btn-disable:hover{
+	background-color: #830249 !important;
+	color: white !important;
+}
+.btn-enable{
+	background-color: #830249;
+	color: white;
+	margin-left: .5rem;
+	margin-right: .5rem;
+	margin-top: 1.5rem;
+	margin-bottom: 2rem;
+}
+.btn-enable:hover{
+	background-color: #2B2875 !important;
+	color: white !important;
+}
+.access-message-div{
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	margin-top: 5rem;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+.access-message{
+	background-color: #eedafc;
+	border-radius: 0.5rem;
+	padding: 2rem;
+}
