@@ -208,4 +208,5 @@
             </div>
         </div>
     </div>
+    <a href="{{route('download-primary-report', $report->id)}}">PDF</a>
 @endsection

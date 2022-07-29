@@ -111,9 +111,6 @@
                                 <li class="dropdown">
                                     <a class="nav-link" href="{{route('primary-reports')}}"><span>Term Reports</span></a>
                                 </li>
-                                <li class="dropdown">
-                                    <a class="nav-link active" href="{{route('primary-tests')}}"><span>Test Results</span></a>
-                                </li>
                             @endcan
                             <li class="dropdown">
                                 <a class="nav-link" href="{{route('home')}}"><span><strong>Back to Dashboard</strong></span></a>

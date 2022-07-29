@@ -18,7 +18,7 @@
                                     <td><strong>Admission Number: </strong>{{$report->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>@title($test->pupil->subclass)-@title($test->pupil->class_group)</td>
+                                    <td><strong>Class: </strong>@title($report->pupil->subclass)-@title($report->pupil->class_group)</td>
                                     <td><strong>Term: </strong>{{$report->term->name}}</td>
                                 </tr>
                                 <tr>
@@ -208,4 +208,5 @@
             </div>
         </div>
     </div>
+    <a href="{{route('download-primary-report', $report->id)}}">PDF</a>
 @endsection

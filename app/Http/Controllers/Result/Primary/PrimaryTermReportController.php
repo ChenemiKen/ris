@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+// use Barryvdh\Snappy\Facades\SnappyPdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PrimaryTermReportController extends Controller
 {
@@ -374,5 +376,17 @@ class PrimaryTermReportController extends Controller
         $this->authorize('is-staff');
         $report->delete();
         return redirect()->route('primary-reports')->with('success','Term report deleted successfully!');
+    }
+
+    /**
+     * Download the specified test as PDF.
+    *
+     * @param  \App\Models\Primary\PrimaryTermReport  $report
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadPDF(PrimaryTermReport $report)
+    {
+        $pdf = Pdf::loadView('results.primary.pdf.report', ['report'=>$report]);
+        return $pdf->stream();
     }
 }

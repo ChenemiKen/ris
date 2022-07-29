@@ -26,6 +26,7 @@ class PrimaryTestController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('is-staff');
         // pagination no of rows per page
         session(['per_page' => $request->get('per_page', 10)]);
         $terms = Term::all('id','name','session');

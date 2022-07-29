@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
         <title>R.I.S Portal - @yield('title')</title>
-        <!-- Favicon -->
+        Favicon
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/logo.png')}}" />
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet"> 
