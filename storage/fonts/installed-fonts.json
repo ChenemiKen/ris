@@ -4,5 +4,12 @@
         "500": "C:\\Users\\Ken\\Documents\\code\\php\\ris\\storage\\fonts\/mulish_500_c8d8e73360c63419dea3b32909344b1a",
         "600": "C:\\Users\\Ken\\Documents\\code\\php\\ris\\storage\\fonts\/mulish_600_7da427213b3c5eb1342d7520ff315cf8",
         "bold": "mulish_bold_537022771353d629170fd7034b77b4dd"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_f42bbd7e650dd154613f04f28c9a1a8f"
+    },
+    "font awesome 5 free": {
+        "normal": "C:\\Users\\Ken\\Documents\\code\\php\\ris\\storage\\fonts\/font_awesome_5_free_normal_928248c411910e715c8d14680e299939",
+        "900": "font_awesome_5_free_900_eede056bd83b3dd1777fc75dd30ac317"
     }
 }
