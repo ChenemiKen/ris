@@ -60,7 +60,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right pullDown mu_profile_items_a_design">
-                                <a href="{{route('password.request')}}" class="dropdown-item has-icon">
+                                <a href="{{route('password.change.request')}}" class="dropdown-item has-icon">
                                     <i class="fas fa-cog"></i>
                                     Change password
                                 </a>

@@ -53,11 +53,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right pullDown mu_profile_items_a_design">
-                                <a href="User_module_account.html" class="dropdown-item has-icon"> 
-                                    <i class="fas fa-user"></i> 
-                                    Edit Profile 
-                                </a>
-                                <a href="User_module_account.html" class="dropdown-item has-icon">
+                                <a href="{{route('password.change.request')}}" class="dropdown-item has-icon">
                                     <i class="fas fa-cog"></i>
                                     Change password
                                 </a>

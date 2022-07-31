@@ -65,6 +65,12 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+Route::get('/change-password', [PasswordResetLinkController::class, 'change_create'])
+                ->middleware('auth')
+                ->name('password.change.request');
+Route::post('/change-password', [PasswordResetLinkController::class, 'change_store'])
+                ->middleware('auth')
+                ->name('password.change.store');
 
 Route::group([
     'middleware'=>'is_admin',
