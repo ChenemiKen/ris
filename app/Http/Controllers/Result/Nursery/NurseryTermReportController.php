@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class NurseryTermReportController extends Controller
 {
@@ -370,5 +371,22 @@ class NurseryTermReportController extends Controller
         $this->authorize('is-staff');
         $report->delete();
         return redirect()->route('nursery-reports')->with('success','Term report deleted successfully!');
+    }
+
+    /**
+    * Download the specified report as PDF.
+    *
+    * @param  \App\Models\Nursery\NurseryTermReport  $report
+    * @return \Illuminate\Http\Response
+    */
+    public function downloadPDF(NurseryTermReport $report)
+    {
+        $skillCategories = SkillCategory::all('id','name');
+
+        $pdf = Pdf::loadView('results.nursery.pdf.report', [
+            'report' => $report,
+            'skill_categories'=>$skillCategories
+        ]);
+        return $pdf->download();
     }
 }

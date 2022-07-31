@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function Psy\debug;
 
@@ -341,5 +342,22 @@ class BeaconTermReportController extends Controller
         $this->authorize('is-staff');
         $report->delete();
         return redirect()->route('beacon-reports')->with('success','Term report deleted successfully!');
+    }
+
+    /**
+    * Download the specified report as PDF.
+    *
+    * @param  \App\Models\Beacon\BeaconTermReport  $report
+    * @return \Illuminate\Http\Response
+    */
+    public function downloadPDF(BeaconTermReport $report)
+    {
+        $skillCategories = SkillCategory::all('id','name');
+        
+        $pdf = Pdf::loadView('results.beacon.pdf.report', [
+            'report' => $report,
+            'skill_categories'=>$skillCategories
+        ]);
+        return $pdf->download();
     }
 }

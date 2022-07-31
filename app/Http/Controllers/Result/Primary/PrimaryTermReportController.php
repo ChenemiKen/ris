@@ -387,6 +387,6 @@ class PrimaryTermReportController extends Controller
     public function downloadPDF(PrimaryTermReport $report)
     {
         $pdf = Pdf::loadView('results.primary.pdf.report', ['report'=>$report]);
-        return $pdf->stream();
+        return $pdf->download();
     }
 }

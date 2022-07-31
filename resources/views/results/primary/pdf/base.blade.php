@@ -14,6 +14,7 @@
         /* additional styles */
             @page{
                 margin:0cm;
+                margin-top:1cm;
             }
             html{
                 font-size: .8rem;
@@ -70,7 +71,7 @@
                 display:'block';
             }
             .max-score{
-                margin-top:23rem;
+                margin-top:3rem;
             }
 
             .pupil-details-table,.pupil-details-table td{
@@ -109,7 +110,7 @@
                 <!--============================== Start Dashboard (Edit) ==============================-->
                 <!--============================== End Dashboard (Edit) ==============================-->
                 <!--============================== Start Main Content ==============================-->
-                <div class="main-content container my-5">
+                <div class="main-content container">
                     <section class="section">
                         <div class="section-body"> 
                             @section('page-content')@show

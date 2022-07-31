@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PlaygroupTermReportController extends Controller
 {
@@ -339,5 +340,22 @@ class PlaygroupTermReportController extends Controller
         $this->authorize('is-staff');
         $report->delete();
         return redirect()->route('playgroup-reports')->with('success','Term report deleted successfully!');
+    }
+
+        /**
+    * Download the specified report as PDF.
+    *
+    * @param  \App\Models\Playgroup\PlaygroupTermReport  $report
+    * @return \Illuminate\Http\Response
+    */
+    public function downloadPDF(PlaygroupTermReport $report)
+    {
+        $skillCategories = SkillCategory::all('id','name');
+        
+        $pdf = Pdf::loadView('results.playgroup.pdf.report', [
+            'report' => $report,
+            'skill_categories'=>$skillCategories
+        ]);
+        return $pdf->download();
     }
 }

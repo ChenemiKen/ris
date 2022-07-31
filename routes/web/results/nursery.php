@@ -39,4 +39,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/view-nursery-report/{report}', [NurseryTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-nursery-report');
+        Route::get('/download-nursery-report/{report}', [NurseryTermReportController::class, 'downloadPDF'])
+                ->middleware('auth')
+                ->name('download-nursery-report');
 });

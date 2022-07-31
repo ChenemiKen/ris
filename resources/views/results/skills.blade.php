@@ -9,7 +9,7 @@
                 <div class="text-right"><a href="{{route('add-skill')}}" class="crate_btn_area">+ Add skill</a></div>
             @endcan
             <!-- Header area start  -->
-            <form action={{route('subjects')}} name="filter-form" method="get">
+            <form action={{route('skills')}} name="filter-form" method="get">
                 @csrf
                 <img src="{{asset('img/filter.svg')}}" width="25px" height="25px" alt="photos">
                 <div class="deshboard_main_top_edit_area_single_item col-md-4" style="display:inline-block">

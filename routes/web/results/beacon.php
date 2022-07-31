@@ -39,4 +39,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/view-beacon-report/{report}', [BeaconTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-beacon-report');
+        Route::get('/download-beacon-report/{report}', [BeaconTermReportController::class, 'downloadPDF'])
+                ->middleware('auth')
+                ->name('download-beacon-report');
 });

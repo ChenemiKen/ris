@@ -39,4 +39,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/view-playgroup-report/{report}', [PlaygroupTermReportController::class, 'show'])
                 ->middleware('auth')
                 ->name('view-playgroup-report');
+        Route::get('/download-playgroup-report/{report}', [PlaygroupTermReportController::class, 'downloadPDF'])
+                ->middleware('auth')
+                ->name('download-playgroup-report');
 });

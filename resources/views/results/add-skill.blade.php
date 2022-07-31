@@ -51,7 +51,7 @@
                     
                     <div class="col-md-12">
                         <div class="deshboard_single_item_editor_btn_area">
-                            <input type="submit" value="Add Skill" name="edit-btn-area">
+                            <input type="submit" value="Add Skill">
                         </div>
                     </div>
                 </div>
@@ -73,11 +73,11 @@
                         <form action="{{route('create-skill-category')}}" method="post">
                             @csrf
                             <div class="deshboard_main_top_edit_area_single_item">
-                                <label for="name">new category</label>
-                                <input class="form-control" type="text" id="name" name="name" value="{{ old('name') }}" required>
+                                <label for="new_category">new category</label>
+                                <input class="form-control" type="text" id="new_category" name="new_category" required>
                             </div>
                             <div class="deshboard_single_item_editor_btn_area text-center mt-4">
-                                <input type="submit" value="Add" name="edit-btn-area">
+                                <input type="submit" value="Add">
                             </div>
                         </form>
                     </div>

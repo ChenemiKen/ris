@@ -39,12 +39,12 @@ class SkillCategoryController extends Controller
     {
         $this->authorize('is-admin');
         $request->validate([
-            'name' => ['required', 'string', 'unique:skill_categories'],
+            'new_category' => ['required', 'string', 'unique:skill_categories,name'],
         ]);
 
         // persist
         $skill_category = SkillCategory::create([
-            'name' => $request->name,
+            'name' => $request->new_category,
         ]);
 
         return redirect()->route('add-skill')->with('success','new skill category added successfully!');

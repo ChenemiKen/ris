@@ -31,6 +31,7 @@
                     </table>
                 </div>
             </div>
+            <div style="clear: both;">
             <h5 class="text-start mb-3 max-score">Maximum Score</h5>
                 <table class="pupil-result-table">
                     <thead>

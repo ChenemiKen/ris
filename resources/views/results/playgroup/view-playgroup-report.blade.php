@@ -18,7 +18,7 @@
                                     <td><strong>Admission Number: </strong>{{$report->pupil->admission_no}}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Class: </strong>@title($report->pupil->subclass)-@title($report->pupil->class_group)</td>
+                                    <td><strong>Class: </strong>@title($report->pupil->class)</td>
                                     <td><strong>Term: </strong>{{$report->term->name}}</td>
                                 </tr>
                                 <tr>
@@ -232,5 +232,6 @@
                 </table>
             </div>
         </div>
+        <div class="row"><div class="col mt-3"><a href="{{route('download-playgroup-report', $report->id)}}" class="btn btn-disable float-right">Download PDF</a></div></div>
     </div>
 @endsection

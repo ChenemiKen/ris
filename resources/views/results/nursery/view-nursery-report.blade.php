@@ -151,5 +151,6 @@
                 </table>
             </div>
         </div>
+        <div class="row"><div class="col mt-3"><a href="{{route('download-nursery-report', $report->id)}}" class="btn btn-disable float-right">Download PDF</a></div></div>
     </div>
 @endsection
