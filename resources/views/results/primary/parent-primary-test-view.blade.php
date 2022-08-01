@@ -64,7 +64,7 @@
                 <table class="pupil-result-table mt-5">
                     <tbody>
                         <tr>
-                            <td class="pt-5" rowspan="2"><strong>TOTAL(max )</strong></td>
+                            <td class="text-center pt-5" rowspan="2"><strong>TOTAL(max): <br><br> {{$test->total()}}</strong></td>
                             <td class="text-center pt-5" rowspan="2"><strong>{{\Carbon\Carbon::parse($test->date)->format('F jS, Y')}}</strong></td>
                             <td class="text-center" rowspan="2">
                                 <img src="{{asset('img/signature.png')}}" width="80px" height="80px" alt="Sign" srcset="">

@@ -63,6 +63,16 @@
                         @endforeach
                     </tbody>
                 </table>
+                <table class="pupil-result-table col-md-4 offset-md-4 mt-5 mb-2 ">
+                    <thead>
+                        <th class="text-center">Percentage Total</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">{{$report->percentageTotal()}}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h6 class="text-blue mt-5 mb-2">ATTENDANCE</h6>
                 <table class="pupil-result-table">
                     <thead>

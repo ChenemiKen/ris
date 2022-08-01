@@ -76,4 +76,15 @@ class NurseryTermReport extends Model
     {
         return $this->hasMany(NurserySubjectResult::class);
     }
+
+    public function percentageTotal(){
+        $pt = 0;
+        foreach($this->nurserySubjectResults as $result){
+            $i = $result->score;
+            if(is_numeric($i)){
+                $pt+=$i;
+            }
+        }
+        return $pt;
+    }
 }

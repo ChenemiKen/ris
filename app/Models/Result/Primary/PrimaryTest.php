@@ -63,4 +63,15 @@ class PrimaryTest extends Model
     {
         return $this->hasMany(PrimaryTestResult::class);
     }
+
+    public function total(){
+        $pt = 0;
+        foreach($this->primaryTestResults as $result){
+            $i = $result->score;
+            if(is_numeric($i)){
+                $pt+=$i;
+            }
+        }
+        return $pt;
+    }
 }

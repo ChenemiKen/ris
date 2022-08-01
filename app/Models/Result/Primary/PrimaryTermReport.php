@@ -93,4 +93,16 @@ class PrimaryTermReport extends Model
     {
         return $this->hasMany(PrimaryTermResult::class);
     }
+
+
+    public function percentageTotal(){
+        $pt = 0;
+        foreach($this->primaryTermResults as $result){
+            $i = $result->percentage;
+            if(is_numeric($i)){
+                $pt+=$i;
+            }
+        }
+        return $pt;
+    }
 }
