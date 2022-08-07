@@ -69,11 +69,12 @@
                                     Logout
                                 </a>
                                 @can('is-admin')
-                                    @if(Config::get('ris_config.parent_access'))
+                                    @if(settings()->get('parent_access'))
                                         <a href="" class="btn btn-disable" data-toggle="modal" data-target="#parentAccessDisableModal">
                                             Disable Parent Login
                                             <i class="fa-solid fa-lock text-white"></i>
                                         </a>
+                                        
                                     @else
                                         <a href="" class="btn btn-enable" data-toggle="modal" data-target="#parentAccessEnableModal">
                                             Enable Parent Login

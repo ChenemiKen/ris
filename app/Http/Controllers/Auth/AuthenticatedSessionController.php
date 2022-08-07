@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
 use Session;
-
+use Spatie\Valuestore\Valuestore;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -35,8 +35,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        Log::debug(config('ris_config.parent_access'));
-        if(!Config::get('ris_config.parent_access')){
+        Log::debug(settings()->get('parent_access'));
+        if(!settings()->get('parent_access')){
             if(!((Auth::user()->type_type) == "App\\Models\\Admin" || (Auth::user()->type_type) == "App\\Models\\Teacher")){
                 Auth::guard('web')->logout();
 
@@ -75,22 +75,17 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function parentAccess(Request $request){
-        // this->authorize('is-admin');
+        $settings = Valuestore::make(storage_path('app/settings.json'));
         $parentLogin = $request->parentLogin == 'true' ? true : false;
-        if($parentLogin){
-            Session::put('info', "Parent Access Enabled");
-        }else{
-            Session::put('info', "Parent Access Disabled");
-        }
-        config(['ris_config.parent_access' => $parentLogin]);
-        Log::debug(var_export(config('ris_config'), true));
         
-        $fp = fopen(base_path() .'/config/ris_config.php' , 'w');
-        fwrite($fp, '<?php return ' . var_export(config('ris_config'), true) . ';');
-        fclose($fp);
+        $settings->put('parent_access', $parentLogin);
 
-        $cache = Artisan::call('config:cache');
+        if($parentLogin){
+            Session::flash('info', "Parent Access Enabled");
+        }else{
+            Session::flash('info', "Parent Access Disabled");
+        }
         
         return redirect()->back();
-    }
+    }  
 }
