@@ -61,7 +61,7 @@ class PrimaryTestController extends Controller
         $this->authorize('is-staff');
         $pupils = Pupil::whereIn('class', ['lower_primary', 'upper_primary'])->paginate();
         $terms = Term::all('id','name','session');
-        $subjects = Subject::all('id','name');
+        $subjects = Subject::all('id','name','class');
         return view('results.primary.add-primary-test', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects]);
     }
 

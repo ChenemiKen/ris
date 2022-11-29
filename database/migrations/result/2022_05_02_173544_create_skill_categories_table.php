@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            // $table->set('class',['beacon','playgroup','nursery','lower_primary','upper_primary']);
+
         });
     }
 

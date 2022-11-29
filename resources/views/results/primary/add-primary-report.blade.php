@@ -43,6 +43,7 @@
                     </div>
                     {{-- subject results --}}
                     @foreach($subjects as $subject)
+                    @if($subject->class == 'lower_primary' || $subject->class == 'upper_primary')
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <input class="form-control" type="number" id="{{$subject->id}}" name="subject[{{$loop->index}}][id]" value='{{old("subject[{$loop->index}][id]", $subject->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
@@ -127,7 +128,8 @@
                                     <option value='fail' {{old("subject[{$loop->index}][comment]") == 'fail' ? "selected" : "" }}>Fail</option>
                                 </select>                            
                             </div>
-                        </div>   
+                        </div> 
+                    @endif
                     @endforeach
                 </div>
                 <hr class="mb-3 mt-5">

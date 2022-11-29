@@ -62,7 +62,7 @@ class NurseryTermReportController extends Controller
         $filter = ['class'=>'nursery'];
         $pupils = Pupil::where($filter)->paginate();
         $terms = Term::all('id','name','session');
-        $subjects = Subject::all('id','name');
+        $subjects = Subject::all('id','name','class');
         $skills = Skill::all('id','name','skill_category_id');
         $skillCategories = SkillCategory::all('id','name');
         return view('results.nursery.add-nursery-report', ['pupils'=>$pupils, 'terms'=>$terms, 'subjects'=>$subjects, 'skills'=>$skills, 'skill_categories'=>$skillCategories]);

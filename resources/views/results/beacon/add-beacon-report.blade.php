@@ -50,6 +50,7 @@
                             <h5 class="text-blue mb-5 col-md-12">{{$category->name}}</h5>
                             <div class="row">
                                 @foreach($category->skills as $skill)
+                                @if($skill->class === 'beacons')
                                     <div class="col-md-4">
                                         <div class="deshboard_main_top_edit_area_single_item">
                                             <input class="form-control" type="number" id="{{$category->id}}" name="cat[{{$category->id}}][skill][{{$loop->index}}][category_id]" value='{{old("cat[{$category->id}][skill][{$loop->index}][category_id]", $category->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
@@ -73,6 +74,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                @endif
                                 @endforeach
                             </div> 
                         </div> 

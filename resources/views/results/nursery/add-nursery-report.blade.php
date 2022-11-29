@@ -48,6 +48,7 @@
                             <hr class="mb-3 mt-5">
                             <h5 class="text-blue mb-5 col-md-12">{{$category->name}}</h5>
                             @foreach($category->skills as $skill)
+                            @if($skill->class === 'nursery')
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="deshboard_main_top_edit_area_single_item">
@@ -90,6 +91,7 @@
                                         </div>
                                     </div>
                                 </div> 
+                            @endif 
                             @endforeach
                         </div> 
                     @endforeach
@@ -97,6 +99,7 @@
                     <hr class="col-md-12 mb-3 mt-5">
                     {{-- subject results --}}
                     @foreach($subjects as $subject)
+                    @if($subject->class == 'nursery')
                         <div class="col-md-2">
                             <div class="deshboard_main_top_edit_area_single_item">
                                 <input class="form-control" type="number" id="{{$subject->id}}" name="subject[{{$loop->index}}][id]" value='{{old("subject[{$loop->index}][id]", $subject->id)}}' hidden readonly aria-hidden="true" aria-readonly="true">
@@ -115,7 +118,8 @@
                                 <label for="{{$subject->name}}-remarks">Remarks</label>  
                                 <input class="form-control" type="text" id="{{$subject->name}}-remarks" name="subject[{{$loop->index}}][remarks]" value="{{old("subject[{$loop->index}][remarks]")}}">
                             </div>
-                        </div>   
+                        </div>
+                    @endif
                     @endforeach
                 </div>
                 <hr class="mb-3 mt-5">
