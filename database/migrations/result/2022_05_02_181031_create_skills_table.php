@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->set('class',['beacon','lower_primary','upper_primary','nursery','playgroup']);
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignId('skill_category_id')
                     ->constrained('skill_categories')
                     ->onUpdate('cascade')

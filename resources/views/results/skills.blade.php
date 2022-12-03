@@ -44,7 +44,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$skill->name}}</td>
                                 <td>{{$skill->skill_category->name}}</td>
-                                <td>{{$skill->class}}</td>
+                                <td>@title($skill->class)</td>
                                 <td class="text-center">
                                     @can('is-admin')
                                         <a href="{{route('edit-skill', $skill->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>

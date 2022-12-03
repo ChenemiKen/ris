@@ -10,6 +10,7 @@ use App\Models\Result\SkillCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class SkillController extends Controller
 {
@@ -25,6 +26,11 @@ class SkillController extends Controller
         $filter = [];
         if(isset($request->class) && (!($request->class == 'all'))){
             $filter['class'] = $request->class;    
+        }
+        if(Gate::denies('is-admin')){ 
+            if(Gate::allows('is-teacher')){
+                $filter['class']= auth()->user()->teacher->class;
+            }
         }
         // Log::debug($request->class);
         return view('results/skills', [
@@ -54,7 +60,7 @@ class SkillController extends Controller
     {
         $this->authorize('is-admin');
         $request->validate([
-            'name' => ['required', 'string', 'unique:skill_categories'],
+            'name' => ['required', 'string'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'category' => ['required', 'numeric', 'exists:skill_categories,id'],
         ]);
@@ -108,7 +114,7 @@ class SkillController extends Controller
     {
         $this->authorize('is-admin');
         $request->validate([
-            'name' => ['required', 'string', 'unique:skill_categories'],
+            'name' => ['required', 'string'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'category' => ['required', 'numeric', 'exists:skill_categories,id'],
         ]);

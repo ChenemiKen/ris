@@ -34,7 +34,12 @@
                             <tr>
                                 <td class="amdin_pay_img"><img src="{{asset('uploads/teachers/'.$teacher->user->photo)}}" alt=""></td>
                                 <td>{{$teacher->firstname}} {{$teacher->lastname}}</td>
-                                <td>@title($teacher->subclass)-@title($teacher->class_group)</td>
+                                <td>>@if(isset($pupil->subclass))
+                                        @title($teacher->subclass)-@title($teacher->class_group)
+                                    @else
+                                        @title($teacher->class)
+                                    @endif
+                                </td>
                                 <td>{{$teacher->gender}}</td>
                                 <td>{{$teacher->phone}}</td>
                                 <td>{{$teacher->user->email}}</td>

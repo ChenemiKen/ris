@@ -34,6 +34,7 @@
                             <th>Subjects</th>
                             <th>Maximum Score</th>
                             @can('is-admin')
+                            <th><strong>Class</strong></th>
                             <th><strong>Action</strong></th>
                             @endcan
                         </tr>
@@ -46,6 +47,7 @@
                                 <td>{{$subject->name}}</td>
                                 <td>{{$subject->max_score}}</td>
                                 @can('is-admin')
+                                    <td>@title($subject->class)</td>
                                     <td class="text-center">
                                         <a href="{{route('edit-subject', $subject->id)}}"><i class="fa-solid fa-pen-to-square fa-lg mr-4 blue"></i></a>
                                         <span data-toggle="modal" data-target="#deleteSubject{{$subject->id}}Modal"><i class="fa-solid fa-trash fa-lg red"></i></span>

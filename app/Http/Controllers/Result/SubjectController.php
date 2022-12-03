@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+
 
 class SubjectController extends Controller
 {
@@ -25,6 +27,11 @@ class SubjectController extends Controller
         $filter = [];
         if(isset($request->class) && (!($request->class == 'all'))){
             $filter['class'] = $request->class;    
+        }
+        if(Gate::denies('is-admin')){ 
+            if(Gate::allows('is-teacher')){
+                $filter['class']= auth()->user()->teacher->class;
+            }
         }
         return view('results/subjects', [
             'subjects' => DB::table('subjects')->where($filter)->paginate(session('per_page'))
@@ -52,7 +59,7 @@ class SubjectController extends Controller
     {
         $this->authorize('is-admin');
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:subjects'],
+            'name' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', Rule::in(['beacon','lower_primary','upper_primary','nursery','playgroup'])],
             'max_score' => ['required', 'numeric'],
         ]);
@@ -104,7 +111,7 @@ class SubjectController extends Controller
     {
         $this->authorize('is-admin');
         $request->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('subjects')->ignore($subject->id)],
+            'name' => ['required', 'string', 'max:255'],
             'class' => ['required', 'string', 'max:255'],
             'max_score' => ['required', 'numeric'],
         ]);
